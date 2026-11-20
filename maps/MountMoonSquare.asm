@@ -127,7 +127,7 @@ ClefairyFleeMovement:
 
 DontLitterSignText:
 	text "MT.MOON SQUARE"
-	line "Don't Litter"
+	line "DON'T LITTER"
 	done
 
 MountMoonSquare_MapEvents:

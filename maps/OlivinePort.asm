@@ -304,7 +304,7 @@ OlivinePortAskBoardText:
 
 OlivinePortAskTicketText:
 	text "May I see your"
-	line "S.S.TICKET, sir?"
+	line "S.S.TICKET?"
 	done
 
 OlivinePortComeAgainText:
@@ -317,7 +317,7 @@ OlivinePortFlashTicketText:
 	line "the S.S.TICKET."
 
 	para "That's it."
-	line "Thank you, sir!"
+	line "Thank you!"
 	done
 
 OlivinePortNoTicketText:

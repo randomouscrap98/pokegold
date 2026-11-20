@@ -4,6 +4,7 @@
 	const MARTTYPE_BITTER
 	const MARTTYPE_BARGAIN
 	const MARTTYPE_PHARMACY
+	const MARTTYPE_ROOFTOP ; Crystal
 DEF NUM_MART_TYPES EQU const_value
 
 ; Marts indexes (see data/items/marts.asm)

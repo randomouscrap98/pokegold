@@ -43,7 +43,7 @@ GoldenrodDeptStore3FRockerText:
 
 	para "It's awesome. It"
 	line "really jacks up"
-	cont "the SPECIAL stats!"
+	cont "SPECIAL ATTACK!"
 	done
 
 GoldenrodDeptStore3FDirectoryText:

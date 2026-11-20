@@ -75,7 +75,7 @@
 	const SECRETPOTION ; 43
 	const S_S_TICKET   ; 44
 	const MYSTERY_EGG  ; 45
-	const ITEM_46      ; 46
+	const CLEAR_BELL      ; 46
 	const SILVER_WING  ; 47
 	const MOOMOO_MILK  ; 48
 	const QUICK_CLAW   ; 49
@@ -120,8 +120,8 @@
 	const EVERSTONE    ; 70
 	const SPELL_TAG    ; 71
 	const RAGECANDYBAR ; 72
-	const ITEM_73      ; 73
-	const ITEM_74      ; 74
+	const GS_BALL      ; 73
+	const BLUE_CARD      ; 74
 	const MIRACLE_SEED ; 75
 	const THICK_CLUB   ; 76
 	const FOCUS_BAND   ; 77
@@ -134,7 +134,7 @@
 	const LUCKY_EGG    ; 7e
 	const CARD_KEY     ; 7f
 	const MACHINE_PART ; 80
-	const ITEM_81      ; 81
+	const EGG_TICKET      ; 81
 	const LOST_ITEM    ; 82
 	const STARDUST     ; 83
 	const STAR_PIECE   ; 84
@@ -293,6 +293,23 @@ DEF HM01 EQU const_value
 DEF NUM_HMS EQU __tmhm_value__ - NUM_TMS - 1
 
 DEF NUM_TM_HM EQU NUM_TMS + NUM_HMS
+
+MACRO add_mt
+; Defines two constants:
+; - \1_TMNUM: the learnable TM/HM flag, starting at 58
+; - MT##_MOVE: alias for the move id, equal to the value of \1
+	DEF MT_VALUE = __tmhm_value__ - NUM_TMS - NUM_HMS
+	DEF MT{02d:MT_VALUE}_MOVE = \1
+	add_tmnum \1
+ENDM
+
+DEF MT01 EQU const_value
+	add_mt FLAMETHROWER
+	add_mt THUNDERBOLT
+	add_mt ICE_BEAM
+DEF NUM_TUTORS = __tmhm_value__ - NUM_TMS - NUM_HMS - 1
+
+DEF NUM_TM_HM_TUTOR EQU NUM_TMS + NUM_HMS + NUM_TUTORS
 
 	const ITEM_FA       ; fa
 

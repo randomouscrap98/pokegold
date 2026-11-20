@@ -10,7 +10,7 @@ Route2GateScientistScript:
 	jumptextfaceplayer Route2GateScientistText
 
 Route2GateScientistText:
-	text "Are you <PLAYER>?"
+	text "Are you <PLAY_G>?"
 
 	para "I work as PROF."
 	line "OAK's AIDE."

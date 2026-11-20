@@ -155,17 +155,15 @@ BugCatchingContestant6AText:
 	line "weaken bug #MON"
 
 	para "first, then throw"
-	line "a # BALL."
+	line "a BALL."
 	done
 
 BugCatchingContestant7AText:
-	text "CINDY: What is it?"
+	text "CINDY: I love bug"
+	line "#MON."
 
-	para "Do you find it"
-	line "funny that a girl"
-
-	para "is catching bug"
-	line "#MON?"
+	para "I guess you must"
+	line "like them too."
 	done
 
 BugCatchingContestant8AText:

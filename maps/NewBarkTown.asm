@@ -137,14 +137,6 @@ NewBarkTownElmsLabSign:
 NewBarkTownElmsHouseSign:
 	jumptext NewBarkTownElmsHouseSignText
 
-MrChronoScript: ; unreferenced
-	faceplayer
-	opentext
-	writetext MrChronoText
-	special MrChrono
-	closetext
-	end
-
 NewBarkTown_TeacherRunsToYouMovement1:
 	step LEFT
 	step LEFT
@@ -203,7 +195,7 @@ Text_GearIsImpressive:
 	done
 
 Text_WaitPlayer:
-	text "Wait, <PLAYER>!"
+	text "Wait, <PLAY_G>!"
 	done
 
 Text_WhatDoYouThinkYoureDoing:
@@ -230,7 +222,7 @@ Text_YourMonIsAdorable:
 	done
 
 Text_TellMomIfLeaving:
-	text "Hi, <PLAYER>!"
+	text "Hi, <PLAY_G>!"
 	line "Leaving again?"
 
 	para "You should tell"
@@ -286,10 +278,6 @@ NewBarkTownElmsLabSignText:
 NewBarkTownElmsHouseSignText:
 	text "ELM'S HOUSE"
 	done
-
-MrChronoText:
-	text "I'm MR.CHRONO."
-	prompt
 
 NewBarkTown_MapEvents:
 	db 0, 0 ; filler

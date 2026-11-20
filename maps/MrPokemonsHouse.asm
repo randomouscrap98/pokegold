@@ -111,6 +111,7 @@ MrPokemonsHouse_OakScript:
 	special FadeOutToBlack
 	special ReloadSpritesNoPalettes
 	playmusic MUSIC_HEAL
+	special StubbedTrainerRankings_Healings
 	special HealParty
 	pause 60
 	special FadeInFromBlack
@@ -120,6 +121,8 @@ MrPokemonsHouse_OakScript:
 	waitbutton
 	closetext
 	setevent EVENT_RIVAL_NEW_BARK_TOWN
+	setevent EVENT_PLAYERS_HOUSE_1F_NEIGHBOR
+	clearevent EVENT_PLAYERS_NEIGHBORS_HOUSE_NEIGHBOR
 	setscene SCENE_MRPOKEMONSHOUSE_NOOP
 	setmapscene CHERRYGROVE_CITY, SCENE_CHERRYGROVECITY_MEET_RIVAL
 	setmapscene ELMS_LAB, SCENE_ELMSLAB_MEET_OFFICER
@@ -169,7 +172,7 @@ MrPokemonsHouse_OakExits:
 
 MrPokemonIntroText1:
 	text "Hello, hello! You"
-	line "must be <PLAYER>."
+	line "must be <PLAY_G>."
 
 	para "PROF.ELM said that"
 	line "you would visit."
@@ -238,7 +241,7 @@ MrPokemonText_AlwaysNewDiscoveries:
 
 MrPokemonsHouse_OakText1:
 	text "OAK: Aha! So"
-	line "you're <PLAYER>!"
+	line "you're <PLAY_G>!"
 
 	para "I'm OAK! A #MON"
 	line "researcher."
@@ -319,7 +322,7 @@ MrPokemonsHouse_OakText2:
 	line "GOLDENROD for my"
 	cont "usual radio show."
 
-	para "<PLAYER>, I'm"
+	para "<PLAY_G>, I'm"
 	line "counting on you!"
 	done
 
@@ -331,7 +334,7 @@ MrPokemonText_GimmeTheScale:
 	para "That's rare! "
 	line "I, I want it…"
 
-	para "<PLAYER>, would you"
+	para "<PLAY_G>, would you"
 	line "care to trade it?"
 
 	para "I can offer this"

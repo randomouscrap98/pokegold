@@ -40,8 +40,16 @@ SaffronGymSabrinaScript:
 
 .FightDone:
 	writetext SabrinaFightDoneText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue .SabrinaRematch
 	closetext
+	end
+
+.SabrinaRematch:
+	winlosstext Sabrina_RematchDefeat, 0
+	loadtrainer SABRINA, SABRINA1
+	startbattle
+	reloadmapafterbattle
 	end
 
 TrainerMediumRebecca:
@@ -162,17 +170,13 @@ ReceivedMarshBadgeText:
 	done
 
 SabrinaMarshBadgeText:
-	text "SABRINA: MARSH-"
-	line "BADGE draws out"
-
-	para "your subliminal"
-	line "powers…"
-
-	para "Although I failed"
-	line "to accurately pre-"
+	text "SABRINA: Although"
+	line "I failed to"
+	cont "accurately pre-"
 	cont "dict your power,"
-	cont "this much I know"
-	cont "to be true."
+
+	para "this much I know"
+	line "to be true."
 
 	para "You will become a"
 	line "celebrated and"
@@ -191,6 +195,11 @@ SabrinaFightDoneText:
 
 	para "kind of psychic"
 	line "power…"
+
+	para "How about you show"
+	line "me how strong this"
+
+	para "power is?"
 	done
 
 MediumRebeccaSeenText:
@@ -337,3 +346,10 @@ SaffronGym_MapEvents:
 	object_event  3,  4, SPRITE_GRANNY, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerMediumDoris, -1
 	object_event 17,  4, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerPsychicJared, -1
 	object_event  9, 14, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, SaffronGymGuideScript, -1
+
+Sabrina_RematchDefeat:
+	text "SABRINA: Your"
+	line "power…"
+	para "It far exceeds"
+	line "what I foresaw…"
+	done

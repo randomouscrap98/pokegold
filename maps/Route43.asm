@@ -50,9 +50,10 @@ TrainerPokemaniacBrent:
 	trainer POKEMANIAC, BRENT1, EVENT_BEAT_POKEMANIAC_BRENT, PokemaniacBrentSeenText, PokemaniacBrentBeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_POKEMANIAC_BRENT
 	endifjustbattled
 	opentext
-	checkevent EVENT_BRENT_READY_FOR_REMATCH
+	checkflag ENGINE_BRENT_READY_FOR_REMATCH
 	iftrue .WantsBattle
 	checkcellnum PHONE_POKEMANIAC_BRENT
 	iftrue .NumberAccepted
@@ -77,28 +78,49 @@ TrainerPokemaniacBrent:
 .WantsBattle:
 	scall .Rematch
 	winlosstext PokemaniacBrentBeatenText, 0
+	readmem wBrentFightCount
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight3:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight3
+.Fight2:
 	checkevent EVENT_BEAT_ELITE_FOUR
 	iftrue .LoadFight2
+.Fight1:
 	checkevent EVENT_CLEARED_ROCKET_HIDEOUT
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer POKEMANIAC, BRENT1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_BRENT_READY_FOR_REMATCH
+	loadmem wBrentFightCount, 1
+	clearflag ENGINE_BRENT_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer POKEMANIAC, BRENT2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_BRENT_READY_FOR_REMATCH
+	loadmem wBrentFightCount, 2
+	clearflag ENGINE_BRENT_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer POKEMANIAC, BRENT3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_BRENT_READY_FOR_REMATCH
+	loadmem wBrentFightCount, 3
+	clearflag ENGINE_BRENT_READY_FOR_REMATCH
+	end
+
+.LoadFight3:
+	loadtrainer POKEMANIAC, BRENT4
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_BRENT_READY_FOR_REMATCH
 	end
 
 .AskNumber1:
@@ -155,12 +177,17 @@ TrainerPicnickerTiffany:
 	trainer PICNICKER, TIFFANY3, EVENT_BEAT_PICNICKER_TIFFANY, PicnickerTiffanySeenText, PicnickerTiffanyBeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_PICNICKER_TIFFANY
 	endifjustbattled
 	opentext
-	checkevent EVENT_TIFFANY_READY_FOR_REMATCH
+	checkflag ENGINE_TIFFANY_READY_FOR_REMATCH
 	iftrue .WantsBattle
+	checkflag ENGINE_TIFFANY_HAS_PINK_BOW
+	iftrue .HasPinkBow
 	checkcellnum PHONE_PICNICKER_TIFFANY
 	iftrue .NumberAccepted
+	checkpoke CLEFAIRY
+	iffalse .NoClefairy
 	checkevent EVENT_TIFFANY_ASKED_FOR_PHONE_NUMBER
 	iftrue .AskedAlready
 	writetext PicnickerTiffanyWantsPicnicText
@@ -182,28 +209,66 @@ TrainerPicnickerTiffany:
 .WantsBattle:
 	scall .Rematch
 	winlosstext PicnickerTiffanyBeatenText, 0
+	readmem wTiffanyFightCount
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight3:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight3
+.Fight2:
 	checkevent EVENT_BEAT_ELITE_FOUR
 	iftrue .LoadFight2
+.Fight1:
 	checkevent EVENT_CLEARED_RADIO_TOWER
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer PICNICKER, TIFFANY3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_TIFFANY_READY_FOR_REMATCH
+	loadmem wTiffanyFightCount, 1
+	clearflag ENGINE_TIFFANY_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer PICNICKER, TIFFANY1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_TIFFANY_READY_FOR_REMATCH
+	loadmem wTiffanyFightCount, 2
+	clearflag ENGINE_TIFFANY_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer PICNICKER, TIFFANY2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_TIFFANY_READY_FOR_REMATCH
+	loadmem wTiffanyFightCount, 3
+	clearflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	end
+
+.LoadFight3:
+	loadtrainer PICNICKER, TIFFANY4
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_TIFFANY_READY_FOR_REMATCH
+	end
+
+.HasPinkBow:
+	scall .Gift
+	verbosegiveitem PINK_BOW
+	iffalse .NoRoom
+	clearflag ENGINE_TIFFANY_HAS_PINK_BOW
+	setevent EVENT_TIFFANY_GAVE_PINK_BOW
+	sjump .NumberAccepted
+
+.NoRoom:
+	sjump .PackFull
+
+.NoClefairy:
+	writetext PicnickerTiffanyClefairyText
+	waitbutton
+	closetext
 	end
 
 .AskNumber1:
@@ -232,6 +297,14 @@ TrainerPicnickerTiffany:
 
 .Rematch:
 	jumpstd RematchFScript
+	end
+
+.Gift:
+	jumpstd GiftFScript
+	end
+
+.PackFull:
+	jumpstd PackFullFScript
 	end
 
 Route43Sign1:
@@ -383,6 +456,12 @@ PicnickerTiffanyWantsPicnicText:
 	para "Won't you join us?"
 	done
 
+PicnickerTiffanyClefairyText:
+	text "Isn't my CLEFAIRY"
+	line "just the most"
+	cont "adorable thing?"
+	done
+
 Route43Sign1Text:
 	text "ROUTE 43"
 
@@ -437,11 +516,11 @@ Route43_MapEvents:
 	bg_event 16, 38, BGEVENT_READ, Route43TrainerTips
 
 	def_object_events
-	object_event 14,  6, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPokemaniacBen, -1
+	object_event 13,  5, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerPokemaniacBen, -1
 	object_event 13, 20, SPRITE_SUPER_NERD, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPokemaniacBrent, -1
-	object_event 13,  7, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerPokemaniacRon, -1
+	object_event 14,  7, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerPokemaniacRon, -1
 	object_event  4, 16, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 4, TrainerFisherMarvin, -1
-	object_event  9, 29, SPRITE_LASS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerPicnickerTiffany, -1
-	object_event 15, 43, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 5, TrainerCamperSpencer, -1
+	object_event  9, 25, SPRITE_LASS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 2, TrainerPicnickerTiffany, -1
+	object_event 13, 40, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerCamperSpencer, -1
 	object_event  1, 26, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route43FruitTree, -1
 	object_event 12, 32, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route43MaxEther, EVENT_ROUTE_43_MAX_ETHER

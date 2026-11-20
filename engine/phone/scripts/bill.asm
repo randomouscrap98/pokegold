@@ -3,39 +3,39 @@ BillPhoneCalleeScript:
 	iftrue .daygreet
 	checktime NITE
 	iftrue .nitegreet
-	writetext BillPhoneMornGreetingText
+	farwritetext BillPhoneMornGreetingText
 	promptbutton
 	sjump .main
 
 .daygreet
-	writetext BillPhoneDayGreetingText
+	farwritetext BillPhoneDayGreetingText
 	promptbutton
 	sjump .main
 
 .nitegreet
-	writetext BillPhoneNiteGreetingText
+	farwritetext BillPhoneNiteGreetingText
 	promptbutton
 	sjump .main
 
 .main
-	writetext BillPhoneGenericText
+	farwritetext BillPhoneGenericText
 	promptbutton
 	readvar VAR_BOXSPACE
 	getnum STRING_BUFFER_3
 	ifequal 0, .full
 	ifless PARTY_LENGTH, .nearlyfull
-	writetext BillPhoneNotFullText
+	farwritetext BillPhoneNotFullText
 	end
 
 .nearlyfull
-	writetext BillPhoneNearlyFullText
+	farwritetext BillPhoneNearlyFullText
 	end
 
 .full
-	writetext BillPhoneFullText
+	farwritetext BillPhoneFullText
 	end
 
 BillPhoneCallerScript:
-	writetext BillPhoneNewlyFullText
+	farwritetext BillPhoneNewlyFullText
 	waitbutton
 	end

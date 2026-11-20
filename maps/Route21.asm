@@ -57,11 +57,9 @@ SwimmermSethAfterBattleText:
 	done
 
 SwimmerfNikkiSeenText:
-	text "Hi!"
-
-	para "I was just going"
-	line "to put some sun"
-	cont "block on."
+	text "If I win, you have"
+	line "to help me with my"
+	cont "suntan lotion!"
 	done
 
 SwimmerfNikkiBeatenText:

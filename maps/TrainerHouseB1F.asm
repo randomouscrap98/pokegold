@@ -146,7 +146,7 @@ TrainerHouseB1FPleaseComeAgainText:
 	done
 
 TrainerHouseB1FSecondChallengeDeniedText:
-	text "I'm sorry, sir."
+	text "I'm sorry."
 	line "This would be your"
 
 	para "second time today."

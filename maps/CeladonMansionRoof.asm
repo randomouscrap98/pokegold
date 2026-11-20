@@ -1,15 +1,34 @@
 	object_const_def
+	const CELADONMANSIONROOF_FISHER
 
 CeladonMansionRoof_MapScripts:
 	def_scene_scripts
 
 	def_callbacks
 
-CeladonMansionRoofSign: ; unreferenced
-	jumptext CeladonMansionRoofSignText
+CeladonMansionRoofFisherScript:
+	jumptextfaceplayer CeladonMansionRoofFisherText
 
-CeladonMansionRoofSignText:
-	text "I KNOW EVERYTHING!"
+CeladonMansionRoofGraffiti:
+	jumptext CeladonMansionRoofGraffitiText
+
+CeladonMansionRoofFisherText:
+	text "High places--I do"
+	line "love them so!"
+
+	para "I'd say the only"
+	line "thing that loves"
+
+	para "heights as much as"
+	line "me is smoke!"
+	done
+
+CeladonMansionRoofGraffitiText:
+	text "There's graffiti"
+	line "on the wall…"
+
+	para "<PLAYER> added a"
+	line "moustache!"
 	done
 
 CeladonMansionRoof_MapEvents:
@@ -23,5 +42,7 @@ CeladonMansionRoof_MapEvents:
 	def_coord_events
 
 	def_bg_events
+	bg_event  6,  1, BGEVENT_LEFT, CeladonMansionRoofGraffiti
 
 	def_object_events
+	object_event  7,  5, SPRITE_FISHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeladonMansionRoofFisherScript, -1

@@ -146,7 +146,7 @@ Route39BarnItsCryIsWeakText:
 	done
 
 MoomooHappyMooText:
-	text "MILTANK: MOO!"
+	text "MILTANK: Mooo!"
 	done
 
 Route39BarnAskGiveBerryText:

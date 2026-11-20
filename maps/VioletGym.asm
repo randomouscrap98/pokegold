@@ -48,9 +48,17 @@ VioletGymFalknerScript:
 
 .SpeechAfterTM:
 	writetext FalknerFightDoneText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue .FalknerRematch
 .NoRoomForMudSlap:
 	closetext
+	end
+
+.FalknerRematch:
+	winlosstext Falkner_RematchDefeat, 0
+	loadtrainer FALKNER, FALKNER1
+	startbattle
+	reloadmapafterbattle
 	end
 
 VioletGymActivateRockets:
@@ -134,7 +142,7 @@ FalknerIntroText:
 	done
 
 FalknerWinLossText:
-	text "…Darn! My Dad's"
+	text "…Darn! My dad's"
 	line "cherished bird"
 	cont "#MON…"
 
@@ -153,14 +161,10 @@ ReceivedZephyrBadgeText:
 
 FalknerZephyrBadgeText:
 	text "ZEPHYRBADGE"
-	line "raises the attack"
-	cont "power of #MON."
-
-	para "It also enables"
-	line "#MON to use"
-
-	para "FLASH, if they"
-	line "have it, anytime."
+	line "enables #MON to"
+	cont "use FLASH, if"
+	para "they have it,"
+	line "anytime."
 
 	para "Here--take this"
 	line "too."
@@ -172,10 +176,6 @@ FalknerTMMudSlapText:
 
 	para "instantly learn a"
 	line "new move."
-
-	para "Think before you"
-	line "act--a TM can be"
-	cont "used only once."
 
 	para "TM31 contains"
 	line "MUD-SLAP."
@@ -205,6 +205,12 @@ FalknerFightDoneText:
 
 	para "the greatest bird"
 	line "master!"
+
+	para "On the other hand,"
+	line "we can have a test"
+
+	para "of skill right"
+	line "now?"
 	done
 
 BirdKeeperRodSeenText:
@@ -297,3 +303,9 @@ VioletGym_MapEvents:
 	object_event  7,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperRod, -1
 	object_event  2, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperAbe, -1
 	object_event  7, 13, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, VioletGymGuideScript, -1
+
+Falkner_RematchDefeat:
+	text "Darn! I'm still"
+	line "not good"
+	cont "enough…"
+	done

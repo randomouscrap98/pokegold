@@ -73,9 +73,10 @@ TrainerSchoolboyJack1:
 	trainer SCHOOLBOY, JACK1, EVENT_BEAT_SCHOOLBOY_JACK, SchoolboyJack1SeenText, SchoolboyJack1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_SCHOOLBOY_JACK
 	endifjustbattled
 	opentext
-	checkevent EVENT_JACK_READY_FOR_REMATCH
+	checkflag ENGINE_JACK_READY_FOR_REMATCH
 	iftrue .Rematch
 	checkcellnum PHONE_SCHOOLBOY_JACK
 	iftrue .NumberAccepted
@@ -100,28 +101,61 @@ TrainerSchoolboyJack1:
 .Rematch:
 	scall .RematchStd
 	winlosstext SchoolboyJack1BeatenText, 0
+	readmem wJackFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight3
+.Fight2:
 	checkevent EVENT_CLEARED_RADIO_TOWER
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_OLIVINE
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer SCHOOLBOY, JACK1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_JACK_READY_FOR_REMATCH
+	loadmem wJackFightCount, 1
+	clearflag ENGINE_JACK_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer SCHOOLBOY, JACK2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_JACK_READY_FOR_REMATCH
+	loadmem wJackFightCount, 2
+	clearflag ENGINE_JACK_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer SCHOOLBOY, JACK3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_JACK_READY_FOR_REMATCH
+	loadmem wJackFightCount, 3
+	clearflag ENGINE_JACK_READY_FOR_REMATCH
+	end
+
+.LoadFight3:
+	loadtrainer SCHOOLBOY, JACK4
+	startbattle
+	reloadmapafterbattle
+	loadmem wJackFightCount, 4
+	clearflag ENGINE_JACK_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer SCHOOLBOY, JACK5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_JACK_READY_FOR_REMATCH
 	end
 
 .AskNumber1:
@@ -167,12 +201,15 @@ TrainerPokefanfBeverly1:
 	trainer POKEFANF, BEVERLY1, EVENT_BEAT_POKEFANF_BEVERLY, PokefanfBeverly1SeenText, PokefanfBeverly1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_POKEFAN_BEVERLY
 	endifjustbattled
 	opentext
-	checkevent EVENT_BEVERLY_READY_FOR_REMATCH
-	iftrue .Rematch
+	checkflag ENGINE_BEVERLY_HAS_NUGGET
+	iftrue .GiveNugget
 	checkcellnum PHONE_POKEFAN_BEVERLY
 	iftrue .NumberAccepted
+	checkpoke MARILL
+	iffalse .NoMarill
 	checkevent EVENT_BEVERLY_ASKED_FOR_PHONE_NUMBER
 	iftrue .AskAgain
 	writetext PokefanBeverlyCuteMonText
@@ -191,31 +228,20 @@ TrainerPokefanfBeverly1:
 	scall .RegisteredNumber
 	sjump .NumberAccepted
 
-.Rematch:
-	scall .RematchStd
-	winlosstext PokefanfBeverly1BeatenText, 0
-	checkevent EVENT_CLEARED_RADIO_TOWER
-	iftrue .LoadFight2
-	checkflag ENGINE_FLYPOINT_MAHOGANY
-	iftrue .LoadFight1
-	loadtrainer POKEFANF, BEVERLY1
-	startbattle
-	reloadmapafterbattle
-	clearevent EVENT_BEVERLY_READY_FOR_REMATCH
-	end
+.GiveNugget:
+	scall .Gift
+	verbosegiveitem NUGGET
+	iffalse .NoRoom
+	clearflag ENGINE_BEVERLY_HAS_NUGGET
+	sjump .NumberAccepted
 
-.LoadFight1:
-	loadtrainer POKEFANF, BEVERLY2
-	startbattle
-	reloadmapafterbattle
-	clearevent EVENT_BEVERLY_READY_FOR_REMATCH
-	end
+.NoRoom:
+	sjump .PackFull
 
-.LoadFight2:
-	loadtrainer POKEFANF, BEVERLY3
-	startbattle
-	reloadmapafterbattle
-	clearevent EVENT_BEVERLY_READY_FOR_REMATCH
+.NoMarill:
+	writetext PokefanFBeverlyMarillFriendText
+	waitbutton
+	closetext
 	end
 
 .AskNumber1:
@@ -242,8 +268,12 @@ TrainerPokefanfBeverly1:
 	jumpstd PhoneFullFScript
 	end
 
-.RematchStd:
-	jumpstd RematchFScript
+.Gift:
+	jumpstd GiftFScript
+	end
+
+.PackFull:
+	jumpstd PackFullFScript
 	end
 
 TrainerLassKrise:
@@ -382,32 +412,30 @@ SchoolboyJackTradeMonText:
 	para "For example…"
 
 	para "There are {d:NUM_TMS} kinds"
-	line "of TM."
+	line "of TMs."
 
 	para "Traded #MON"
 	line "level up faster."
 	done
 
 PokefanfBeverly1SeenText:
-	text "My #MON are so"
-	line "cute. Let me show"
-	cont "them off to you."
+	text "My #MON are"
+	line "simply darling."
+
+	para "Let me tell you"
+	line "how proud my"
+	cont "darlings make me."
 	done
 
 PokefanfBeverly1BeatenText:
-	text "Maybe I can't beat"
-	line "you in battle…"
-
-	para "But mine look a"
-	line "lot nicer."
+	text "I can beat you in"
+	line "pride, but…"
 	done
 
 PokefanBeverlyCuteMonText:
-	text "My friend has a"
-	line "MARILL. It's so"
-
-	para "cute! I wish I had"
-	line "a MARILL."
+	text "I must say, your"
+	line "#MON are quite"
+	cont "cute, too."
 	done
 
 PokefanmWilliamSeenText:
@@ -431,6 +459,17 @@ PokefanmWilliamAfterBattleText:
 	line "being most lovely."
 	done
 
+PokefanFBeverlyMarillFriendText:
+	text "My friend keeps a"
+	line "MARILL!"
+
+	para "I find them very"
+	line "endearing."
+
+	para "Oh, I wish for a"
+	line "MARILL of my own…"
+	done
+
 LassKriseSeenText:
 	text "Hello? Why are you"
 	line "staring at me?"
@@ -443,12 +482,9 @@ LassKriseBeatenText:
 	done
 
 LassKriseAfterBattleText:
-	text "The way you were"
-	line "looking, I thought"
-	cont "you liked me."
-
-	para "After all, I am"
-	line "cute!"
+	text "I thought you were"
+	line "staring at me"
+	cont "because I'm cute!"
 	done
 
 NationalParkRelaxationSquareText:

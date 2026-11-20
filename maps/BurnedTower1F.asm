@@ -1,23 +1,21 @@
 	object_const_def
-	const BURNEDTOWER1F_FIREBREATHER_DICK
-	const BURNEDTOWER1F_FIREBREATHER_NED
-	const BURNEDTOWER1F_ROCK1
-	const BURNEDTOWER1F_ROCK2
+	const BURNEDTOWER1F_ROCK
+	const BURNEDTOWER1F_EUSINE
 	const BURNEDTOWER1F_RIVAL
-	const BURNEDTOWER1F_FIREBREATHER_DICK_ASHES
-	const BURNEDTOWER1F_POKE_BALL1
-	const BURNEDTOWER1F_POKE_BALL2
+	const BURNEDTOWER1F_MORTY
+	const BURNEDTOWER1F_POKE_BALL
 
 BurnedTower1F_MapScripts:
 	def_scene_scripts
-	scene_script BurnedTower1FRivalBattleScene, SCENE_BURNEDTOWER1F_RIVAL_BATTLE
-	scene_script BurnedTower1FNoop1Scene,       SCENE_BURNEDTOWER1F_FIREBREATHER_DICK
-	scene_script BurnedTower1FNoop2Scene,       SCENE_BURNEDTOWER1F_NOOP
+	scene_script BurnedTower1FMeetEusineScene, SCENE_BURNEDTOWER1F_MEET_EUSINE
+	scene_script BurnedTower1FNoop1Scene,      SCENE_BURNEDTOWER1F_RIVAL_BATTLE
+	scene_script BurnedTower1FNoop2Scene,      SCENE_BURNEDTOWER1F_NOOP
 
 	def_callbacks
+	callback MAPCALLBACK_TILES, BurnedTower1FHoleAndLadderCallback
 
-BurnedTower1FRivalBattleScene:
-	sdefer BurnedTower1FRivalBattleScript
+BurnedTower1FMeetEusineScene:
+	sdefer BurnedTower1FMeetEusineScript
 	end
 
 BurnedTower1FNoop1Scene:
@@ -26,17 +24,36 @@ BurnedTower1FNoop1Scene:
 BurnedTower1FNoop2Scene:
 	end
 
-BurnedTower1FRivalBattleScript:
-	turnobject PLAYER, UP
-	showemote EMOTE_SHOCK, PLAYER, 15
+BurnedTower1FHoleAndLadderCallback:
+	checkevent EVENT_HOLE_IN_BURNED_TOWER
+	iftrue .KeepHoleOpen
+	changeblock 10, 8, $32 ; floor
+.KeepHoleOpen:
+	checkevent EVENT_RELEASED_THE_BEASTS
+	iftrue .HideBasement
+	changeblock 6, 14, $09 ; ladder
+.HideBasement:
+	endcallback
+
+BurnedTower1FMeetEusineScript:
+	turnobject BURNEDTOWER1F_EUSINE, DOWN
+	showemote EMOTE_SHOCK, BURNEDTOWER1F_EUSINE, 15
+	applymovement BURNEDTOWER1F_EUSINE, BurnedTower1FEusineMovement
+	opentext
+	writetext BurnedTower1FEusineIntroText
+	waitbutton
+	closetext
+	moveobject BURNEDTOWER1F_EUSINE, 9, 14
+	setscene SCENE_BURNEDTOWER1F_RIVAL_BATTLE
+	end
+
+BurnedTowerRivalBattleScript:
+	showemote EMOTE_SHOCK, BURNEDTOWER1F_RIVAL, 15
 	special FadeOutMusic
 	pause 15
 	turnobject BURNEDTOWER1F_RIVAL, RIGHT
-	pause 10
-	turnobject BURNEDTOWER1F_RIVAL, LEFT
 	pause 15
-	turnobject BURNEDTOWER1F_RIVAL, DOWN
-	pause 15
+	applymovement PLAYER, BurnedTowerMovement_PlayerWalksToRival
 	applymovement BURNEDTOWER1F_RIVAL, BurnedTowerMovement_RivalWalksToPlayer
 	playmusic MUSIC_RIVAL_ENCOUNTER
 	opentext
@@ -79,60 +96,34 @@ BurnedTower1FRivalBattleScript:
 	writetext BurnedTowerRival_AfterText1
 	waitbutton
 	closetext
-	turnobject PLAYER, UP
-	turnobject PLAYER, RIGHT
-	applymovement BURNEDTOWER1F_RIVAL, BurnedTowerMovement_RivalLeaves
-	playsound SFX_EXIT_BUILDING
-	disappear BURNEDTOWER1F_RIVAL
-	setscene SCENE_BURNEDTOWER1F_FIREBREATHER_DICK
-	waitsfx
-	playmapmusic
-	end
-
-FirebreatherDickFight:
-	playmusic MUSIC_HIKER_ENCOUNTER
-	showemote EMOTE_SHOCK, BURNEDTOWER1F_FIREBREATHER_DICK, 30
-	applymovement BURNEDTOWER1F_FIREBREATHER_DICK, FirebreatherDickMovement
-	turnobject PLAYER, DOWN
-	opentext
-	writetext FirebreatherDickBeforeText
-	waitbutton
-	closetext
-	winlosstext FirebreatherDickBeatenText, -1
-	setlasttalked BURNEDTOWER1F_FIREBREATHER_DICK
-	loadtrainer FIREBREATHER, DICK
-	startbattle
-	iftrue .next
-	disappear BURNEDTOWER1F_FIREBREATHER_DICK
-	appear BURNEDTOWER1F_FIREBREATHER_DICK_ASHES
-	reloadmapafterbattle
-	setevent EVENT_BEAT_FIREBREATHER_DICK
 	setscene SCENE_BURNEDTOWER1F_NOOP
-	clearevent EVENT_BURNED_TOWER_FIREBREATHER_DICK_NORMAL
-	setevent EVENT_BURNED_TOWER_FIREBREATHER_DICK_ASHES
-	end
-.next
-	reloadmapafterbattle
-	end
-
-FirebreatherDickPostBattle:
-	faceplayer
+	setevent EVENT_RIVAL_BURNED_TOWER
+	special FadeOutMusic
+	pause 15
+	earthquake 50
+	showemote EMOTE_SHOCK, PLAYER, 15
+	playsound SFX_ENTER_DOOR
+	waitsfx
+	changeblock 10, 8, $25 ; hole
+	refreshmap
+	pause 15
+	applymovement PLAYER, BurnedTower1FMovement_PlayerStartsToFall
+	playsound SFX_KINESIS
+	showemote EMOTE_SHOCK, BURNEDTOWER1F_RIVAL, 20
 	opentext
-	writetext FirebreatherDickAfterText
+	writetext BurnedTowerRival_AfterText2
 	waitbutton
 	closetext
+	setevent EVENT_HOLE_IN_BURNED_TOWER
+	pause 15
+	warpcheck
 	end
 
-TrainerFirebreatherNed:
-	trainer FIREBREATHER, NED, EVENT_BEAT_FIREBREATHER_NED, FirebreatherNedSeenText, FirebreatherNedBeatenText, 0, .Script
+BurnedTower1FEusineScript:
+	jumptextfaceplayer BurnedTower1FEusineText
 
-.Script
-	endifjustbattled
-	opentext
-	writetext FirebreatherNedAfterText
-	waitbutton
-	closetext
-	end
+BurnedTower1FMortyScript:
+	jumptextfaceplayer BurnedTower1FMortyText
 
 BurnedTower1FRock:
 	jumpstd SmashRockScript
@@ -140,24 +131,30 @@ BurnedTower1FRock:
 BurnedTower1FHiddenEther:
 	hiddenitem ETHER, EVENT_BURNED_TOWER_1F_HIDDEN_ETHER
 
-BurnedTower1FBurnHeal:
-	itemball BURN_HEAL, 1
+BurnedTower1FHiddenUltraBall:
+	hiddenitem ULTRA_BALL, EVENT_BURNED_TOWER_1F_HIDDEN_ULTRA_BALL
 
-BurnedTower1FXSpeed:
-	itemball X_SPEED, 1
+BurnedTower1FHPUp:
+	itemball HP_UP
+
+BurnedTowerMovement_PlayerWalksToRival:
+	step LEFT
+	step_end
 
 BurnedTowerMovement_RivalWalksToPlayer:
-	step DOWN
-	step DOWN
-	step_end
-
-BurnedTowerMovement_RivalLeaves:
 	step RIGHT
-	step DOWN
 	step_end
 
-FirebreatherDickMovement:
-	step UP
+BurnedTower1FMovement_PlayerStartsToFall:
+	skyfall_top
+	step_end
+
+BurnedTower1FEusineMovement:
+	step DOWN
+	step LEFT
+	step LEFT
+	step LEFT
+	step DOWN
 	step_end
 
 BurnedTowerRival_BeforeText:
@@ -165,35 +162,23 @@ BurnedTowerRival_BeforeText:
 
 	para "…Oh, it's you."
 
-	para "You wanted to get"
-	line "stronger, so you"
+	para "I came looking for"
+	line "some legendary"
 
-	para "came for the leg-"
-	line "endary #MON"
+	para "#MON that they"
+	line "say roosts here."
 
-	para "that's supposed to"
-	line "be here. That's"
-	cont "your story, right?"
+	para "But there's"
+	line "nothing here!"
 
-	para "Well, that's not"
-	line "going to happen."
+	para "Nothing after all"
+	line "the trouble of"
 
-	para "Because I'm going"
-	line "to get it!"
+	para "coming to this"
+	line "dump? No way!"
 
-	para "I'm going to be"
-	line "the world's great-"
-	cont "est trainer, so a"
-	cont "legendary #MON"
-	cont "would be perfect"
-	cont "for me."
-
-	para "…Well, anyway,"
-	line "I'm getting tired"
-
-	para "of having a wimp"
-	line "like you always"
-	cont "showing up."
+	para "It's all your"
+	line "fault!"
 	done
 
 BurnedTowerRival_WinText:
@@ -226,54 +211,68 @@ BurnedTowerRival_LossText:
 	line "of my time."
 	done
 
-FirebreatherDickBeforeText:
-	text "Hey, I'm training"
-	line "secretly here!"
+BurnedTowerRival_AfterText2:
+	text "Humph!"
 
-	para "Don't embarrass me"
-	line "by looking!"
+	para "What are you doing"
+	line "falling into a"
+
+	para "hole? Some genius"
+	line "you are!"
+
+	para "Serves you right!"
 	done
 
-FirebreatherDickBeatenText:
-	text "I burned down to"
-	line "white ashes…"
+BurnedTower1FEusineIntroText:
+	text "EUSINE: My name's"
+	line "EUSINE."
+
+	para "I'm on the trail"
+	line "of a #MON named"
+	cont "SUICUNE."
+
+	para "And you are…?"
+
+	para "<PLAYER>? Glad to"
+	line "meet you!"
+
+	para "I heard rumors"
+	line "that SUICUNE is in"
+
+	para "this BURNED TOWER,"
+	line "so I came to look."
+
+	para "But where exactly"
+	line "could it be?"
 	done
 
-FirebreatherDickAfterText:
-	text "I was so into my"
-	line "training that I"
+BurnedTower1FEusineText:
+	text "EUSINE: I heard"
+	line "that SUICUNE is in"
 
-	para "fell down this"
-	line "hole."
+	para "this BURNED TOWER,"
+	line "so I came to look."
+
+	para "But where exactly"
+	line "could it be?"
 	done
 
-FirebreatherNedSeenText:
-	text "My soul is on"
-	line "fire. I'll show"
+BurnedTower1FMortyText:
+	text "MORTY: ECRUTEAK's"
+	line "GYM LEADER has to"
 
-	para "you how hot it"
-	line "burns!"
-	done
+	para "study what are"
+	line "said to be the"
 
-FirebreatherNedBeatenText:
-	text "Still not hot"
-	line "enough…"
-	done
+	para "legendary #MON"
+	line "--SUICUNE, ENTEI"
+	cont "and RAIKOU."
 
-FirebreatherNedAfterText:
-	text "In the past, there"
-	line "were these #MON"
+	para "EUSINE is here, so"
+	line "I've decided to"
 
-	para "that ran through"
-	line "grass at super-"
-	cont "high speed."
-
-	para "They say that they"
-	line "run like the wind."
-
-	para "If you run into"
-	line "one in grass, it"
-	cont "will likely bolt."
+	para "investigate the"
+	line "TOWER with him."
 	done
 
 BurnedTower1F_MapEvents:
@@ -282,31 +281,29 @@ BurnedTower1F_MapEvents:
 	def_warp_events
 	warp_event  9, 15, ECRUTEAK_CITY, 13
 	warp_event 10, 15, ECRUTEAK_CITY, 13
-	warp_event  5,  4, BURNED_TOWER_B1F, 1
-	warp_event  5,  5, BURNED_TOWER_B1F, 1
-	warp_event  5,  6, BURNED_TOWER_B1F, 1
-	warp_event  4,  6, BURNED_TOWER_B1F, 1
-	warp_event 15,  4, BURNED_TOWER_B1F, 2
-	warp_event 15,  5, BURNED_TOWER_B1F, 2
-	warp_event 10,  7, BURNED_TOWER_B1F, 3
-	warp_event  5, 14, BURNED_TOWER_B1F, 4
-	warp_event  4, 14, BURNED_TOWER_B1F, 4
-	warp_event 14, 14, BURNED_TOWER_B1F, 5
-	warp_event 15, 14, BURNED_TOWER_B1F, 5
-	warp_event  7, 15, BURNED_TOWER_B1F, 6
+	warp_event 10,  9, BURNED_TOWER_B1F, 1
+	warp_event  5,  5, BURNED_TOWER_B1F, 1 ; inaccessible, left over from G/S
+	warp_event  5,  6, BURNED_TOWER_B1F, 1 ; inaccessible, left over from G/S
+	warp_event  4,  6, BURNED_TOWER_B1F, 1 ; inaccessible, left over from G/S
+	warp_event 15,  4, BURNED_TOWER_B1F, 2 ; inaccessible, left over from G/S
+	warp_event 15,  5, BURNED_TOWER_B1F, 2 ; inaccessible, left over from G/S
+	warp_event 10,  7, BURNED_TOWER_B1F, 3 ; inaccessible, left over from G/S
+	warp_event  5, 14, BURNED_TOWER_B1F, 4 ; inaccessible, left over from G/S
+	warp_event  4, 14, BURNED_TOWER_B1F, 4 ; inaccessible, left over from G/S
+	warp_event 14, 14, BURNED_TOWER_B1F, 5 ; inaccessible, left over from G/S
+	warp_event 15, 14, BURNED_TOWER_B1F, 5 ; inaccessible, left over from G/S
+	warp_event  7, 15, BURNED_TOWER_B1F, 6 ; inaccessible, left over from G/S
 
 	def_coord_events
-	coord_event 8,  1, SCENE_BURNEDTOWER1F_FIREBREATHER_DICK, FirebreatherDickFight
+	coord_event 11,  9, SCENE_BURNEDTOWER1F_RIVAL_BATTLE, BurnedTowerRivalBattleScript
 
 	def_bg_events
 	bg_event  8,  7, BGEVENT_ITEM, BurnedTower1FHiddenEther
+	bg_event 13, 11, BGEVENT_ITEM, BurnedTower1FHiddenUltraBall
 
 	def_object_events
-	object_event 8, 3, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, FirebreatherDickPostBattle, EVENT_BURNED_TOWER_FIREBREATHER_DICK_NORMAL
-	object_event 16, 8, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerFirebreatherNed, -1
-	object_event 4, 3, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BurnedTower1FRock, -1
-	object_event 16, 13, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BurnedTower1FRock, -1
-	object_event 9, 12, SPRITE_RIVAL, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 3, ObjectEvent, EVENT_RIVAL_BURNED_TOWER
-	object_event 8, 2, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_EMOTE, OBJECTTYPE_SCRIPT, 0, FirebreatherDickPostBattle, EVENT_BURNED_TOWER_FIREBREATHER_DICK_ASHES
-	object_event 15, 2, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, BurnedTower1FBurnHeal, EVENT_BURNED_TOWER_1F_X_SPEED
-	object_event 7, 5, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, BurnedTower1FXSpeed, EVENT_BURNED_TOWER_1F_BURN_HEAL
+	object_event 15,  4, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BurnedTower1FRock, -1
+	object_event 12, 12, SPRITE_SUPER_NERD, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, BurnedTower1FEusineScript, EVENT_BURNED_TOWER_1F_EUSINE
+	object_event  8,  9, SPRITE_RIVAL, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 3, ObjectEvent, EVENT_RIVAL_BURNED_TOWER
+	object_event 14, 14, SPRITE_MORTY, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, BurnedTower1FMortyScript, EVENT_BURNED_TOWER_MORTY
+	object_event 14,  2, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, BurnedTower1FHPUp, EVENT_BURNED_TOWER_1F_HP_UP

@@ -5,6 +5,7 @@
 	const ECRUTEAKCITY_LASS2
 	const ECRUTEAKCITY_FISHER
 	const ECRUTEAKCITY_YOUNGSTER
+	const ECRUTEAKCITY_GRAMPS3
 
 EcruteakCity_MapScripts:
 	def_scene_scripts
@@ -21,6 +22,9 @@ EcruteakCityGramps1Script:
 
 EcruteakCityGramps2Script:
 	jumptextfaceplayer EcruteakCityGramps2Text
+
+EcruteakCityGramps3Script:
+	jumptextfaceplayer EcruteakCityGramps3Text
 
 EcruteakCityLass1Script:
 	jumptextfaceplayer EcruteakCityLass1Text
@@ -113,7 +117,7 @@ EcruteakCityGramps1Text:
 	done
 
 EcruteakCityGramps2Text:
-	text "Ah, youngster."
+	text "Ah, child."
 	line "Have you learned"
 
 	para "to dance like the"
@@ -136,11 +140,12 @@ EcruteakCityLass1Text:
 	done
 
 EcruteakCityLass2Text:
-	text "That used to be a"
-	line "much taller tower,"
+	text "The tower that"
+	line "used to be here…"
 
-	para "but it burned down"
-	line "in a fire."
+	para "My grandma told me"
+	line "it used to be much"
+	cont "taller."
 	done
 
 EcruteakCityLass2Text_ReleasedBeasts:
@@ -179,6 +184,35 @@ EcruteakCityYoungsterText:
 
 	para "LAKE OF RAGE. I'd"
 	line "like to see that."
+	done
+
+EcruteakCityGramps3Text:
+	text "In the distant"
+	line "past…"
+
+	para "This tower burned"
+	line "in a fire. Three"
+
+	para "nameless #MON"
+	line "perished in it."
+
+	para "A rainbow-colored"
+	line "#MON descended"
+
+	para "from the sky and"
+	line "resurrected them…"
+
+	para "It's a legend that"
+	line "has been passed"
+
+	para "down by ECRUTEAK"
+	line "GYM LEADERS."
+
+	para "Me?"
+
+	para "I was a trainer"
+	line "way back when."
+	cont "Hohoho!"
 	done
 
 EcruteakCitySignText:
@@ -229,8 +263,8 @@ EcruteakCity_MapEvents:
 	warp_event 35, 26, ROUTE_42_ECRUTEAK_GATE, 1
 	warp_event 35, 27, ROUTE_42_ECRUTEAK_GATE, 2
 	warp_event 18, 11, ECRUTEAK_TIN_TOWER_ENTRANCE, 1
-	warp_event 20,  2, ECRUTEAK_TIN_TOWER_BACK_ENTRANCE, 1
-	warp_event 20,  3, ECRUTEAK_TIN_TOWER_BACK_ENTRANCE, 2
+	warp_event 20,  2, WISE_TRIOS_ROOM, 1
+	warp_event 20,  3, WISE_TRIOS_ROOM, 2
 	warp_event 23, 27, ECRUTEAK_POKECENTER_1F, 1
 	warp_event  5, 21, ECRUTEAK_LUGIA_SPEECH_HOUSE, 1
 	warp_event 23, 21, DANCE_THEATER, 1
@@ -261,3 +295,4 @@ EcruteakCity_MapEvents:
 	object_event  3,  9, SPRITE_LASS, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityLass2Script, -1
 	object_event  9, 22, SPRITE_FISHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakCityFisherScript, -1
 	object_event 10, 14, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EcruteakCityYoungsterScript, -1
+	object_event  3,  7, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps3Script, EVENT_ECRUTEAK_CITY_GRAMPS

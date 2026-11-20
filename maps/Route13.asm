@@ -177,15 +177,15 @@ Route13TrainerTipsText:
 Route13SignText:
 	text "ROUTE 13"
 
-	para "North to SILENCE"
+	para "NORTH TO SILENCE"
 	line "BRIDGE"
 	done
 
 Route13DirectionsSignText:
-	text "North to LAVENDER"
+	text "NORTH TO LAVENDER"
 	line "TOWN"
 
-	para "West to FUCHSIA"
+	para "WEST TO FUCHSIA"
 	line "CITY"
 	done
 

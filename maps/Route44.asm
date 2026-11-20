@@ -9,6 +9,7 @@
 	const ROUTE44_FRUIT_TREE
 	const ROUTE44_POKE_BALL1
 	const ROUTE44_POKE_BALL2
+	const ROUTE44_POKE_BALL3
 
 Route44_MapScripts:
 	def_scene_scripts
@@ -19,9 +20,10 @@ TrainerBirdKeeperVance1:
 	trainer BIRD_KEEPER, VANCE1, EVENT_BEAT_BIRD_KEEPER_VANCE, BirdKeeperVance1SeenText, BirdKeeperVance1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_BIRDKEEPER_VANCE
 	endifjustbattled
 	opentext
-	checkevent EVENT_VANCE_READY_FOR_REMATCH
+	checkflag ENGINE_VANCE_READY_FOR_REMATCH
 	iftrue .WantsBattle
 	checkcellnum PHONE_BIRDKEEPER_VANCE
 	iftrue Route44NumberAcceptedM
@@ -46,29 +48,59 @@ TrainerBirdKeeperVance1:
 .WantsBattle:
 	scall Route44RematchM
 	winlosstext BirdKeeperVance1BeatenText, 0
+	readmem wVanceFightCount
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight2:
 	checkevent EVENT_RESTORED_POWER_TO_KANTO
 	iftrue .LoadFight2
+.Fight1:
 	checkevent EVENT_BEAT_ELITE_FOUR
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer BIRD_KEEPER, VANCE1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_VANCE_READY_FOR_REMATCH
+	loadmem wVanceFightCount, 1
+	clearflag ENGINE_VANCE_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer BIRD_KEEPER, VANCE2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_VANCE_READY_FOR_REMATCH
+	loadmem wVanceFightCount, 2
+	clearflag ENGINE_VANCE_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer BIRD_KEEPER, VANCE3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_VANCE_READY_FOR_REMATCH
+	clearflag ENGINE_VANCE_READY_FOR_REMATCH
+	checkevent EVENT_VANCE_CARBOS
+	iftrue .Carbos
+	checkevent EVENT_GOT_CARBOS_FROM_VANCE
+	iftrue .ReceivedCarbosBefore
+	scall Route44RematchGiftM
+	verbosegiveitem CARBOS
+	iffalse VancePackFull
+	setevent EVENT_GOT_CARBOS_FROM_VANCE
+	sjump Route44NumberAcceptedM
+
+.ReceivedCarbosBefore:
 	end
+
+.Carbos:
+	opentext
+	writetext BirdKeeperVance2BeatenText
+	waitbutton
+	verbosegiveitem CARBOS
+	iffalse VancePackFull
+	clearevent EVENT_VANCE_CARBOS
+	setevent EVENT_GOT_CARBOS_FROM_VANCE
+	sjump Route44NumberAcceptedM
 
 Route44AskNumber1M:
 	jumpstd AskNumber1MScript
@@ -98,6 +130,23 @@ Route44RematchM:
 	jumpstd RematchMScript
 	end
 
+Route44GiftM:
+	jumpstd GiftMScript
+	end
+
+Route44PackFullM:
+	jumpstd PackFullMScript
+	end
+
+VancePackFull:
+	setevent EVENT_VANCE_CARBOS
+	jumpstd PackFullMScript
+	end
+
+Route44RematchGiftM:
+	jumpstd RematchGiftMScript
+	end
+
 TrainerPsychicPhil:
 	trainer PSYCHIC_T, PHIL, EVENT_BEAT_PSYCHIC_PHIL, PsychicPhilSeenText, PsychicPhilBeatenText, 0, .Script
 
@@ -113,10 +162,13 @@ TrainerFisherWilton1:
 	trainer FISHER, WILTON1, EVENT_BEAT_FISHER_WILTON, FisherWilton1SeenText, FisherWilton1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_FISHER_WILTON
 	endifjustbattled
 	opentext
-	checkevent EVENT_WILTON_READY_FOR_REMATCH
+	checkflag ENGINE_WILTON_READY_FOR_REMATCH
 	iftrue .WantsBattle
+	checkflag ENGINE_WILTON_HAS_ITEM
+	iftrue .HasItem
 	checkcellnum PHONE_FISHER_WILTON
 	iftrue Route44NumberAcceptedM
 	checkevent EVENT_WILTON_ASKED_FOR_PHONE_NUMBER
@@ -140,29 +192,66 @@ TrainerFisherWilton1:
 .WantsBattle:
 	scall Route44RematchM
 	winlosstext FisherWilton1BeatenText, 0
+	readmem wWiltonFightCount
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight2:
 	checkevent EVENT_RESTORED_POWER_TO_KANTO
 	iftrue .LoadFight2
+.Fight1:
 	checkevent EVENT_BEAT_ELITE_FOUR
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer FISHER, WILTON1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_WILTON_READY_FOR_REMATCH
+	loadmem wWiltonFightCount, 1
+	clearflag ENGINE_WILTON_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer FISHER, WILTON2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_WILTON_READY_FOR_REMATCH
+	loadmem wWiltonFightCount, 2
+	clearflag ENGINE_WILTON_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer FISHER, WILTON3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_WILTON_READY_FOR_REMATCH
+	clearflag ENGINE_WILTON_READY_FOR_REMATCH
 	end
+
+.HasItem:
+	scall Route44GiftM
+	checkevent EVENT_WILTON_HAS_ULTRA_BALL
+	iftrue .UltraBall
+	checkevent EVENT_WILTON_HAS_GREAT_BALL
+	iftrue .GreatBall
+	checkevent EVENT_WILTON_HAS_POKE_BALL
+	iftrue .PokeBall
+.UltraBall:
+	verbosegiveitem ULTRA_BALL
+	iffalse .Route44PackFullM
+	sjump .ItemReceived
+
+.GreatBall:
+	verbosegiveitem GREAT_BALL
+	iffalse .Route44PackFullM
+	sjump .ItemReceived
+
+.PokeBall:
+	verbosegiveitem POKE_BALL
+	iffalse .Route44PackFullM
+.ItemReceived:
+	clearflag ENGINE_WILTON_HAS_ITEM
+	sjump Route44NumberAcceptedM
+
+.Route44PackFullM:
+	sjump Route44PackFullM
 
 TrainerFisherEdgar:
 	trainer FISHER, EDGAR, EVENT_BEAT_FISHER_EDGAR, FisherEdgarSeenText, FisherEdgarBeatenText, 0, .Script
@@ -222,6 +311,9 @@ Route44MaxRevive:
 
 Route44UltraBall:
 	itemball ULTRA_BALL
+
+Route44MaxRepel:
+	itemball MAX_REPEL
 
 Route44HiddenElixer:
 	hiddenitem ELIXER, EVENT_ROUTE_44_HIDDEN_ELIXER
@@ -294,6 +386,17 @@ BirdKeeperVanceLegendaryBirdsText:
 	para "I heard there are"
 	line "other legendary"
 	cont "birds, though."
+	done
+
+BirdKeeperVance2BeatenText:
+	text "Why can't I ever"
+	line "beat you?"
+
+	para "Oh yeah, here you"
+	line "go. It's that gift"
+
+	para "I couldn't give"
+	line "you last time."
 	done
 
 PsychicPhilSeenText:
@@ -415,13 +518,14 @@ Route44_MapEvents:
 	bg_event 32,  9, BGEVENT_ITEM, Route44HiddenElixer
 
 	def_object_events
-	object_event 42,  5, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerFisherWilton1, -1
+	object_event 35,  3, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerFisherWilton1, -1
 	object_event 19, 13, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerFisherEdgar, -1
 	object_event 10,  9, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPsychicPhil, -1
-	object_event 35,  2, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 5, TrainerPokemaniacZach, -1
-	object_event 50,  7, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperVance1, -1
+	object_event 43,  2, SPRITE_SUPER_NERD, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerPokemaniacZach, -1
+	object_event 51,  5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 2, TrainerBirdKeeperVance1, -1
 	object_event 41, 15, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 5, TrainerCooltrainermAllen, -1
 	object_event 31, 14, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 5, TrainerCooltrainerfCybil, -1
 	object_event  9,  5, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route44FruitTree, -1
 	object_event 30,  8, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route44MaxRevive, EVENT_ROUTE_44_MAX_REVIVE
-	object_event 43,  2, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route44UltraBall, EVENT_ROUTE_44_ULTRA_BALL
+	object_event 45,  4, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route44UltraBall, EVENT_ROUTE_44_ULTRA_BALL
+	object_event 14,  9, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route44MaxRepel, EVENT_ROUTE_44_MAX_REPEL

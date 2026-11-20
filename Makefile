@@ -1,11 +1,8 @@
+# Perfect Crystal conversion: only the Gold ROM is built (silver/VC targets dropped).
 roms := \
 	pokegold.gbc \
-	pokesilver.gbc \
-	pokegold_debug.gbc \
-	pokesilver_debug.gbc
-patches := \
-	pokegold.patch \
-	pokesilver.patch
+	pokegold_debug.gbc
+patches :=
 
 rom_obj := \
 	audio.o \
@@ -113,10 +110,11 @@ tidy:
 	      $(pokesilver_vc_obj) \
 	      $(pokegold_debug_obj) \
 	      $(pokesilver_debug_obj) \
-	      rgbdscheck.o
+	      rgbdscheck.o \
+	      build_options.stamp
 	$(MAKE) clean -C tools/
 
-compare: $(roms) $(patches)
+compare: $(roms)
 	@$(SHA1) -c roms.sha1
 
 tools:
@@ -127,6 +125,23 @@ RGBASMFLAGS += -Q8 -P includes.asm
 # Create a sym/map for debug purposes if `make` run with `DEBUG=1`
 ifeq ($(DEBUG),1)
 RGBASMFLAGS += -E
+endif
+
+# Perfect Crystal build options, e.g. `make EASY_ENCOUNTERS=0 RED_LV100=1`.
+# EASY_ENCOUNTERS=1: rare (1%) non-legendary wild mons are raised to >= 5%.
+# RED_LV100=1: Red's party uses the Perfect Crystal level-100 team.
+EASY_ENCOUNTERS ?= 1
+RED_LV100 ?= 0
+ifeq ($(EASY_ENCOUNTERS),1)
+RGBASMFLAGS += -D EASY_ENCOUNTERS
+endif
+ifeq ($(RED_LV100),1)
+RGBASMFLAGS += -D RED_LV100
+endif
+# Rewrite the stamp only when the options change, forcing a rebuild of every object.
+build_options := EASY_ENCOUNTERS=$(EASY_ENCOUNTERS) RED_LV100=$(RED_LV100)
+ifeq (,$(filter clean tidy tools,$(MAKECMDGOALS)))
+$(shell echo '$(build_options)' | cmp -s - build_options.stamp || echo '$(build_options)' > build_options.stamp)
 endif
 
 $(pokegold_obj):         RGBASMFLAGS += -D _GOLD
@@ -152,7 +167,7 @@ $(info $(shell $(MAKE) -C tools))
 # The dep rules have to be explicit or else missing files won't be reported.
 # As a side effect, they're evaluated immediately instead of when the rule is invoked.
 # It doesn't look like $(shell) can be deferred so there might not be a better way.
-preinclude_deps := includes.asm $(shell tools/scan_includes includes.asm)
+preinclude_deps := includes.asm $(shell tools/scan_includes includes.asm) build_options.stamp
 define DEP
 $1: $2 $$(shell tools/scan_includes $2) $(preinclude_deps) | rgbdscheck.o
 	$$(RGBASM) $$(RGBASMFLAGS) -o $$@ $$<
@@ -337,10 +352,13 @@ gfx/battle_anims/status.2bpp: tools/gfx += --remove-whitespace
 
 gfx/player/chris.2bpp: RGBGFXFLAGS += --columns
 gfx/player/chris_back.2bpp: RGBGFXFLAGS += --columns
+gfx/player/kris.2bpp: RGBGFXFLAGS += --columns
+gfx/player/kris_back.2bpp: RGBGFXFLAGS += --columns
 
 gfx/trainer_card/leaders.2bpp: tools/gfx += --trim-whitespace
 
 gfx/overworld/chris_fish.2bpp: tools/gfx += --trim-whitespace
+gfx/overworld/kris_fish.2bpp: tools/gfx += --trim-whitespace
 
 gfx/sprites/big_onix.2bpp: tools/gfx += --remove-whitespace --remove-xflip
 

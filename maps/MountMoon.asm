@@ -62,8 +62,6 @@ MountMoonRivalBattleScript:
 	writetext MountMoonRivalTextAfter
 	waitbutton
 	closetext
-	turnobject PLAYER, UP
-	turnobject PLAYER, RIGHT
 	applymovement MOUNTMOON_RIVAL, MountMoonRivalMovementAfter
 	disappear MOUNTMOON_RIVAL
 	setscene SCENE_MOUNTMOON_NOOP

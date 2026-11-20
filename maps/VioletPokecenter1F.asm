@@ -1,6 +1,6 @@
 	object_const_def
 	const VIOLETPOKECENTER1F_NURSE
-	const VIOLETPOKECENTER1F_SUPER_NERD
+	const VIOLETPOKECENTER1F_GAMEBOY_KID
 	const VIOLETPOKECENTER1F_GENTLEMAN
 	const VIOLETPOKECENTER1F_YOUNGSTER
 	const VIOLETPOKECENTER1F_ELMS_AIDE
@@ -76,8 +76,8 @@ VioletPokecenter1F_ElmsAideScript:
 	writetext VioletPokecenterElmsAideAskEggText
 	sjump .AskTakeEgg
 
-VioletPokecenter1FSuperNerdScript:
-	jumptextfaceplayer VioletPokecenter1FSuperNerdText
+VioletPokecenter1FGameboyKidScript:
+	jumptextfaceplayer VioletPokecenter1FGameboyKidText
 
 VioletPokecenter1FGentlemanScript:
 	jumptextfaceplayer VioletPokecenter1FGentlemanText
@@ -104,7 +104,7 @@ MovementData_AideFinishesLeavingPokecenter:
 	step_end
 
 VioletPokecenterElmsAideFavorText:
-	text "<PLAYER>, long"
+	text "<PLAY_G>, long"
 	line "time, no see."
 
 	para "PROF.ELM asked me"
@@ -128,7 +128,7 @@ VioletPokecenterElmsAideGiveEggText:
 	line "with other active"
 	cont "#MON to hatch."
 
-	para "<PLAYER>, you're"
+	para "<PLAY_G>, you're"
 	line "the only person"
 	cont "we can rely on."
 
@@ -153,11 +153,34 @@ VioletPokecenterElmsAideRefuseText:
 	done
 
 VioletPokecenterElmsAideAskEggText:
-	text "<PLAYER>, will you"
+	text "<PLAY_G>, will you"
 	line "take the EGG?"
 	done
 
-VioletPokecenter1FSuperNerdText:
+VioletPokecenterFarawayLinkText: ; unreferenced
+	text "I've been thinking"
+	line "it'd be great to"
+
+	para "be able to link up"
+	line "and battle with my"
+
+	para "friends who live"
+	line "far away."
+	done
+
+VioletPokecenterMobileAdapterText: ; unreferenced
+	text "I just battled a"
+	line "friend in CIANWOOD"
+	cont "over a link."
+
+	para "If you connect a"
+	line "MOBILE ADAPTER,"
+
+	para "you can link with"
+	line "a friend far away."
+	done
+
+VioletPokecenter1FGameboyKidText:
 	text "A guy named BILL"
 	line "made the #MON"
 	cont "PC storage system."
@@ -204,7 +227,7 @@ VioletPokecenter1F_MapEvents:
 
 	def_object_events
 	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, VioletPokecenterNurse, -1
-	object_event  7,  6, SPRITE_SUPER_NERD, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, VioletPokecenter1FSuperNerdScript, -1
+	object_event  7,  6, SPRITE_GAMEBOY_KID, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, VioletPokecenter1FGameboyKidScript, -1
 	object_event  1,  4, SPRITE_GENTLEMAN, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, VioletPokecenter1FGentlemanScript, -1
 	object_event  8,  1, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, VioletPokecenter1FYoungsterScript, -1
 	object_event  4,  3, SPRITE_SCIENTIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, VioletPokecenter1F_ElmsAideScript, EVENT_ELMS_AIDE_IN_VIOLET_POKEMON_CENTER

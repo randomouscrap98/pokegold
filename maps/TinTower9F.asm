@@ -1,7 +1,13 @@
+	object_const_def
+	const TINTOWER9F_POKE_BALL
+
 TinTower9F_MapScripts:
 	def_scene_scripts
 
 	def_callbacks
+
+TinTower9FHPUp:
+	itemball HP_UP
 
 TinTower9FUnusedHoOhText: ; unreferenced
 	text "HO-OH: Shaoooh!"
@@ -28,3 +34,4 @@ TinTower9F_MapEvents:
 	def_bg_events
 
 	def_object_events
+	object_event  9,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, TinTower9FHPUp, EVENT_TIN_TOWER_9F_HP_UP

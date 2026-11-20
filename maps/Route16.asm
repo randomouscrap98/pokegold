@@ -22,8 +22,8 @@ CyclingRoadSign:
 CyclingRoadSignText:
 	text "CYCLING ROAD"
 
-	para "Downhill Coasting"
-	line "All the Way!"
+	para "DOWNHILL COASTING"
+	line "ALL THE WAY!"
 	done
 
 Route16_MapEvents:

@@ -219,7 +219,7 @@ FastShipB1FSailorBlocksLeftMovement:
 	step_end
 
 FastShipB1FOnDutySailorText:
-	text "Hey, guy. Could I"
+	text "Hey, kid. Could I"
 	line "get you to look"
 	cont "for my buddy?"
 
@@ -240,7 +240,7 @@ FastShipB1FOnDutySailorRefusedText:
 	done
 
 FastShipB1FOnDutySailorThanksText:
-	text "Thanks, guy!"
+	text "Thanks, kid!"
 	line "I chewed him out"
 
 	para "good so he'll quit"

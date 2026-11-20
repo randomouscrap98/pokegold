@@ -11,6 +11,7 @@
 	const ROUTE34_COOLTRAINER_F1
 	const ROUTE34_COOLTRAINER_F2
 	const ROUTE34_COOLTRAINER_F3
+	const ROUTE34_POKE_BALL
 
 Route34_MapScripts:
 	def_scene_scripts
@@ -88,10 +89,13 @@ TrainerCamperTodd1:
 	trainer CAMPER, TODD1, EVENT_BEAT_CAMPER_TODD, CamperTodd1SeenText, CamperTodd1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_CAMPER_TODD
 	endifjustbattled
 	opentext
-	checkevent EVENT_TODD_READY_FOR_REMATCH
+	checkflag ENGINE_TODD_READY_FOR_REMATCH
 	iftrue .Rematch
+	checkflag ENGINE_GOLDENROD_DEPT_STORE_SALE_IS_ON
+	iftrue .SaleIsOn
 	checkcellnum PHONE_CAMPER_TODD
 	iftrue .NumberAccepted
 	checkevent EVENT_TODD_ASKED_FOR_PHONE_NUMBER
@@ -115,28 +119,67 @@ TrainerCamperTodd1:
 .Rematch:
 	scall .RematchStd
 	winlosstext CamperTodd1BeatenText, 0
+	readmem wToddFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight3
+.Fight2:
 	checkflag ENGINE_FLYPOINT_BLACKTHORN
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_CIANWOOD
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer CAMPER, TODD1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_TODD_READY_FOR_REMATCH
+	loadmem wToddFightCount, 1
+	clearflag ENGINE_TODD_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer CAMPER, TODD2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_TODD_READY_FOR_REMATCH
+	loadmem wToddFightCount, 2
+	clearflag ENGINE_TODD_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer CAMPER, TODD3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_TODD_READY_FOR_REMATCH
+	loadmem wToddFightCount, 3
+	clearflag ENGINE_TODD_READY_FOR_REMATCH
+	end
+
+.LoadFight3:
+	loadtrainer CAMPER, TODD4
+	startbattle
+	reloadmapafterbattle
+	loadmem wToddFightCount, 4
+	clearflag ENGINE_TODD_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer CAMPER, TODD5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_TODD_READY_FOR_REMATCH
+	end
+
+.SaleIsOn:
+	writetext CamperToddSaleText
+	waitbutton
+	closetext
 	end
 
 .AskNumber:
@@ -171,10 +214,13 @@ TrainerPicnickerGina1:
 	trainer PICNICKER, GINA1, EVENT_BEAT_PICNICKER_GINA, PicnickerGina1SeenText, PicnickerGina1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_PICNICKER_GINA
 	endifjustbattled
 	opentext
-	checkevent EVENT_GINA_READY_FOR_REMATCH
+	checkflag ENGINE_GINA_READY_FOR_REMATCH
 	iftrue .Rematch
+	checkflag ENGINE_GINA_HAS_LEAF_STONE
+	iftrue .LeafStone
 	checkcellnum PHONE_PICNICKER_GINA
 	iftrue .NumberAccepted
 	checkevent EVENT_GINA_ASKED_FOR_PHONE_NUMBER
@@ -198,29 +244,73 @@ TrainerPicnickerGina1:
 .Rematch:
 	scall .RematchStd
 	winlosstext PicnickerGina1BeatenText, 0
+	readmem wGinaFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight3
+.Fight2:
 	checkevent EVENT_CLEARED_RADIO_TOWER
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_MAHOGANY
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer PICNICKER, GINA1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_GINA_READY_FOR_REMATCH
+	loadmem wGinaFightCount, 1
+	clearflag ENGINE_GINA_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer PICNICKER, GINA2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_GINA_READY_FOR_REMATCH
+	loadmem wGinaFightCount, 2
+	clearflag ENGINE_GINA_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer PICNICKER, GINA3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_GINA_READY_FOR_REMATCH
+	loadmem wGinaFightCount, 3
+	clearflag ENGINE_GINA_READY_FOR_REMATCH
 	end
+
+.LoadFight3:
+	loadtrainer PICNICKER, GINA4
+	startbattle
+	reloadmapafterbattle
+	loadmem wGinaFightCount, 4
+	clearflag ENGINE_GINA_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer PICNICKER, GINA5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_GINA_READY_FOR_REMATCH
+	end
+
+.LeafStone:
+	scall .Gift
+	verbosegiveitem LEAF_STONE
+	iffalse .BagFull
+	clearflag ENGINE_GINA_HAS_LEAF_STONE
+	setevent EVENT_GINA_GAVE_LEAF_STONE
+	sjump .NumberAccepted
+
+.BagFull:
+	sjump .PackFull
 
 .AskNumber1:
 	jumpstd AskNumber1FScript
@@ -248,6 +338,14 @@ TrainerPicnickerGina1:
 
 .RematchStd:
 	jumpstd RematchFScript
+	end
+
+.Gift:
+	jumpstd GiftFScript
+	end
+
+.PackFull:
+	jumpstd PackFullFScript
 	end
 
 OfficerKeithScript:
@@ -384,6 +482,9 @@ Route34TrainerTips:
 DayCareSign:
 	jumptext DayCareSignText
 
+Route34Nugget:
+	itemball NUGGET
+
 Route34HiddenRareCandy:
 	hiddenitem RARE_CANDY, EVENT_ROUTE_34_HIDDEN_RARE_CANDY
 
@@ -410,7 +511,19 @@ YoungsterSamuelSeenText:
 	done
 
 YoungsterSamuelBeatenText:
-	text "What happened?"
+	text "Beaten by a"
+	line "passing stranger!"
+	done
+
+YoungsterSamuelMobileText: ; unreferenced
+	text "Have you been to"
+	line "GOLDENROD CITY?"
+
+	para "Weren't you amazed"
+	line "by how they've"
+
+	para "changed the"
+	line "#MON CENTER?"
 	done
 
 YoungsterSamuelAfterText:
@@ -447,15 +560,24 @@ CamperTodd1SeenText:
 	done
 
 CamperTodd1BeatenText:
-	text "I didn't do a good"
-	line "enough job?"
+	text "Did I screw up my"
+	line "training?"
 	done
 
 CamperTodd1AfterText:
 	text "Maybe I should"
-	line "leave one in DAY-"
-	cont "CARE."
-	cont "What should I do?"
+	line "take one to a DAY-"
+
+	para "CARE. Or maybe use"
+	line "some items…"
+	done
+
+CamperToddSaleText:
+	text "Shopping under the"
+	line "sky!"
+
+	para "It feels so nice"
+	line "up on a rooftop."
 	done
 
 PicnickerGina1SeenText:
@@ -484,7 +606,7 @@ OfficerKeithSeenText:
 
 OfficerKeithWinText:
 	text "You're a tough"
-	line "little guy."
+	line "little kid."
 	done
 
 OfficerKeithAfterText:
@@ -526,12 +648,12 @@ PokefanmBrandonAfterText:
 
 CooltrainerfIreneSeenText:
 	text "IRENE: Kyaaah!"
-	line "A boy found us!"
+	line "Someone found us!"
 	done
 
 CooltrainerfIreneBeatenText:
-	text "IRENE: Ohhhh!"
-	line "He's too strong!"
+	text "IRENE: Ohhh!"
+	line "Too strong!"
 	done
 
 CooltrainerfIreneAfterText1:
@@ -604,7 +726,7 @@ CooltrainerfKateAfterText:
 
 Route34IlexForestSignText:
 	text "ILEX FOREST"
-	line "Through the Gate"
+	line "THROUGH THE GATE"
 	done
 
 Route34SignText:
@@ -614,7 +736,7 @@ Route34SignText:
 	line "AZALEA TOWN"
 
 	para "ILEX FOREST"
-	line "Somewhere Between"
+	line "SOMEWHERE BETWEEN"
 	done
 
 Route34TrainerTipsText:
@@ -622,7 +744,7 @@ Route34TrainerTipsText:
 
 	para "BERRY trees grow"
 	line "new BERRIES"
-	cont "everyday."
+	cont "every day."
 
 	para "Make a note of"
 	line "which trees bear"
@@ -632,8 +754,8 @@ Route34TrainerTipsText:
 DayCareSignText:
 	text "DAY-CARE"
 
-	para "Let Us Raise Your"
-	line "#MON for You!"
+	para "LET US RAISE YOUR"
+	line "#MON FOR YOU!"
 	done
 
 Route34_MapEvents:
@@ -657,14 +779,15 @@ Route34_MapEvents:
 
 	def_object_events
 	object_event 13,  7, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 5, TrainerCamperTodd1, -1
-	object_event 15, 33, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerYoungsterSamuel, -1
-	object_event 17, 22, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerYoungsterIan, -1
+	object_event 15, 32, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerYoungsterSamuel, -1
+	object_event 11, 20, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerYoungsterIan, -1
 	object_event 10, 26, SPRITE_LASS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerPicnickerGina1, -1
 	object_event  9, 11, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, OfficerKeithScript, -1
-	object_event 19, 28, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 2, TrainerPokefanmBrandon, -1
+	object_event 18, 28, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerPokefanmBrandon, -1
 	object_event 15, 16, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DayCareManScript_Outside, EVENT_DAY_CARE_MAN_ON_ROUTE_34
 	object_event 14, 18, SPRITE_DAY_CARE_MON_1, SPRITEMOVEDATA_POKEMON, 2, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DayCareMon1Script, EVENT_DAY_CARE_MON_1
 	object_event 17, 19, SPRITE_DAY_CARE_MON_2, SPRITEMOVEDATA_POKEMON, 2, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DayCareMon2Script, EVENT_DAY_CARE_MON_2
 	object_event 11, 48, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 5, TrainerCooltrainerfIrene, -1
 	object_event  3, 48, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerCooltrainerfJenn, -1
 	object_event  6, 51, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 2, TrainerCooltrainerfKate, -1
+	object_event  7, 30, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route34Nugget, EVENT_ROUTE_34_NUGGET

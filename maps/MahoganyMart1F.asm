@@ -155,7 +155,7 @@ MahoganyMart1FLanceGoDownStairsMovement:
 	step_end
 
 MahoganyMart1FRageCandyBarText: ; unreferenced
-	text "Hello, youngster!"
+	text "Hello, kiddo!"
 
 	para "How would you like"
 	line "some RAGECANDYBAR?"
@@ -196,7 +196,7 @@ MahoganyMart1FLanceDragoniteHyperBeamText:
 
 MahoganyMart1FLanceRadioText:
 	text "What took you,"
-	line "<PLAYER>?"
+	line "<PLAY_G>?"
 
 	para "Just as I thought,"
 	line "that strange radio"
@@ -211,7 +211,7 @@ MahoganyMart1FLanceStairsText:
 	done
 
 MahoganyMart1FLanceSplitUpText:
-	text "LANCE: <PLAYER>, we"
+	text "LANCE: <PLAY_G>, we"
 	line "should split up to"
 
 	para "check this place."

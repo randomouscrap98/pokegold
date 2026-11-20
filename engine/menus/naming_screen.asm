@@ -121,8 +121,8 @@ NamingScreenJumptable:
 	db "NICKNAME?@"
 
 .Player:
-	ld de, ChrisSpriteGFX
-	call .LoadSprite
+	farcall GetPlayerSpriteGFX
+	call .LoadSpriteBankB
 	hlcoord 5, 2
 	ld de, .PlayerNameString
 	call PlaceString
@@ -181,17 +181,21 @@ NamingScreenJumptable:
 	db "BOX NAME?@"
 
 .LoadSprite:
+	ld b, BANK(ChrisSpriteGFX)
+.LoadSpriteBankB:
 	push de
+	push bc
 	ld hl, vTiles0 tile $00
-	lb bc, BANK(ChrisSpriteGFX), 4
+	ld c, 4
 	call Request2bpp
+	pop bc
 	pop de
 	ld hl, 12 tiles
 	add hl, de
 	ld e, l
 	ld d, h
 	ld hl, vTiles0 tile $04
-	lb bc, BANK(ChrisSpriteGFX), 4
+	ld c, 4
 	call Request2bpp
 	xor a ; SPRITE_ANIM_DICT_DEFAULT and tile offset $00
 	ld hl, wSpriteAnimDict

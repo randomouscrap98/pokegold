@@ -99,3 +99,14 @@ FamicomSpriteGFX::             INCBIN "gfx/sprites/famicom.2bpp"
 FruitTreeSpriteGFX::           INCBIN "gfx/sprites/fruit_tree.2bpp"
 GoldTrophySpriteGFX::          INCBIN "gfx/sprites/gold_trophy.2bpp"
 SilverTrophySpriteGFX::        INCBIN "gfx/sprites/silver_trophy.2bpp"
+
+
+SECTION "Sprites 3", ROMX ; Crystal additions
+
+KrisSpriteGFX::                INCBIN "gfx/sprites/kris.2bpp"
+KrisBikeSpriteGFX::            INCBIN "gfx/sprites/kris_bike.2bpp"
+KurtOutsideSpriteGFX::         INCBIN "gfx/sprites/kurt_outside.2bpp"
+SuicuneSpriteGFX::             INCBIN "gfx/sprites/suicune.2bpp"
+EnteiSpriteGFX::               INCBIN "gfx/sprites/entei.2bpp"
+RaikouSpriteGFX::              INCBIN "gfx/sprites/raikou.2bpp"
+StandingYoungsterSpriteGFX::   INCBIN "gfx/sprites/standing_youngster.2bpp"

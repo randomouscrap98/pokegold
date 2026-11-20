@@ -266,8 +266,8 @@ SageJinSeenText:
 	done
 
 SageJinBeatenText:
-	text "Beaten by a mere"
-	line "child!"
+	text "My training is"
+	line "incomplete…"
 	done
 
 SageJinAfterBattleText:

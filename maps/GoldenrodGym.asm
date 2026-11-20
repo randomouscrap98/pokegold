@@ -74,9 +74,17 @@ GoldenrodGymWhitneyScript:
 
 .GotAttract:
 	writetext WhitneyGoodCryText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue WhitneyRematch
 .NoRoomForAttract:
 	closetext
+	end
+
+WhitneyRematch:
+	winlosstext Whitney_RematchDefeat, 0
+	loadtrainer WHITNEY, WHITNEY1
+	startbattle
+	reloadmapafterbattle
 	end
 
 GoldenrodGymActivateRockets:
@@ -204,8 +212,8 @@ WhitneyShouldntBeSoSeriousText:
 	line "You're mean!"
 
 	para "You shouldn't be"
-	line "so serious! You,"
-	cont "you, child, you!"
+	line "so serious! You…"
+	cont "you child, you!"
 	done
 
 WhitneyYouMeanieText:
@@ -223,9 +231,9 @@ WhitneyWhatDoYouWantText:
 	para "What? What do you"
 	line "want? A BADGE?"
 
-	para "Oh, right. I for-"
-	line "got. Here's PLAIN-"
-	cont "BADGE."
+	para "Oh, right."
+	line "I forgot. Here's"
+	cont "PLAINBADGE."
 	done
 
 PlayerReceivedPlainBadgeText:
@@ -239,10 +247,6 @@ WhitneyPlainBadgeText:
 
 	para "STRENGTH outside"
 	line "of battle."
-
-	para "It also boosts"
-	line "your #MON's"
-	cont "SPEED."
 
 	para "Oh, you can have"
 	line "this too!"
@@ -266,11 +270,17 @@ WhitneyGoodCryText:
 
 	para "Come for a visit"
 	line "again! Bye-bye!"
+
+	para "What? You want a"
+	line "rematch now?"
 	done
 
 LassCarrieSeenText:
-	text "Don't think I'm a"
-	line "pushover!"
+	text "Don't let my"
+	line "#MON's cute"
+
+	para "looks fool you."
+	line "They can whip you!"
 	done
 
 LassCarrieBeatenText:
@@ -279,11 +289,8 @@ LassCarrieBeatenText:
 	done
 
 LassCarrieAfterBattleText:
-	text "In the world of"
-	line "#MON, I wonder"
-
-	para "what's stronger:"
-	line "male or female?"
+	text "Do my #MON"
+	line "think I'm cute?"
 	done
 
 LassBridgetSeenText:
@@ -398,3 +405,8 @@ GoldenrodGym_MapEvents:
 	object_event  0,  2, SPRITE_BEAUTY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBeautyVictoria, -1
 	object_event 19,  5, SPRITE_BEAUTY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBeautySamantha, -1
 	object_event  5, 15, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGymGuideScript, -1
+
+Whitney_RematchDefeat:
+	text "Ah, I lost again"
+	line "sob…"
+	done

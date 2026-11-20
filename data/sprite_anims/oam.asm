@@ -107,6 +107,10 @@ ELIF DEF(_SILVER)
 	spriteanimoam $00, .OAMData_GSIntroLugia1            ; SPRITE_ANIM_OAMSET_GS_INTRO_HO_OH_5
 ENDC
 	spriteanimoam $04, .OAMData_Tree                     ; SPRITE_ANIM_OAMSET_HEADBUTT_TREE_2
+	spriteanimoam $00, .OAMData_BlueWalk                 ; SPRITE_ANIM_OAMSET_BLUE_WALK_1 (Crystal)
+	spriteanimoam $04, .OAMData_BlueWalk                 ; SPRITE_ANIM_OAMSET_BLUE_WALK_2
+	spriteanimoam $00, .OAMData_Celebi                   ; SPRITE_ANIM_OAMSET_CELEBI_1
+	spriteanimoam $04, .OAMData_Celebi                   ; SPRITE_ANIM_OAMSET_CELEBI_2
 	assert_table_length NUM_SPRITE_ANIM_OAMSETS
 
 .OAMData_1x1_Palette0:
@@ -836,3 +840,17 @@ ELIF DEF(_SILVER)
 	dbsprite -1, -1,  0,  0, $00, 0
 	dbsprite  0, -1,  0,  0, $02, 0
 ENDC
+
+.OAMData_BlueWalk: ; Crystal
+	db 4
+	dbsprite -1, -1,  0,  0, $00, PAL_OW_BLUE
+	dbsprite  0, -1,  0,  0, $01, PAL_OW_BLUE
+	dbsprite -1,  0,  0,  0, $02, PAL_OW_BLUE
+	dbsprite  0,  0,  0,  0, $03, PAL_OW_BLUE
+
+.OAMData_Celebi:
+	db 4
+	dbsprite -1, -1,  0,  0, $00, PAL_OW_GREEN
+	dbsprite  0, -1,  0,  0, $01, PAL_OW_GREEN
+	dbsprite -1,  0,  0,  0, $02, PAL_OW_GREEN
+	dbsprite  0,  0,  0,  0, $03, PAL_OW_GREEN

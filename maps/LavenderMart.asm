@@ -38,11 +38,11 @@ LavenderMartRockerText:
 	text "I heard about a"
 	line "craftsman who"
 
-	para "makes custom #"
-	line "BALLS in the JOHTO"
+	para "makes custom BALLS"
+	line "in the JOHTO town"
 
-	para "town of AZALEA. I"
-	line "wish I had some."
+	para "of AZALEA. I wish"
+	line "I had some."
 	done
 
 LavenderMart_MapEvents:

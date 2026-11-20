@@ -585,7 +585,11 @@ _CGB_UnownPuzzle:
 
 _CGB_TrainerCard:
 	ld de, wBGPals1
-	xor a ; CHRIS
+	ld a, [wPlayerGender] ; Crystal: KRIS (== FALKNER) palette for Kris
+	and a
+	jr z, .got_player_pal ; a = 0 = CHRIS
+	ld a, KRIS
+.got_player_pal
 	call GetTrainerPalettePointer
 	call LoadPalette_White_Col1_Col2_Black
 	ld a, FALKNER
@@ -709,6 +713,14 @@ _CGB_PokedexSearchOption:
 _CGB_PackPals:
 	ld de, wBGPals1
 	ld hl, .PackPals
+	ld a, [wPlayerGender] ; Crystal: Kris's pack palettes
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .got_pals
+	ld a, [wBattleType]
+	cp BATTLETYPE_TUTORIAL
+	jr z, .got_pals
+	ld hl, .KrisPackPals
+.got_pals
 	ld bc, 8 palettes ; 6 palettes?
 	call CopyBytes
 	call WipeAttrmap
@@ -740,6 +752,9 @@ _CGB_PackPals:
 
 .PackPals:
 INCLUDE "gfx/pack/pack.pal"
+
+.KrisPackPals:
+INCLUDE "gfx/pack/pack_f.pal"
 
 _CGB_Pokepic:
 	call _CGB_MapPals

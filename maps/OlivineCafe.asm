@@ -1,6 +1,7 @@
 	object_const_def
-	const OLIVINECAFE_SAILOR
+	const OLIVINECAFE_SAILOR1
 	const OLIVINECAFE_FISHING_GURU
+	const OLIVINECAFE_SAILOR2
 
 OlivineCafe_MapScripts:
 	def_scene_scripts
@@ -25,6 +26,9 @@ OlivineCafeStrengthSailorScript:
 OlivineCafeFishingGuruScript:
 	jumptextfaceplayer OlivineCafeFishingGuruText
 
+OlivineCafeSailorScript:
+	jumptextfaceplayer OlivineCafeSailorText
+
 OlivineCafeStrengthSailorText:
 	text "Hah! Your #MON"
 	line "sure look like"
@@ -37,12 +41,6 @@ OlivineCafeStrengthSailorText:
 	para "Here, use this"
 	line "and teach them"
 	cont "STRENGTH!"
-
-	para "You'll need"
-	line "GOLDENROD's GYM"
-
-	para "BADGE to use that"
-	line "outside battles."
 	done
 
 OlivineCafeStrengthSailorText_GotStrength:
@@ -57,18 +55,25 @@ OlivineCafeStrengthSailorText_GotStrength:
 	done
 
 OlivineCafeFishingGuruText:
-	text "Crossing the sea?"
-	line "Then listen up!"
+	text "OLIVINE CAFE's"
+	line "menu is chock full"
 
-	para "There are whirl-"
-	line "pools on the way"
-	cont "to CIANWOOD."
+	para "of hearty fare for"
+	line "beefy SAILORS!"
+	done
 
-	para "Your #MON must"
-	line "know a special"
+OlivineCafeSailorText:
+	text "Whenever I roll"
+	line "into this town, I"
 
-	para "move to get over"
-	line "the whirlpools."
+	para "always visit the"
+	line "OLIVINE CAFE."
+
+	para "Everything on the"
+	line "menu makes me feel"
+
+	para "stronger. I can't"
+	line "stop eating!"
 	done
 
 OlivineCafe_MapEvents:
@@ -84,4 +89,5 @@ OlivineCafe_MapEvents:
 
 	def_object_events
 	object_event  4,  3, SPRITE_SAILOR, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCafeStrengthSailorScript, -1
-	object_event  1,  5, SPRITE_FISHING_GURU, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCafeFishingGuruScript, -1
+	object_event  7,  3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCafeFishingGuruScript, -1
+	object_event  6,  6, SPRITE_SAILOR, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCafeSailorScript, -1

@@ -109,9 +109,9 @@ MomOKIllSaveText:
 	line "money."
 	done
 
-MomPhoneStopSavingMoneyText:
-	text "OK. I'll stop"
-	line "saving your money."
+MomPhoneWontSaveMoneyText:
+	text "OK. I won't save"
+	line "your money."
 	done
 
 MomPhoneHangUpText:

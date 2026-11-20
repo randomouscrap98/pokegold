@@ -53,8 +53,16 @@ FuchsiaGymJanineScript:
 	setevent EVENT_GOT_TM06_TOXIC
 .AfterTM:
 	writetext JanineText_ApplyMyself
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue JanineRematch
 	closetext
+	end
+
+JanineRematch:
+	winlosstext Janine_RematchDefeat, 0
+	loadtrainer JANINE, JANINE1
+	startbattle
+	reloadmapafterbattle
 	end
 
 LassAliceScript:
@@ -283,6 +291,9 @@ JanineText_ApplyMyself:
 	para "I want to become"
 	line "better than both"
 	cont "Father and you!"
+
+	para "How about you test"
+	line "test my abilities?"
 	done
 
 LassAliceBeforeText:
@@ -342,7 +353,7 @@ PicnickerCindyAfterText:
 CamperBarryBeforeText:
 	text "Wahahaha!"
 
-	para "You betcha, dude."
+	para "You betcha!"
 	line "I'm JANINE!"
 	done
 
@@ -352,7 +363,7 @@ CamperBarryBeatenText:
 	done
 
 CamperBarryAfterText:
-	text "Hey, dude. Was my"
+	text "Hey, you. Was my"
 	line "disguise cute or"
 	cont "what, huh?"
 	done
@@ -398,3 +409,8 @@ FuchsiaGym_MapEvents:
 	object_event  9,  4, SPRITE_FUCHSIA_GYM_3, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, PicnickerCindyScript, -1
 	object_event  4,  2, SPRITE_FUCHSIA_GYM_4, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CamperBarryScript, -1
 	object_event  7, 15, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, FuchsiaGymGuideScript, -1
+
+Janine_RematchDefeat:
+	text "JANINE: I still"
+	line "need to improve…"
+	done

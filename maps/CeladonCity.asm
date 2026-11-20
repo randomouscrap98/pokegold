@@ -89,6 +89,11 @@ CeladonCityPoliwrathText:
 	done
 
 CeladonCityTeacher1Text:
+if DEF(_CRYSTAL_AU)
+	text "I lost at the"
+	line "machines."
+	done
+else
 	text "I lost at the slot"
 	line "machines again…"
 
@@ -98,6 +103,7 @@ CeladonCityTeacher1Text:
 	para "You should check"
 	line "them out too."
 	done
+endc
 
 CeladonCityGramps1Text:
 	text "GRIMER have been"
@@ -158,6 +164,24 @@ CeladonCityTeacher2Text:
 	line "a sales clerk."
 	done
 
+CeladonCityLassText_Mobile: ; unreferenced
+	text "I love being"
+	line "surrounded by tall"
+	cont "buildings!"
+
+	para "Isn't it true that"
+	line "GOLDENROD #MON"
+
+	para "CENTER was made"
+	line "much, much bigger?"
+
+	para "That is so neat!"
+	line "I wish we had a"
+
+	para "place like that in"
+	line "KANTO…"
+	done
+
 CeladonCityLassText:
 	text "Looking at the"
 	line "ground while I was"
@@ -193,10 +217,17 @@ CeladonCityMansionSignText:
 	done
 
 CeladonCityGameCornerSignText:
+if DEF(_CRYSTAL_AU)
+	text "The Game Area for"
+	line "Grown-ups--CELADON"
+	cont "GAME CORNER"
+	done
+else
 	text "The Playground for"
 	line "Everybody--CELADON"
 	cont "GAME CORNER"
 	done
+endc
 
 CeladonCityTrainerTipsText:
 	text "TRAINER TIPS"

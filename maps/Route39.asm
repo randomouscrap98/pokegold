@@ -1,13 +1,14 @@
 	object_const_def
 	const ROUTE39_SAILOR
 	const ROUTE39_POKEFAN_M
-	const ROUTE39_POKEFAN_F
+	const ROUTE39_POKEFAN_F1
 	const ROUTE39_MILTANK1
 	const ROUTE39_MILTANK2
 	const ROUTE39_MILTANK3
 	const ROUTE39_MILTANK4
 	const ROUTE39_PSYCHIC_NORMAN
 	const ROUTE39_FRUIT_TREE
+	const ROUTE39_POKEFAN_F2
 
 Route39_MapScripts:
 	def_scene_scripts
@@ -26,12 +27,15 @@ TrainerPokefanmDerek:
 	trainer POKEFANM, DEREK1, EVENT_BEAT_POKEFANM_DEREK, PokefanmDerekSeenText, PokefanmDerekBeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_POKEFANM_DEREK
 	endifjustbattled
 	opentext
-	checkevent EVENT_DEREK_READY_FOR_REMATCH
-	iftrue .WantsBattle
+	checkflag ENGINE_DEREK_HAS_NUGGET
+	iftrue .HasNugget
 	checkcellnum PHONE_POKEFANM_DEREK
 	iftrue .NumberAccepted
+	checkpoke PIKACHU
+	iffalse .WantsPikachu
 	checkevent EVENT_DEREK_ASKED_FOR_PHONE_NUMBER
 	iftrue .AskedAlready
 	writetext PokefanMDerekText_NotBragging
@@ -50,31 +54,20 @@ TrainerPokefanmDerek:
 	scall .RegisteredNumber
 	sjump .NumberAccepted
 
-.WantsBattle:
-	scall .Rematch
-	winlosstext PokefanmDerekBeatenText, 0
-	checkevent EVENT_BEAT_ELITE_FOUR
-	iftrue .LoadFight2
-	checkflag ENGINE_FLYPOINT_LAKE_OF_RAGE
-	iftrue .LoadFight1
-	loadtrainer POKEFANM, DEREK1
-	startbattle
-	reloadmapafterbattle
-	clearevent EVENT_DEREK_READY_FOR_REMATCH
-	end
+.HasNugget:
+	scall .Gift
+	verbosegiveitem NUGGET
+	iffalse .NoRoom
+	clearflag ENGINE_DEREK_HAS_NUGGET
+	sjump .NumberAccepted
 
-.LoadFight1:
-	loadtrainer POKEFANM, DEREK2
-	startbattle
-	reloadmapafterbattle
-	clearevent EVENT_DEREK_READY_FOR_REMATCH
-	end
+.NoRoom:
+	sjump .PackFull
 
-.LoadFight2:
-	loadtrainer POKEFANM, DEREK3
-	startbattle
-	reloadmapafterbattle
-	clearevent EVENT_DEREK_READY_FOR_REMATCH
+.WantsPikachu:
+	writetext PokefanMDerekPikachuIsItText
+	waitbutton
+	closetext
 	end
 
 .AskNumber1:
@@ -101,8 +94,12 @@ TrainerPokefanmDerek:
 	jumpstd PhoneFullMScript
 	end
 
-.Rematch:
-	jumpstd RematchMScript
+.Gift:
+	jumpstd GiftMScript
+	end
+
+.PackFull:
+	jumpstd PackFullMScript
 	end
 
 TrainerPokefanfRuth:
@@ -134,6 +131,36 @@ TrainerPsychicNorman:
 	endifjustbattled
 	opentext
 	writetext PsychicNormanAfterBattleText
+	waitbutton
+	closetext
+	end
+
+TrainerPokefanfJaime:
+	faceplayer
+	opentext
+	checktime NITE
+	iffalse .NotNight
+	checkevent EVENT_BEAT_POKEFANF_JAIME
+	iftrue .Beaten
+	writetext PokefanfJaimeSeenText
+	waitbutton
+	closetext
+	winlosstext PokefanfJaimeBeatenText, 0
+	loadtrainer POKEFANF, JAIME
+	startbattle
+	reloadmapafterbattle
+	setevent EVENT_BEAT_POKEFANF_JAIME
+	closetext
+	end
+
+.Beaten:
+	writetext PokefanfJaimeAfterBattleText
+	waitbutton
+	closetext
+	end
+
+.NotNight:
+	writetext PokefanfJaimeHopeItGetsDarkText
 	waitbutton
 	closetext
 	end
@@ -180,14 +207,14 @@ SailorEugeneAfterBattleText:
 	done
 
 PokefanmDerekSeenText:
-	text "Would you mind if"
-	line "I bragged about"
-	cont "my #MON?"
+	text "This is a good"
+	line "time to brag about"
+	cont "my PIKACHU!"
 	done
 
 PokefanmDerekBeatenText:
-	text "I couldn't begin"
-	line "to brag…"
+	text "I had no time to"
+	line "show off PIKACHU…"
 	done
 
 PokefanMDerekText_NotBragging:
@@ -223,6 +250,11 @@ PokefanfRuthAfterBattleText:
 	line "adorable!"
 	done
 
+PokefanMDerekPikachuIsItText:
+	text "PIKACHU is it!"
+	line "Don't you agree?"
+	done
+
 PsychicNormanSeenText:
 	text "Let me see what"
 	line "your #MON are"
@@ -243,6 +275,41 @@ PsychicNormanAfterBattleText:
 	line "that too. Every-"
 	cont "one has different"
 	cont "potential."
+	done
+
+PokefanfJaimeHopeItGetsDarkText:
+	text "Ufufufu… I hope it"
+	line "gets dark soon."
+	done
+
+PokefanfJaimeSeenText:
+	text "You came at just"
+	line "the right time."
+
+	para "Let's battle."
+	done
+
+PokefanfJaimeBeatenText:
+	text "Oh, how disap-"
+	line "pointing…"
+	done
+
+PokefanfJaimeAfterBattleText:
+	text "I met my MEOWTH at"
+	line "night, right here"
+	cont "on ROUTE 39."
+
+	para "I'm not sure why,"
+	line "but it seems to"
+
+	para "like it when I"
+	line "train here."
+
+	para "It seems to become"
+	line "friendlier by"
+
+	para "training here than"
+	line "anywhere else."
 	done
 
 Route39SignText:
@@ -291,11 +358,12 @@ Route39_MapEvents:
 
 	def_object_events
 	object_event 13, 29, SPRITE_SAILOR, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 5, TrainerSailorEugene, -1
-	object_event 11, 19, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerPokefanmDerek, -1
-	object_event 13, 22, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 5, TrainerPokefanfRuth, -1
+	object_event 10, 22, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerPokefanmDerek, -1
+	object_event 11, 19, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerPokefanfRuth, -1
 	object_event  3, 12, SPRITE_TAUROS, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route39Miltank, -1
 	object_event  6, 11, SPRITE_TAUROS, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route39Miltank, -1
 	object_event  4, 15, SPRITE_TAUROS, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route39Miltank, -1
 	object_event  8, 13, SPRITE_TAUROS, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route39Miltank, -1
-	object_event 13,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPsychicNorman, -1
+	object_event 13,  7, SPRITE_STANDING_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerPsychicNorman, -1
 	object_event  9,  3, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route39FruitTree, -1
+	object_event  4, 22, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, TrainerPokefanfJaime, -1

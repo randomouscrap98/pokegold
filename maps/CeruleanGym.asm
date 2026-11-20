@@ -79,8 +79,16 @@ CeruleanGymMistyScript:
 	setflag ENGINE_CASCADEBADGE
 .FightDone:
 	writetext MistyFightDoneText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue .MistyRematch
 	closetext
+	end
+
+.MistyRematch:
+	winlosstext Misty_RematchDefeat, 0
+	loadtrainer MISTY, MISTY1
+	startbattle
+	reloadmapafterbattle
 	end
 
 TrainerSwimmerfDiana:
@@ -281,6 +289,11 @@ MistyFightDoneText:
 
 	para "I can battle some"
 	line "skilled trainers."
+
+	para "But I can always"
+	line "battle you."
+
+	para "Wan't a rematch?"
 	done
 
 SwimmerfDianaSeenText:
@@ -381,3 +394,10 @@ CeruleanGym_MapEvents:
 	object_event  1,  9, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerSwimmerfBriana, EVENT_TRAINERS_IN_CERULEAN_GYM
 	object_event  8,  9, SPRITE_SWIMMER_GUY, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerSwimmermParker, EVENT_TRAINERS_IN_CERULEAN_GYM
 	object_event  7, 13, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeruleanGymGuideScript, EVENT_TRAINERS_IN_CERULEAN_GYM
+
+Misty_RematchDefeat:
+	text "MISTY: You're still"
+	line "holding up."
+	para "Don't get cocky"
+	line "though."
+	done

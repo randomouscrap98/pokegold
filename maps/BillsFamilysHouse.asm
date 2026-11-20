@@ -127,15 +127,17 @@ BillTakeThisEeveeText:
 	done
 
 BillImCountingOnYouText:
-	text "BILL: I knew it!"
-	line "Way to go, hero!"
+	text "BILL: I knew you'd"
+	line "come through!"
 
-	para "You're the real"
-	line "deal, dude!"
+	para "Way to go! You're"
+	line "the real deal!"
 
 	para "OK, I'm counting"
-	line "on you. Take good"
-	cont "care of it."
+	line "on you."
+
+	para "Take good care of"
+	line "it!"
 	done
 
 ReceivedEeveeText:
@@ -163,12 +165,14 @@ BillNoEeveeText:
 	done
 
 BillPopWontWorkText:
-	text "BILL: I used to"
-	line "experiment with a"
-	cont "TELEPORTER."
+	text "BILL: My pop, he"
+	line "won't work. All he"
 
-	para "I ought to do a"
-	line "follow-up."
+	para "does is goof off"
+	line "all day long."
+
+	para "He's getting to be"
+	line "a real headache…"
 	done
 
 BillsMomText_BeforeEcruteak:
@@ -176,16 +180,28 @@ BillsMomText_BeforeEcruteak:
 	line "#MON? My son"
 	cont "BILL is an expert."
 
-	para "He had to leave"
-	line "for the #MON"
+	para "He just got called"
+	line "to the #MON"
 
 	para "CENTER in ECRUTEAK"
 	line "CITY."
+
+	para "My husband went"
+	line "off to the GAME"
+
+	para "CORNER without"
+	line "being called…"
 	done
 
 BillsMomText_AfterEcruteak:
-	text "I am so glad to"
-	line "see my son again."
+	text "My husband was"
+	line "once known as a"
+
+	para "#MANIAC."
+	line "BILL must have"
+
+	para "taken after his"
+	line "father."
 	done
 
 BillsYoungerSisterUsefulNumberText:

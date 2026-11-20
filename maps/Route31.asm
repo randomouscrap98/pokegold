@@ -26,10 +26,13 @@ TrainerBugCatcherWade1:
 	trainer BUG_CATCHER, WADE1, EVENT_BEAT_BUG_CATCHER_WADE, BugCatcherWade1SeenText, BugCatcherWade1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_BUG_CATCHER_WADE
 	endifjustbattled
 	opentext
-	checkevent EVENT_WADE_READY_FOR_REMATCH
+	checkflag ENGINE_WADE_READY_FOR_REMATCH
 	iftrue .WadeRematch
+	checkflag ENGINE_WADE_HAS_ITEM
+	iftrue .WadeItem
 	checkcellnum PHONE_BUG_CATCHER_WADE
 	iftrue .AcceptedNumberSTD
 	checkevent EVENT_WADE_ASKED_FOR_PHONE_NUMBER
@@ -53,29 +56,93 @@ TrainerBugCatcherWade1:
 .WadeRematch:
 	scall .RematchSTD
 	winlosstext BugCatcherWade1BeatenText, 0
+	readmem wWadeFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_CLEARED_RADIO_TOWER
+	iftrue .LoadFight3
+.Fight2:
 	checkflag ENGINE_FLYPOINT_MAHOGANY
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_GOLDENROD
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer BUG_CATCHER, WADE1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_WADE_READY_FOR_REMATCH
+	loadmem wWadeFightCount, 1
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer BUG_CATCHER, WADE2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_WADE_READY_FOR_REMATCH
+	loadmem wWadeFightCount, 2
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer BUG_CATCHER, WADE3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_WADE_READY_FOR_REMATCH
+	loadmem wWadeFightCount, 3
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
 	end
+
+.LoadFight3:
+	loadtrainer BUG_CATCHER, WADE4
+	startbattle
+	reloadmapafterbattle
+	loadmem wWadeFightCount, 4
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer BUG_CATCHER, WADE5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
+	end
+
+.WadeItem:
+	scall .ItemSTD
+	checkevent EVENT_WADE_HAS_BERRY
+	iftrue .Berry
+	checkevent EVENT_WADE_HAS_PSNCUREBERRY
+	iftrue .Psncureberry
+	checkevent EVENT_WADE_HAS_PRZCUREBERRY
+	iftrue .Przcureberry
+	checkevent EVENT_WADE_HAS_BITTER_BERRY
+	iftrue .BitterBerry
+.Berry:
+	verbosegiveitem BERRY
+	iffalse .PackFull
+	sjump .Done
+.Psncureberry:
+	verbosegiveitem PSNCUREBERRY
+	iffalse .PackFull
+	sjump .Done
+.Przcureberry:
+	verbosegiveitem PRZCUREBERRY
+	iffalse .PackFull
+	sjump .Done
+.BitterBerry:
+	verbosegiveitem BITTER_BERRY
+	iffalse .PackFull
+.Done:
+	clearflag ENGINE_WADE_HAS_ITEM
+	sjump .AcceptedNumberSTD
+.PackFull:
+	sjump .PackFullSTD
 
 .AskPhoneNumberSTD:
 	jumpstd AskNumber1MScript
@@ -105,6 +172,13 @@ TrainerBugCatcherWade1:
 	jumpstd RematchMScript
 	end
 
+.ItemSTD:
+	jumpstd GiftMScript
+	end
+
+.PackFullSTD:
+	jumpstd PackFullMScript
+	end
 
 Route31MailRecipientScript:
 	faceplayer
@@ -185,8 +259,8 @@ Route31CooltrainerMScript:
 Route31FruitTree:
 	fruittree FRUITTREE_ROUTE_31
 
-Route31Antidote:
-	itemball ANTIDOTE
+Route31Potion:
+	itemball POTION
 
 Route31PokeBall:
 	itemball POKE_BALL
@@ -264,8 +338,8 @@ Text_Route31ReadingMail:
 	line "ing this to me."
 
 	para "My friend's a good"
-	line "guy, and you're a"
-	cont "swell guy too!"
+	line "guy, and you're"
+	cont "swell too!"
 
 	para "I'd like to do"
 	line "something good in"
@@ -358,8 +432,8 @@ Route31_MapEvents:
 	def_object_events
 	object_event 17,  7, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31MailRecipientScript, -1
 	object_event  9,  5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31YoungsterScript, -1
-	object_event 18, 15, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherWade1, -1
+	object_event 21, 13, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 5, TrainerBugCatcherWade1, -1
 	object_event 33,  8, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31CooltrainerMScript, -1
 	object_event 16,  7, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31FruitTree, -1
-	object_event 29,  5, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route31Antidote, EVENT_ROUTE_31_ANTIDOTE
-	object_event 21, 13, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route31PokeBall, EVENT_ROUTE_31_POKE_BALL
+	object_event 29,  5, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route31Potion, EVENT_ROUTE_31_POTION
+	object_event 19, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route31PokeBall, EVENT_ROUTE_31_POKE_BALL

@@ -1,6 +1,7 @@
 	object_const_def
 	const ROUTE35GOLDENRODGATE_RANDY
 	const ROUTE35GOLDENRODGATE_POKEFAN_F
+	const ROUTE35GOLDENRODGATE_FISHER
 
 Route35GoldenrodGate_MapScripts:
 	def_scene_scripts
@@ -72,6 +73,8 @@ GiftSpearowName:
 GiftSpearowOTName:
 	db "RANDY@"
 
+	db 0 ; unused
+
 Route35GoldenrodGatePokefanFScript:
 	faceplayer
 	opentext
@@ -88,8 +91,11 @@ Route35GoldenrodGatePokefanFScript:
 	closetext
 	end
 
+Route35GoldenrodGateFisherScript:
+	jumptextfaceplayer Route35GoldenrodGateFisherText
+
 Route35GoldenrodGateRandyAskTakeThisMonToMyFriendText:
-	text "Excuse me, guy!"
+	text "Excuse me, kid!"
 	line "Can you do a guy"
 	cont "a favor?"
 
@@ -102,7 +108,7 @@ Route35GoldenrodGateRandyAskTakeThisMonToMyFriendText:
 
 Route35GoldenrodGateRandyThanksText:
 	text "You will? Perfect!"
-	line "Thanks, guy!"
+	line "Thanks, kid!"
 
 	para "My pal's a chubby"
 	line "guy who snoozes"
@@ -141,7 +147,7 @@ Route35GoldenrodGateRandyOhNeverMindThenText:
 	done
 
 Route35GoldenrodGateRandySomethingForYourTroubleText:
-	text "Thanks, guy! You"
+	text "Thanks, kid! You"
 	line "made the delivery"
 	cont "for me!"
 
@@ -175,14 +181,28 @@ Route35GoldenrodGatePokefanFText_FoughtSudowoodo:
 	cont "on the radio."
 	done
 
+Route35GoldenrodGateFisherText:
+	text "I wonder how many"
+	line "kinds of #MON"
+
+	para "there are in the"
+	line "world."
+
+	para "Three years ago,"
+	line "PROF.OAK said that"
+
+	para "there were 150"
+	line "different kinds."
+	done
+
 Route35GoldenrodGate_MapEvents:
 	db 0, 0 ; filler
 
 	def_warp_events
 	warp_event  4,  0, ROUTE_35, 1
 	warp_event  5,  0, ROUTE_35, 2
-	warp_event  4,  7, GOLDENROD_CITY, 13
-	warp_event  5,  7, GOLDENROD_CITY, 13
+	warp_event  4,  7, GOLDENROD_CITY, 12
+	warp_event  5,  7, GOLDENROD_CITY, 12
 
 	def_coord_events
 
@@ -191,3 +211,4 @@ Route35GoldenrodGate_MapEvents:
 	def_object_events
 	object_event  0,  4, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, RandyScript, -1
 	object_event  6,  4, SPRITE_POKEFAN_F, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route35GoldenrodGatePokefanFScript, -1
+	object_event  3,  2, SPRITE_FISHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route35GoldenrodGateFisherScript, -1

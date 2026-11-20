@@ -274,6 +274,10 @@ DoPlayerMovement::
 	call CheckIceTile
 	jr nc, .ice
 
+; Perfect Crystal: hold B to run.
+	call .RunCheck
+	jr z, .fast
+
 ; Downhill riding is slower when not moving down.
 	call .BikeCheck
 	jr nz, .walk
@@ -730,6 +734,16 @@ ENDM
 	cp PLAYER_BIKE
 	ret z
 	cp PLAYER_SKATE
+	ret
+
+.RunCheck:
+; Return z if the player is walking and holding B.
+	ld a, [wPlayerState]
+	cp PLAYER_NORMAL
+	ret nz
+	ldh a, [hJoyDown]
+	and PAD_B
+	cp PAD_B
 	ret
 
 .CheckWalkable:

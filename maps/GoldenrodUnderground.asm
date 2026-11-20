@@ -464,10 +464,10 @@ SupernerdTeruAfterBattleText:
 
 PokemaniacIssacSeenText:
 	text "My #MON just"
-	line "got haircuts!"
+	line "got a haircut!"
 
 	para "I'll show you how"
-	line "strong they are!"
+	line "strong it is!"
 	done
 
 PokemaniacIssacBeatenText:

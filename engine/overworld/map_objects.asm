@@ -1114,6 +1114,7 @@ StepTypesJumptable:
 	dw StepFunction_16              ; 16
 	dw StepFunction_17              ; 17
 	dw StepFunction_Delete          ; 18
+	dw StepFunction_SkyfallTop      ; 19
 	assert_table_length NUM_STEP_TYPES
 
 WaitStep_InPlace:
@@ -1499,6 +1500,37 @@ StepFunction_Sleep:
 	add hl, bc
 	dec [hl]
 	ret nz
+	ld hl, OBJECT_STEP_TYPE
+	add hl, bc
+	ld [hl], STEP_TYPE_FROM_MOVEMENT
+	ret
+
+StepFunction_SkyfallTop:
+	call ObjectStep_AnonJumptable
+.anon_dw
+	dw .Init
+	dw .Run
+
+.Init:
+	ld hl, OBJECT_ACTION
+	add hl, bc
+	ld [hl], OBJECT_ACTION_SKYFALL
+	ld hl, OBJECT_STEP_DURATION
+	add hl, bc
+	ld [hl], 16
+	call ObjectStep_IncAnonJumptableIndex
+
+.Run:
+	ld hl, OBJECT_STEP_DURATION
+	add hl, bc
+	dec [hl]
+	ret nz
+	ld hl, OBJECT_SPRITE_Y_OFFSET
+	add hl, bc
+	ld [hl], $60
+	ld hl, OBJECT_STEP_FRAME
+	add hl, bc
+	ld [hl], 0
 	ld hl, OBJECT_STEP_TYPE
 	add hl, bc
 	ld [hl], STEP_TYPE_FROM_MOVEMENT

@@ -2,6 +2,20 @@
 
 KantoWaterWildMons:
 
+	def_water_wildmons TOHJO_FALLS
+	db 4 percent ; encounter rate
+	db 20, GOLDEEN
+	db 20, SLOWPOKE
+	db 20, SEAKING
+	end_water_wildmons
+
+	def_water_wildmons VERMILION_PORT
+	db 2 percent ; encounter rate
+	db 35, TENTACOOL
+	db 30, TENTACOOL
+	db 35, TENTACRUEL
+	end_water_wildmons
+
 	def_water_wildmons ROUTE_4
 	db 4 percent ; encounter rate
 	db 10, GOLDEEN
@@ -100,18 +114,11 @@ KantoWaterWildMons:
 	db 20, TENTACRUEL
 	end_water_wildmons
 
-	def_water_wildmons TOHJO_FALLS
-	db 4 percent ; encounter rate
-	db 20, GOLDEEN
-	db 20, SLOWPOKE
-	db 20, SEAKING
-	end_water_wildmons
-
 	def_water_wildmons ROUTE_28
 	db 2 percent ; encounter rate
-	db 40, POLIWAG
-	db 35, POLIWAG
-	db 40, POLIWHIRL
+	db 50, POLIWAG
+	db 45, POLIWAG
+	db 50, POLIWHIRL
 	end_water_wildmons
 
 	def_water_wildmons PALLET_TOWN
@@ -163,11 +170,18 @@ KantoWaterWildMons:
 	db 35, TENTACRUEL
 	end_water_wildmons
 
-	def_water_wildmons VERMILION_PORT
-	db 2 percent ; encounter rate
-	db 35, TENTACOOL
-	db 30, TENTACOOL
-	db 35, TENTACRUEL
+	def_water_wildmons CERULEAN_CAVE_1F ; Perfect Crystal
+	db 6 percent ; encounter rate
+	db 53, TENTACRUEL
+	db 55, SLOWBRO
+	db 51, OMASTAR
+	end_water_wildmons
+
+	def_water_wildmons CERULEAN_CAVE_B1 ; Perfect Crystal
+	db 6 percent ; encounter rate
+	db 53, GYARADOS
+	db 55, POLIWRATH
+	db 51, KABUTOPS
 	end_water_wildmons
 
 	db -1 ; end

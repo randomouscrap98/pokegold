@@ -1206,6 +1206,17 @@ _NPCTradeAfterText3::
 	line "so cute!"
 	done
 
+_NPCTradeCompleteText4::
+	text "Uh? What happened?"
+	done
+
+_NPCTradeAfterText4::
+	text "Trading is so odd…"
+
+	para "I still have a lot"
+	line "to learn about it."
+	done
+
 _MomLeavingText1::
 	text "Wow, that's a cute"
 	line "#MON."
@@ -1653,14 +1664,14 @@ _BoostedExpPointsText::
 	text_start
 	line "a boosted"
 	cont "@"
-	text_decimal wStringBuffer2, 2, 4
+	text_decimal wStringBuffer2, 2, 5
 	text " EXP. Points!"
 	prompt
 
 _ExpPointsText::
 	text_start
 	line "@"
-	text_decimal wStringBuffer2, 2, 4
+	text_decimal wStringBuffer2, 2, 5
 	text " EXP. Points!"
 	prompt
 

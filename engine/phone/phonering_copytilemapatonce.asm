@@ -6,7 +6,7 @@ PhoneRing_CopyTilemapAtOnce:
 	cp FALSE
 	jp z, WaitBGMap
 
-; The following is a modified version of CopyTilemapAtOnce
+; The following is a modified version of _CopyTilemapAtOnce
 ; that waits for [rLY] to be LY_VBLANK - 1 instead of $80 - 1.
 	ldh a, [hBGMapMode]
 	push af

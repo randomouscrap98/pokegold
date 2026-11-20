@@ -76,6 +76,7 @@ ChooseMonToLearnTMHM:
 	ld bc, MOVE_NAME_LENGTH - 1
 	call CopyBytes
 	call ClearBGPalettes
+ChooseMonToLearnTMHM_NoRefresh:
 	farcall LoadPartyMenuGFX
 	farcall InitPartyMenuWithCancel
 	farcall InitPartyMenuGFX
@@ -150,7 +151,7 @@ TeachTMHM:
 
 	ld c, HAPPINESS_LEARNMOVE
 	callfar ChangeHappiness
-	call ConsumeTM
+	; Perfect Crystal: TMs are reusable (ConsumeTM is no longer called)
 	jr .learned_move
 
 .nope
@@ -385,24 +386,7 @@ TMHM_DisplayPocketItems:
 	call PlaceString
 	pop hl
 	pop bc
-	ld a, c
-	push bc
-	cp NUM_TMS + 1
-	jr nc, .hm2
-	ld bc, SCREEN_WIDTH + 9
-	add hl, bc
-	ld [hl], '×'
-	inc hl
-	ld a, '0' ; why are we doing this?
-	pop bc
-	push bc
-	ld a, b
-	ld [wTempTMHM], a
-	ld de, wTempTMHM
-	lb bc, 1, 2
-	call PrintNum
-.hm2
-	pop bc
+	; Perfect Crystal: TMs are reusable, so their quantity isn't shown
 	pop de
 	pop hl
 	dec d

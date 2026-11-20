@@ -65,8 +65,13 @@ TrainerClassDVs:
 	dn  6,  8,  8, 10 ; KIMONO_GIRL
 	dn  6,  8, 10,  8 ; TWINS
 	dn  6, 13,  8,  8 ; POKEFANF
+if DEF(RED_LV100)
+	dn 15, 15, 15, 15 ; RED (Perfect Crystal: perfect DVs)
+else
 	dn 15, 13, 13, 14 ; RED
+endc
 	dn  9, 13, 13, 13 ; BLUE
 	dn  9,  8,  8,  8 ; OFFICER
 	dn  7, 14, 10,  8 ; GRUNTF
+	dn  9,  8,  8,  8 ; MYSTICALMAN
 	assert_table_length NUM_TRAINER_CLASSES

@@ -18,46 +18,46 @@ ElmPhoneCalleeScript:
 	iftrue .stolen
 	checkevent EVENT_GOT_MYSTERY_EGG_FROM_MR_POKEMON
 	iftrue .sawmrpokemon
-	writetext ElmPhoneHealYourMonText
+	farwritetext ElmPhoneHealYourMonText
 	end
 
 .sawmrpokemon
-	writetext ElmPhoneSawMrPokemonText
+	farwritetext ElmPhoneSawMrPokemonText
 	end
 
 .stolen
-	writetext ElmPhonePokemonStolenText
+	farwritetext ElmPhonePokemonStolenText
 	end
 
 .checkingegg
-	writetext ElmPhoneCheckingTheEggText
+	farwritetext ElmPhoneCheckingTheEggText
 	end
 
 .assistant
-	writetext ElmPhoneAssistantText
+	farwritetext ElmPhoneAssistantText
 	end
 
 .eggunhatched
-	writetext ElmPhoneHowIsTheEggText
+	farwritetext ElmPhoneHowIsTheEggText
 	end
 
 .egghatched
-	writetext ElmPhoneEggHatchedText
+	farwritetext ElmPhoneEggHatchedText
 	setevent EVENT_TOLD_ELM_ABOUT_TOGEPI_OVER_THE_PHONE
 	end
 
 .discovery
 	random 2
 	ifequal 0, .nextdiscovery
-	writetext ElmPhoneDiscoveredHatchTimeText
+	farwritetext ElmPhoneDiscoveredHatchTimeText
 	end
 
 .nextdiscovery
-	writetext ElmPhoneInvestigatingEggMovesText
+	farwritetext ElmPhoneInvestigatingEggMovesText
 	end
 
 .pokerus
-	writetext ElmPhoneDiscoveredPokerusText
+	farwritetext ElmPhoneDiscoveredPokerusText
 	specialphonecall SPECIALCALL_NONE
 	end
 
@@ -68,34 +68,34 @@ ElmPhoneCallerScript:
 	ifequal SPECIALCALL_WEIRDBROADCAST, .rocket
 	ifequal SPECIALCALL_SSTICKET, .gift
 	ifequal SPECIALCALL_MASTERBALL, .gift
-	writetext ElmPhoneDiscoveredPokerusText
+	farwritetext ElmPhoneDiscoveredPokerusText
 	specialphonecall SPECIALCALL_NONE
 	end
 
 .disaster
-	writetext ElmPhoneDisasterText
+	farwritetext ElmPhoneDisasterText
 	specialphonecall SPECIALCALL_NONE
 	setevent EVENT_ELM_CALLED_ABOUT_STOLEN_POKEMON
 	end
 
 .assistant
-	writetext ElmPhoneEggAssistantText
+	farwritetext ElmPhoneEggAssistantText
 	specialphonecall SPECIALCALL_NONE
 	clearevent EVENT_ELMS_AIDE_IN_VIOLET_POKEMON_CENTER
 	setevent EVENT_ELMS_AIDE_IN_LAB
 	end
 
 .rocket
-	writetext ElmPhoneRadioTowerRocketTakeoverText
+	farwritetext ElmPhoneRadioTowerRocketTakeoverText
 	specialphonecall SPECIALCALL_NONE
 	end
 
 .gift
-	writetext ElmPhoneGiftText
+	farwritetext ElmPhoneGiftText
 	specialphonecall SPECIALCALL_NONE
 	end
 
 .neat ; unreferenced
-	writetext ElmPhoneGotAholdOfSomethingNeatText
+	farwritetext ElmPhoneGotAholdOfSomethingNeatText
 	specialphonecall SPECIALCALL_NONE
 	end

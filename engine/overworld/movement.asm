@@ -76,7 +76,7 @@ MovementPointers:
 	dw Movement_step_wait_end         ; 48
 	dw Movement_remove_object         ; 49
 	dw Movement_step_loop             ; 4a
-	dw Movement_step_stop             ; 4b
+	dw Movement_stop                  ; 4b
 	dw Movement_teleport_from         ; 4c
 	dw Movement_teleport_to           ; 4d
 	dw Movement_skyfall               ; 4e
@@ -90,6 +90,7 @@ MovementPointers:
 	dw Movement_tree_shake            ; 56
 	dw Movement_rock_smash            ; 57
 	dw Movement_return_dig            ; 58
+	dw Movement_skyfall_top           ; 59
 	assert_table_length NUM_MOVEMENT_CMDS
 
 Movement_teleport_from:
@@ -108,6 +109,12 @@ Movement_skyfall:
 	ld hl, OBJECT_STEP_TYPE
 	add hl, bc
 	ld [hl], STEP_TYPE_SKYFALL
+	ret
+
+Movement_skyfall_top:
+	ld hl, OBJECT_STEP_TYPE
+	add hl, bc
+	ld [hl], STEP_TYPE_SKYFALL_TOP
 	ret
 
 Movement_step_dig:
@@ -242,7 +249,7 @@ Movement_remove_object:
 	res SCRIPTED_MOVEMENT_STATE_F, [hl]
 	ret
 
-Movement_step_stop:
+Movement_stop:
 	ld hl, OBJECT_ACTION
 	add hl, bc
 	ld [hl], OBJECT_ACTION_STAND

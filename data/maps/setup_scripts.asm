@@ -44,6 +44,7 @@ MapSetupScript_Warp:
 	mapsetup EnableLCD
 	mapsetup LoadMapPalettes
 	mapsetup SpawnInFacingDown
+	mapsetup InitMapNameSign ; Crystal
 	mapsetup RefreshMapSprites
 	mapsetup PlayMapMusicBike
 	mapsetup FadeInToMusic
@@ -69,6 +70,7 @@ MapSetupScript_BadWarp:
 	mapsetup LoadMapObjects
 	mapsetup LoadMapPalettes
 	mapsetup SpawnInFacingDown
+	mapsetup InitMapNameSign ; Crystal
 	mapsetup RefreshMapSprites
 	mapsetup FadeToMapMusic
 	mapsetup FadeInFromWhite
@@ -88,6 +90,7 @@ MapSetupScript_Connection:
 	mapsetup LoadMapObjects
 	mapsetup FadeToMapMusic
 	mapsetup LoadMapPalettes
+	mapsetup InitMapNameSign ; Crystal
 	mapsetup ApplyMapPalettes
 	mapsetup LoadWildMonData
 	mapsetup UpdateRoamMons
@@ -113,6 +116,7 @@ MapSetupScript_Train:
 	mapsetup EnableLCD
 	mapsetup LoadMapObjects
 	mapsetup LoadMapPalettes
+	mapsetup InitMapNameSign ; Crystal
 	mapsetup RefreshMapSprites
 	mapsetup FadeToMapMusic
 	mapsetup FadeInFromWhite
@@ -132,6 +136,7 @@ MapSetupScript_ReloadMap:
 	mapsetup LoadMapTimeOfDay
 	mapsetup EnableLCD
 	mapsetup LoadMapPalettes
+	mapsetup InitMapNameSign ; Crystal
 	mapsetup RefreshMapSprites
 	mapsetup ForceMapMusic
 	mapsetup FadeInFromWhite
@@ -150,6 +155,7 @@ MapSetupScript_LinkReturn:
 	mapsetup LoadMapTimeOfDay
 	mapsetup EnableLCD
 	mapsetup LoadMapPalettes
+	mapsetup InitMapNameSign ; Crystal
 	mapsetup RefreshMapSprites
 	mapsetup PlayMapMusicBike
 	mapsetup FadeInFromWhite
@@ -171,6 +177,7 @@ MapSetupScript_Continue:
 	mapsetup LoadMapTimeOfDay
 	mapsetup EnableLCD
 	mapsetup LoadMapPalettes
+	mapsetup InitMapNameSign ; Crystal
 	mapsetup RefreshMapSprites
 	mapsetup PlayMapMusicBike
 	mapsetup FadeInFromWhite

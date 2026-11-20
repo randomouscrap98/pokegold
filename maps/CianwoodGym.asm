@@ -68,9 +68,17 @@ CianwoodGymChuckScript:
 
 .AlreadyGotTM:
 	writetext ChuckAfterText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue .ChuckRematch
 .BagFull:
 	closetext
+	end
+
+.ChuckRematch:
+	winlosstext Chuck_RematchDefeat, 0
+	loadtrainer CHUCK, CHUCK1
+	startbattle
+	reloadmapafterbattle
 	end
 
 CianwoodGymActivateRockets:
@@ -236,6 +244,9 @@ ChuckAfterText:
 	para "From now on, I'm"
 	line "going to train 24"
 	cont "hours a day!"
+
+	para "But how about we"
+	line "spar right now?"
 	done
 
 BlackbeltYoshiSeenText:
@@ -299,8 +310,8 @@ BlackbeltLungBeatenText:
 
 BlackbeltLungAfterText:
 	text "My #MON lost…"
-	line "My pride is shat-"
-	cont "tered…"
+	line "My… my pride is"
+	cont "shattered…"
 	done
 
 CianwoodGym_MapEvents:
@@ -326,3 +337,8 @@ CianwoodGym_MapEvents:
 	object_event  3,  7, SPRITE_BOULDER, SPRITEMOVEDATA_STRENGTH_BOULDER, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodGymBoulder, -1
 	object_event  4,  7, SPRITE_BOULDER, SPRITEMOVEDATA_STRENGTH_BOULDER, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodGymBoulder, -1
 	object_event  5,  7, SPRITE_BOULDER, SPRITEMOVEDATA_STRENGTH_BOULDER, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodGymBoulder, -1
+
+Chuck_RematchDefeat:
+	text "I still need"
+	line "to train more…"
+	done

@@ -43,7 +43,6 @@ FindNest:
 	call .FindWater
 	call .RoamMon1
 	call .RoamMon2
-	call .RoamMon3
 	ret
 
 .kanto
@@ -167,22 +166,6 @@ FindNest:
 	ld a, [wRoamMon2MapGroup]
 	ld b, a
 	ld a, [wRoamMon2MapNumber]
-	ld c, a
-	call .AppendNest
-	ret nc
-	ld [de], a
-	inc de
-	ret
-
-.RoamMon3:
-	ld a, [wRoamMon3Species]
-	ld b, a
-	ld a, [wNamedObjectIndex]
-	cp b
-	ret nz
-	ld a, [wRoamMon3MapGroup]
-	ld b, a
-	ld a, [wRoamMon3MapNumber]
 	ld c, a
 	call .AppendNest
 	ret nc
@@ -430,10 +413,32 @@ _JohtoWildmonCheck:
 
 _SwarmWildmonCheck:
 	call CopyCurrMapDE
-	ld a, [wSwarmMapGroup]
+	push hl
+	ld hl, wSwarmFlags
+	bit SWARMFLAGS_DUNSPARCE_SWARM_F, [hl]
+	pop hl
+	jr z, .CheckYanma
+	ld a, [wDunsparceMapGroup]
+	cp d
+	jr nz, .CheckYanma
+	ld a, [wDunsparceMapNumber]
+	cp e
+	jr nz, .CheckYanma
+	call LookUpWildmonsForMapDE
+	jr nc, .noSwarm
+	scf
+	ret
+
+.CheckYanma:
+	push hl
+	ld hl, wSwarmFlags
+	bit SWARMFLAGS_YANMA_SWARM_F, [hl]
+	pop hl
+	jr z, .noSwarm
+	ld a, [wYanmaMapGroup]
 	cp d
 	jr nz, .noSwarm
-	ld a, [wSwarmMapNumber]
+	ld a, [wYanmaMapNumber]
 	cp e
 	jr nz, .noSwarm
 	call LookUpWildmonsForMapDE
@@ -493,14 +498,11 @@ InitRoamMons:
 	ld [wRoamMon1Species], a
 	ld a, ENTEI
 	ld [wRoamMon2Species], a
-	ld a, SUICUNE
-	ld [wRoamMon3Species], a
 
 ; level
 	ld a, 40
 	ld [wRoamMon1Level], a
 	ld [wRoamMon2Level], a
-	ld [wRoamMon3Level], a
 
 ; raikou starting map
 	ld a, GROUP_ROUTE_42
@@ -514,17 +516,10 @@ InitRoamMons:
 	ld a, MAP_ROUTE_37
 	ld [wRoamMon2MapNumber], a
 
-; suicune starting map
-	ld a, GROUP_ROUTE_38
-	ld [wRoamMon3MapGroup], a
-	ld a, MAP_ROUTE_38
-	ld [wRoamMon3MapNumber], a
-
 ; hp
 	xor a ; generate new stats
 	ld [wRoamMon1HP], a
 	ld [wRoamMon2HP], a
-	ld [wRoamMon3HP], a
 
 	ret
 
@@ -541,7 +536,7 @@ CheckEncounterRoamMon:
 	jr nc, .DontEncounterRoamMon
 	and %00000011 ; Of that, a 3/4 chance.  Running total: 75/256, or around 29.3%.
 	jr z, .DontEncounterRoamMon
-	dec a ; 1/3 chance that it's Entei, 1/3 chance that it's Raikou, 1/3 chance that it's Suicune
+	dec a ; 1/3 chance that it's Entei, 1/3 chance that it's Raikou
 ; Compare its current location with yours
 	ld hl, wRoamMon1MapGroup
 	ld c, a
@@ -786,6 +781,7 @@ RandomUnseenWildMon:
 	jr nc, .done
 
 .GetGrassmon:
+; BUG: RandomUnseenWildMon always picks a morning Pokémon species (see docs/bugs_and_glitches.md)
 	push hl
 	ld bc, 5 + 4 * 2 ; Location of the level of the 5th wild Pokemon in that map
 	add hl, bc

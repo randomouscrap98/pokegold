@@ -54,11 +54,15 @@ LavenderPokecenter1FTeacherText:
 	done
 
 LavenderPokecenter1FYoungsterText:
-	text "The RADIO STATION"
-	line "can't broadcast"
+	text "If the POWER PLANT"
+	line "isn't running, the"
 
-	para "because the POWER"
-	line "PLANT is down."
+	para "MAGNET TRAIN won't"
+	line "run either…"
+
+	para "It also means the"
+	line "RADIO STATION"
+	cont "can't broadcast…"
 	done
 
 LavenderPokecenter1FYoungsterText_ReturnedMachinePart:

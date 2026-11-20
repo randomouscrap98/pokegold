@@ -56,6 +56,7 @@ DoSpriteAnimFrame:
 	dw AnimSeq_FlyLeaf
 	dw AnimSeq_FlyTo
 	dw AnimSeq_GSIntroHoOhLugia
+	dw SpriteAnimFunc_Celebi ; Crystal
 	assert_table_length NUM_SPRITE_ANIM_FUNCS
 
 AnimSeq_Null:
@@ -1477,4 +1478,8 @@ AnimSeqs_Sine:
 
 AnimSeqs_Cosine:
 	call Sprites_Cosine
+	ret
+
+SpriteAnimFunc_Celebi: ; Crystal
+	farcall UpdateCelebiPosition
 	ret

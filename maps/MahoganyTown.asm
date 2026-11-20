@@ -140,9 +140,10 @@ MahoganyTownRageCandyBarMerchantReturnsMovement:
 	step_end
 
 RageCandyBarMerchantTryOneText:
-	text "Hi, sonny boy! I"
-	line "see you're new in"
-	cont "MAHOGANY TOWN."
+	text "Hiya, kid!"
+
+	para "I see you're new"
+	line "in MAHOGANY TOWN."
 
 	para "Since you're new,"
 	line "you should try a"
@@ -179,7 +180,7 @@ RageCandyBarMerchantSoldOutText:
 
 	para "I'm packing up."
 	line "Don't bother me,"
-	cont "sonny boy."
+	cont "kiddo."
 	done
 
 MahoganyTownGrampsText:
@@ -228,8 +229,8 @@ MahoganyTownSignText:
 	done
 
 MahoganyTownRagecandybarSignText:
-	text "While Visiting"
-	line "MAHOGANY TOWN, Try"
+	text "While visiting"
+	line "MAHOGANY TOWN, try"
 	cont "a RAGECANDYBAR!"
 	done
 

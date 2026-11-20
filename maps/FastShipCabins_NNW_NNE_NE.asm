@@ -179,7 +179,7 @@ PokemaniacEthanAfterBattleText:
 
 	para "I want to check"
 	line "out JOHTO's radio"
-	cont "stations!"
+	cont "programs!"
 	done
 
 HikerNolandSeenText:
@@ -239,8 +239,8 @@ GentlemanEdwardBeatenText:
 	done
 
 GentlemanEdwardAfterBattleText:
-	text "I give up. Son,"
-	line "you don't have to"
+	text "I give up."
+	line "You don't have to"
 
 	para "look. Just forget"
 	line "about it!"

@@ -13,7 +13,12 @@ SaffronPokecenter1FNurseScript:
 	jumpstd PokecenterNurseScript
 
 SaffronPokecenter1FTeacherScript:
+	special CheckMobileAdapterStatusSpecial
+	iftrue .mobile
 	jumptextfaceplayer SaffronPokecenter1FTeacherText
+
+.mobile
+	jumptextfaceplayer SaffronPokecenter1FTeacherMobileText
 
 SaffronPokecenter1FFisherScript:
 	faceplayer
@@ -35,9 +40,37 @@ SaffronPokecenter1FYoungsterScript:
 	jumptextfaceplayer SaffronPokecenter1FYoungsterText
 
 SaffronPokecenter1FTeacherText:
-	text "There's a huge"
-	line "POWER PLANT north"
-	cont "of LAVENDER TOWN."
+	text "What are JOHTO's"
+	line "#MON CENTERS"
+	cont "like?"
+
+	para "…Oh, I see. So"
+	line "they're not much"
+
+	para "different from the"
+	line "ones in KANTO."
+
+	para "I can go to JOHTO"
+	line "without worrying,"
+	cont "then!"
+	done
+
+SaffronPokecenter1FTeacherMobileText:
+	text "What are JOHTO's"
+	line "#MON CENTERS"
+	cont "like?"
+
+	para "…Oh, I see."
+	line "So they let you"
+
+	para "link with people"
+	line "far away?"
+
+	para "Then I'll get my"
+	line "friend in JOHTO to"
+
+	para "catch a MARILL and"
+	line "trade it to me!"
 	done
 
 SaffronPokecenter1FFisherText:
@@ -54,11 +87,8 @@ SaffronPokecenter1FFisherReturnedMachinePartText:
 	line "easily."
 
 	para "Several caves have"
-	line "disappeared in the"
-
-	para "past few years,"
-	line "like the one out-"
-	cont "side CERULEAN."
+	line "shrunk in the"
+	cont "past few years."
 
 	para "As a pro HIKER,"
 	line "that's common"

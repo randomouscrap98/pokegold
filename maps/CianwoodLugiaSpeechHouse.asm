@@ -47,11 +47,16 @@ CianwoodLugiaSpeechHouseLassText:
 	done
 
 CianwoodLugiaSpeechHouseTwinText:
-	text "The whirlpools"
-	line "around the islands"
+	text "I've heard that"
+	line "the whirlpools"
 
-	para "must be caused by"
-	line "the sea creature."
+	para "around the islands"
+	line "are caused by the"
+	cont "sea creature."
+
+	para "You might need a"
+	line "special move to"
+	cont "get past them."
 	done
 
 CianwoodLugiaSpeechHouse_MapEvents:

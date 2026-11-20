@@ -199,10 +199,10 @@ ViridianGymSignText:
 	done
 
 ViridianCityWelcomeSignText:
-	text "Welcome to"
+	text "WELCOME TO"
 	line "VIRIDIAN CITY,"
 
-	para "the Gateway to"
+	para "THE GATEWAY TO"
 	line "INDIGO PLATEAU"
 	done
 

@@ -66,6 +66,12 @@ DEF STRING_BUFFER_LENGTH EQU 19
 	const VAR_XCOORD           ; 12
 	const VAR_YCOORD           ; 13
 	const VAR_SPECIALPHONECALL ; 14
+	const VAR_BT_WIN_STREAK    ; 15 (Battle Tower not ported)
+	const VAR_KURT_APRICORNS   ; 16
+	const VAR_CALLERID         ; 17
+	const VAR_BLUECARDBALANCE  ; 18
+	const VAR_BUENASPASSWORD   ; 19
+	const VAR_KENJI_BREAK      ; 1a
 DEF NUM_VARS EQU const_value
 
 ; variable action types
@@ -302,3 +308,25 @@ DEF BUG_CONTESTANT_SIZE EQU 4
 	const UNOWNPUZZLE_AERODACTYL ; 2
 	const UNOWNPUZZLE_HO_OH      ; 3
 DEF NUM_UNOWN_PUZZLES EQU const_value
+
+; MoveTutor setval arguments
+	const_def 1
+	const MOVETUTOR_FLAMETHROWER ; 1
+	const MOVETUTOR_THUNDERBOLT  ; 2
+	const MOVETUTOR_ICE_BEAM     ; 3
+
+; Crystal additions
+; StoreSwarmMapIndices arguments
+	const_def
+	const SWARM_DUNSPARCE ; 0
+	const SWARM_YANMA     ; 1
+
+; DisplayUnownWords setval arguments
+; UnownWalls and MenuHeaders_UnownWalls indexes (see data/events/unown_walls.asm)
+	const_def
+	const UNOWNWORDS_ESCAPE ; 0
+	const UNOWNWORDS_LIGHT  ; 1
+	const UNOWNWORDS_WATER  ; 2
+	const UNOWNWORDS_HO_OH  ; 3
+DEF NUM_UNOWN_WALLS EQU const_value
+DEF UNOWN_WALL_MENU_HEADER_SIZE EQU 5

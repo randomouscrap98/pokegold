@@ -323,34 +323,39 @@ RadioTower1FRadioCardWomanOfferQuizText:
 RadioTower1FRadioCardWomanQuestion1Text:
 	text "Question 1:"
 
-	para "Can the TOWN MAP"
-	line "be displayed on a"
-	cont "#GEAR?"
+	para "Is there a #MON"
+	line "that appears only"
+	cont "in the morning?"
 	done
 
 RadioTower1FRadioCardWomanQuestion2Text:
 	text "Correct!"
 	line "Question 2:"
 
-	para "Can NIDORINA be"
-	line "female only?"
+	para "Is this statement"
+	line "correct?"
+
+	para "You can't buy a"
+	line "BERRY at a MART."
 	done
 
 RadioTower1FRadioCardWomanQuestion3Text:
 	text "Bull's-eye!"
 	line "Question 3:"
 
-	para "Does KURT, the"
-	line "# BALL crafts-"
-	cont "man, use APRIKORN?"
+	para "Does HM01 contain"
+	line "the move FLASH?"
 	done
 
 RadioTower1FRadioCardWomanQuestion4Text:
 	text "So far so good!"
 	line "Question 4:"
 
-	para "MAGIKARP won't"
-	line "learn any TM move?"
+	para "Is FALKNER the"
+	line "VIOLET GYM LEADER"
+
+	para "who uses bird"
+	line "#MON?"
 	done
 
 RadioTower1FRadioCardWomanQuestion5Text:
@@ -358,12 +363,11 @@ RadioTower1FRadioCardWomanQuestion5Text:
 	line "Here's the final"
 	cont "question:"
 
-	para "PROF.OAK'S #MON"
-	line "TALK is a very"
-	cont "popular program."
+	para "Do GOLDENROD GAME"
+	line "CORNER's slots"
 
-	para "Is MARIE the co-"
-	line "host of the show?"
+	para "have CHARMANDER"
+	line "on their reels?"
 	done
 
 RadioTower1FRadioCardWomanYouWinText:
@@ -395,8 +399,8 @@ RadioTower1FRadioCardWomanWrongAnswerText:
 
 RadioTower1FRadioCardWomanNotTakingQuizText:
 	text "Oh. I see. Please"
-	line "try if you change"
-	cont "your mind."
+	line "see me if you"
+	cont "change your mind."
 	done
 
 RadioTower1FLassText:
@@ -470,8 +474,8 @@ RadioTower1F_MapEvents:
 	db 0, 0 ; filler
 
 	def_warp_events
-	warp_event  2,  7, GOLDENROD_CITY, 12
-	warp_event  3,  7, GOLDENROD_CITY, 12
+	warp_event  2,  7, GOLDENROD_CITY, 11
+	warp_event  3,  7, GOLDENROD_CITY, 11
 	warp_event 15,  0, RADIO_TOWER_2F, 2
 
 	def_coord_events

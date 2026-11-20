@@ -194,10 +194,10 @@ EatathonContestPosterText:
 	done
 
 FoundLeftoversText:
-	text "<PLAYER> found a"
+	text "<PLAYER> found"
 	line "@"
 	text_ram wStringBuffer3
-	text "."
+	text "!"
 	done
 
 NoRoomForLeftoversText:

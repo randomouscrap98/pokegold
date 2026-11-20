@@ -1,6 +1,6 @@
 	object_const_def
-	const BILLSOlderSisterSHOUSE_POKEFAN_F
-	const BILLSOlderSisterSHOUSE_YOUNGSTER
+	const BILLSOLDERSISTERSHOUSE_POKEFAN_F
+	const BILLSOLDERSISTERSHOUSE_YOUNGSTER
 
 BillsOlderSistersHouse_MapScripts:
 	def_scene_scripts

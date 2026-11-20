@@ -38,7 +38,13 @@ SaffronMagnetTrainStationOfficerScript:
 	special MagnetTrain
 	warpcheck
 	newloadmap MAPSETUP_TRAIN
+	applymovement PLAYER, .MovementBoardTheTrain
+	wait 20
 	end
+
+.MovementBoardTheTrain:
+	turn_head DOWN
+	step_end
 
 .PassNotInBag:
 	writetext SaffronMagnetTrainStationOfficerYouDontHaveAPassText
@@ -137,7 +143,7 @@ SaffronMagnetTrainStationOfficerRightThisWayText:
 	line "rail PASS, please?"
 
 	para "OK. Right this"
-	line "way, sir."
+	line "way, please."
 	done
 
 SaffronMagnetTrainStationOfficerYouDontHaveAPassText:

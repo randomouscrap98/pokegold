@@ -149,13 +149,17 @@ CeruleanCityHiddenBerserkGene:
 
 CeruleanCityCooltrainerMText1:
 	text "KANTO's POWER"
-	line "PLANT is toward"
+	line "PLANT?"
 
-	para "the end of ROUTE"
-	line "9. There was an"
+	para "It's near the end"
+	line "of ROUTE 9, the"
 
-	para "accident of some"
-	line "sort there."
+	para "road that heads"
+	line "east from here."
+
+	para "I think there was"
+	line "an accident of"
+	cont "some sort there."
 	done
 
 CeruleanCityCooltrainerMText2:
@@ -208,8 +212,9 @@ CeruleanCityFisherRocketTipText:
 	done
 
 CeruleanCityYoungsterText1:
-	text "There used to be a"
-	line "cave here that had"
+	text "I heard a rumor"
+	line "that the cave over"
+	cont "there has a"
 
 	para "horribly powerful"
 	line "#MON in it."
@@ -262,11 +267,19 @@ CeruleanPoliceSignText:
 
 CeruleanCapeSignText:
 	text "CERULEAN CAPE"
-	line "Ahead"
+	line "AHEAD"
 	done
 
 CeruleanLockedDoorText:
 	text "It's locked…"
+	done
+
+CeruleanCityCaveGuardScript: ; Perfect Crystal
+	jumptextfaceplayer CeruleanCityCaveGuardText
+
+CeruleanCityCaveGuardText:
+	text "This cave is"
+	line "very dangerous."
 	done
 
 CeruleanCity_MapEvents:
@@ -279,6 +292,7 @@ CeruleanCity_MapEvents:
 	warp_event 19, 21, CERULEAN_POKECENTER_1F, 1
 	warp_event 30, 23, CERULEAN_GYM, 1
 	warp_event 25, 29, CERULEAN_MART, 2
+	warp_event  2, 13, CERULEAN_CAVE_1F, 1 ; Perfect Crystal
 
 	def_coord_events
 
@@ -291,7 +305,7 @@ CeruleanCity_MapEvents:
 	bg_event 14, 29, BGEVENT_READ, CeruleanLockedDoor
 	bg_event 20, 21, BGEVENT_READ, CeruleanCityPokecenterSign
 	bg_event 26, 29, BGEVENT_READ, CeruleanCityMartSign
-	bg_event  2, 12, BGEVENT_ITEM, CeruleanCityHiddenBerserkGene
+	bg_event  2, 17, BGEVENT_ITEM, CeruleanCityHiddenBerserkGene
 
 	def_object_events
 	object_event 15, 23, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeruleanCityCooltrainerMScript, -1
@@ -300,3 +314,4 @@ CeruleanCity_MapEvents:
 	object_event 21, 24, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CeruleanCityCooltrainerFScript, -1
 	object_event 30, 26, SPRITE_FISHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CeruleanCityFisherScript, -1
 	object_event  6, 12, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CeruleanCityYoungsterScript, -1
+	object_event  2, 14, SPRITE_BLACK_BELT, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeruleanCityCaveGuardScript, EVENT_OPENED_MT_SILVER ; Perfect Crystal

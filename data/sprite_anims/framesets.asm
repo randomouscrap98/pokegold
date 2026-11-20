@@ -57,6 +57,9 @@ SpriteAnimFrameData:
 	dw .Frameset_EggHatch4
 	dw .Frameset_GSIntroHoOhLugia
 	dw .Frameset_HeadbuttTree
+	dw .Frameset_BlueWalk ; Crystal
+	dw .Frameset_CelebiLeft
+	dw .Frameset_CelebiRight
 	assert_table_length NUM_SPRITE_ANIM_FRAMESETS
 
 .Frameset_00:
@@ -401,3 +404,20 @@ ENDC
 	oamframe SPRITE_ANIM_OAMSET_TREE_1,           2
 	oamframe SPRITE_ANIM_OAMSET_HEADBUTT_TREE_2,  2, B_OAM_XFLIP
 	oamrestart
+
+.Frameset_BlueWalk: ; Crystal
+	oamframe SPRITE_ANIM_OAMSET_BLUE_WALK_1,  8
+	oamframe SPRITE_ANIM_OAMSET_BLUE_WALK_2,  8
+	oamframe SPRITE_ANIM_OAMSET_BLUE_WALK_1,  8
+	oamframe SPRITE_ANIM_OAMSET_BLUE_WALK_2,  8, B_OAM_XFLIP
+	oamrestart
+
+.Frameset_CelebiLeft:
+	oamframe SPRITE_ANIM_OAMSET_CELEBI_1,  8
+	oamframe SPRITE_ANIM_OAMSET_CELEBI_2,  8
+	oamend
+
+.Frameset_CelebiRight:
+	oamframe SPRITE_ANIM_OAMSET_CELEBI_1,  8, B_OAM_XFLIP
+	oamframe SPRITE_ANIM_OAMSET_CELEBI_2,  8, B_OAM_XFLIP
+	oamend

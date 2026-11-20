@@ -50,6 +50,16 @@ TrainerCard:
 	ld a, BANK(ChrisPicAndTrainerCardGFX)
 	call FarCopyBytes
 
+	ld a, [wPlayerGender] ; Crystal: Kris's card pic
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .got_card_pic
+	ld hl, KrisCardPic
+	ld de, vTiles2
+	ld bc, 35 tiles
+	ld a, BANK(KrisCardPic)
+	call FarCopyBytes
+.got_card_pic
+
 	ld hl, CardStatusGFX
 	ld de, vTiles2 tile $29
 	ld bc, 86 tiles

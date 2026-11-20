@@ -48,7 +48,7 @@ CeladonDeptStore2FPokefanMText:
 	done
 
 CeladonDeptStore2FYoungsterText:
-	text "My Dad's having a"
+	text "My dad's having a"
 	line "hard time learning"
 
 	para "the names of items"

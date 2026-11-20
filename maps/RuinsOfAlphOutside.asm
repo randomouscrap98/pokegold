@@ -68,6 +68,37 @@ RuinsOfAlphOutsideScientistSceneContinue:
 	warpcheck
 	end
 
+RuinsOfAlphOutsideFisherScript:
+	faceplayer
+	opentext
+	checkevent EVENT_TALKED_TO_RUINS_COWARD
+	iftrue .Next
+	setevent EVENT_TALKED_TO_RUINS_COWARD
+	writetext RuinsOfAlphOutsideFisherText1
+	promptbutton
+.Next:
+	writetext RuinsOfAlphOutsideFisherText2
+	waitbutton
+	closetext
+	end
+
+RuinsOfAlphOutsideYoungster1Script:
+	faceplayer
+	opentext
+	writetext RuinsOfAlphOutsideYoungster1Text
+	waitbutton
+	closetext
+	end
+
+RuinsOfAlphOutsideYoungster2Script:
+	faceplayer
+	opentext
+	writetext RuinsOfAlphOutsideYoungster2Text
+	waitbutton
+	closetext
+	turnobject RUINSOFALPHOUTSIDE_YOUNGSTER3, UP
+	end
+
 TrainerPsychicNathan:
 	trainer PSYCHIC_T, NATHAN, EVENT_BEAT_PSYCHIC_NATHAN, PsychicNathanSeenText, PsychicNathanBeatenText, 0, .Script
 
@@ -79,13 +110,13 @@ TrainerPsychicNathan:
 	closetext
 	end
 
-TrainerSuperNerdEricUnused: ; unreferenced
-	trainer SUPER_NERD, ERIC_UNUSED, EVENT_BEAT_SUPER_NERD_ERIC_UNUSED, SuperNerdEricUnusedSeenText, SuperNerdEricUnusedBeatenText, 0, .Script
+TrainerSuperNerdStan: ; unreferenced
+	trainer SUPER_NERD, STAN, EVENT_BEAT_SUPER_NERD_STAN, SuperNerdStanSeenText, SuperNerdStanBeatenText, 0, .Script
 
 .Script:
 	endifjustbattled
 	opentext
-	writetext SuperNerdEricUnusedAfterBattleText
+	writetext SuperNerdStanAfterBattleText
 	waitbutton
 	closetext
 	end
@@ -145,13 +176,13 @@ RuinsOfAlphOutsideScientistText:
 	cont "DEX. Follow me."
 	done
 
-SuperNerdEricUnusedSeenText:
+SuperNerdStanSeenText:
 	text "What do you want?"
 	line "I'm studying--"
 	cont "don't disturb me!"
 	done
 
-SuperNerdEricUnusedBeatenText:
+SuperNerdStanBeatenText:
 	text "Sorry…"
 	line "I'm frustrated by"
 
@@ -159,7 +190,7 @@ SuperNerdEricUnusedBeatenText:
 	line "understanding…"
 	done
 
-SuperNerdEricUnusedAfterBattleText:
+SuperNerdStanAfterBattleText:
 	text "The RUINS are from"
 	line "about 1500 years"
 	cont "ago."
@@ -197,15 +228,54 @@ RuinsOfAlphOutsideMysteryChamberSignText:
 
 RuinsOfAlphSignText:
 	text "RUINS OF ALPH"
-	line "Visitors Welcome"
+	line "VISITORS WELCOME"
 	done
 
 RuinsOfAlphResearchCenterSignText:
 	text "RUINS OF ALPH"
 	line "RESEARCH CENTER"
 
-	para "The Authority on"
-	line "the RUINS OF ALPH"
+	para "THE AUTHORITY ON"
+	line "THE RUINS OF ALPH"
+	done
+
+RuinsOfAlphOutsideFisherText1:
+	text "While exploring"
+	line "the RUINS, we"
+
+	para "suddenly noticed"
+	line "an odd presence."
+
+	para "We all got scared"
+	line "and ran away."
+
+	para "You should be"
+	line "careful too."
+	done
+
+RuinsOfAlphOutsideFisherText2:
+	text "The RUINS hide a"
+	line "huge secret!"
+
+	para "…I think…"
+	done
+
+RuinsOfAlphOutsideYoungster1Text:
+	text "There are many"
+	line "kinds of UNOWN, so"
+
+	para "we use them for"
+	line "our secret codes."
+	done
+
+RuinsOfAlphOutsideYoungster2Text:
+	text "A… H… E… A… D…"
+	line "Hmm…"
+
+	para "What?"
+
+	para "I'm decoding this"
+	line "message!"
 	done
 
 RuinsOfAlphOutside_MapEvents:
@@ -236,3 +306,6 @@ RuinsOfAlphOutside_MapEvents:
 	def_object_events
 	object_event  4, 20, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 1, TrainerPsychicNathan, -1
 	object_event 11, 15, SPRITE_SCIENTIST, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphOutsideScientistScript, EVENT_RUINS_OF_ALPH_OUTSIDE_SCIENTIST
+	object_event 13, 17, SPRITE_FISHER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphOutsideFisherScript, EVENT_RUINS_OF_ALPH_OUTSIDE_TOURIST_FISHER
+	object_event 14, 11, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphOutsideYoungster1Script, EVENT_RUINS_OF_ALPH_OUTSIDE_TOURIST_YOUNGSTERS
+	object_event 12,  8, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, RuinsOfAlphOutsideYoungster2Script, EVENT_RUINS_OF_ALPH_OUTSIDE_TOURIST_YOUNGSTERS

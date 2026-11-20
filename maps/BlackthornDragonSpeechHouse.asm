@@ -25,11 +25,18 @@ BlackthornDragonSpeechHouseMagazineBookshelf: ; unreferenced
 	jumpstd MagazineBookshelfScript
 
 BlackthornDragonSpeechHouseGrannyText:
-	text "CLAIR and LANCE"
-	line "trained here to"
+	text "A clan of trainers"
+	line "who can freely"
 
-	para "hone their skills"
-	line "as trainers."
+	para "command dragons"
+	line "live right here in"
+	cont "BLACKTHORN."
+
+	para "As a result, there"
+	line "are many legends"
+
+	para "about dragons in"
+	line "this town."
 	done
 
 BlackthornDragonSpeechHouseDratiniText:

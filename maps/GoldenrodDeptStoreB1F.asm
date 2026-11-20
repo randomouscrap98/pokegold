@@ -80,7 +80,7 @@ GoldenrodDeptStoreB1FBlackBelt1Text:
 	para "Our policy is to"
 	line "work behind the"
 
-	para "scenes where no-"
+	para "scenes where no"
 	line "one can see us!"
 	done
 

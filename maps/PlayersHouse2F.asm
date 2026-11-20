@@ -29,6 +29,26 @@ PlayersHouse2FSetUpTileDecorationsCallback:
 	special ToggleMaptileDecorations
 	endcallback
 
+	db 0, 0, 0 ; unused
+
+PlayersHouseDoll1Script::
+	describedecoration DECODESC_LEFT_DOLL
+
+PlayersHouseDoll2Script:
+	describedecoration DECODESC_RIGHT_DOLL
+
+PlayersHouseBigDollScript:
+	describedecoration DECODESC_BIG_DOLL
+
+PlayersHouseGameConsoleScript:
+	describedecoration DECODESC_CONSOLE
+
+PlayersHousePosterScript:
+	conditional_event EVENT_PLAYERS_ROOM_POSTER, .Script
+
+.Script:
+	describedecoration DECODESC_POSTER
+
 PlayersHouseRadioScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue .NormalRadio
@@ -71,24 +91,6 @@ PlayersHousePCScript:
 .Warp:
 	warp NONE, 0, 0
 	end
-
-PlayersHousePosterScript:
-	conditional_event EVENT_PLAYERS_ROOM_POSTER, .Script
-
-.Script:
-	describedecoration DECODESC_POSTER
-
-PlayersHouseDoll1Script:
-	describedecoration DECODESC_LEFT_DOLL
-
-PlayersHouseDoll2Script:
-	describedecoration DECODESC_RIGHT_DOLL
-
-PlayersHouseBigDollScript:
-	describedecoration DECODESC_BIG_DOLL
-
-PlayersHouseGameConsoleScript:
-	describedecoration DECODESC_CONSOLE
 
 PlayersRadioText1:
 	text "PROF.OAK'S #MON"

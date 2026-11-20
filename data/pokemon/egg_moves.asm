@@ -1,12 +1,19 @@
 SECTION "Egg Moves", ROMX
 
+; All instances of Charm, Steel Wing, Sweet Scent, and Lovely Kiss were
+; removed from egg move lists in Crystal.
+; Sweet Scent and Steel Wing were redundant since they're TMs, and
+; Charm and Lovely Kiss were unobtainable.
+
+; Staryu's egg moves were removed in Crystal, because Staryu is genderless
+; and can only breed with Ditto.
+
 INCLUDE "data/pokemon/egg_move_pointers.asm"
 
 BulbasaurEggMoves:
 	db LIGHT_SCREEN
 	db SKULL_BASH
 	db SAFEGUARD
-	db CHARM
 	db RAZOR_WIND
 	db PETAL_DANCE
 	db -1 ; end
@@ -33,7 +40,6 @@ PidgeyEggMoves:
 	db PURSUIT
 	db FAINT_ATTACK
 	db FORESIGHT
-	db STEEL_WING
 	db -1 ; end
 
 RattataEggMoves:
@@ -58,6 +64,7 @@ EkansEggMoves:
 	db SLAM
 	db SPITE
 	db BEAT_UP
+	db CRUNCH
 	db -1 ; end
 
 SandshrewEggMoves:
@@ -65,6 +72,7 @@ SandshrewEggMoves:
 	db SAFEGUARD
 	db COUNTER
 	db RAPID_SPIN
+	db METAL_CLAW
 	db -1 ; end
 
 NidoranFEggMoves:
@@ -108,7 +116,6 @@ OddishEggMoves:
 	db RAZOR_LEAF
 	db FLAIL
 	db SYNTHESIS
-	db CHARM
 	db -1 ; end
 
 ParasEggMoves:
@@ -117,7 +124,6 @@ ParasEggMoves:
 	db COUNTER
 	db PSYBEAM
 	db FLAIL
-	db SWEET_SCENT
 	db LIGHT_SCREEN
 	db PURSUIT
 	db -1 ; end
@@ -151,6 +157,7 @@ PsyduckEggMoves:
 	db LIGHT_SCREEN
 	db FUTURE_SIGHT
 	db PSYCHIC_M
+	db CROSS_CHOP
 	db -1 ; end
 
 MankeyEggMoves:
@@ -229,7 +236,6 @@ SlowpokeEggMoves:
 	db -1 ; end
 
 FarfetchDEggMoves:
-	db STEEL_WING
 	db FORESIGHT
 	db MIRROR_MOVE
 	db GUST
@@ -307,6 +313,7 @@ CuboneEggMoves:
 	db SCREECH
 	db SKULL_BASH
 	db PERISH_SONG
+	db SWORDS_DANCE
 	db -1 ; end
 
 LickitungEggMoves:
@@ -370,12 +377,6 @@ GoldeenEggMoves:
 	db HYDRO_PUMP
 	db -1 ; end
 
-StaryuEggMoves:
-	db AURORA_BEAM
-	db BARRIER
-	db SUPERSONIC
-	db -1
-
 MrMimeEggMoves:
 	db FUTURE_SIGHT
 	db HYPNOSIS
@@ -426,12 +427,10 @@ AerodactylEggMoves:
 	db WHIRLWIND
 	db PURSUIT
 	db FORESIGHT
-	db STEEL_WING
 	db -1 ; end
 
 SnorlaxEggMoves:
 	db LICK
-	db CHARM
 	db -1 ; end
 
 DratiniEggMoves:
@@ -447,6 +446,7 @@ ChikoritaEggMoves:
 	db COUNTER
 	db ANCIENTPOWER
 	db FLAIL
+	db SWORDS_DANCE
 	db -1 ; end
 
 CyndaquilEggMoves:
@@ -455,6 +455,7 @@ CyndaquilEggMoves:
 	db REVERSAL
 	db THRASH
 	db FORESIGHT
+	db SUBMISSION
 	db -1 ; end
 
 TotodileEggMoves:
@@ -480,6 +481,7 @@ HoothootEggMoves:
 	db FAINT_ATTACK
 	db WING_ATTACK
 	db WHIRLWIND
+	db SKY_ATTACK
 	db -1 ; end
 
 LedybaEggMoves:
@@ -604,6 +606,7 @@ MurkrowEggMoves:
 	db QUICK_ATTACK
 	db MIRROR_MOVE
 	db WING_ATTACK
+	db SKY_ATTACK
 	db -1 ; end
 
 MisdreavusEggMoves:
@@ -683,6 +686,7 @@ TeddiursaEggMoves:
 	db SEISMIC_TOSS
 	db FOCUS_ENERGY
 	db COUNTER
+	db METAL_CLAW
 	db -1 ; end
 
 SlugmaEggMoves:
@@ -732,6 +736,7 @@ SkarmoryEggMoves:
 	db DRILL_PECK
 	db PURSUIT
 	db WHIRLWIND
+	db SKY_ATTACK
 	db -1 ; end
 
 HoundourEggMoves:
@@ -748,6 +753,7 @@ PhanpyEggMoves:
 	db FOCUS_ENERGY
 	db BODY_SLAM
 	db ANCIENTPOWER
+	db WATER_GUN
 	db -1 ; end
 
 StantlerEggMoves:
@@ -766,7 +772,6 @@ TyrogueEggMoves:
 	db -1 ; end
 
 SmoochumEggMoves:
-	db LOVELY_KISS
 	db MEDITATE
 	db -1 ; end
 
@@ -775,6 +780,7 @@ ElekidEggMoves:
 	db BARRIER
 	db ROLLING_KICK
 	db MEDITATE
+	db CROSS_CHOP
 	db -1 ; end
 
 MagbyEggMoves:
@@ -782,6 +788,7 @@ MagbyEggMoves:
 	db MEGA_PUNCH
 	db BARRIER
 	db SCREECH
+	db CROSS_CHOP
 	db -1 ; end
 
 MiltankEggMoves:

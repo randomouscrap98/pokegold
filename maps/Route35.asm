@@ -31,10 +31,9 @@ TrainerJugglerIrwin:
 	trainer JUGGLER, IRWIN1, EVENT_BEAT_JUGGLER_IRWIN, JugglerIrwin1SeenText, JugglerIrwin1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_JUGGLER_IRWIN
 	endifjustbattled
 	opentext
-	checkevent EVENT_IRWIN_READY_FOR_REMATCH
-	iftrue .WantsBattle
 	checkcellnum PHONE_JUGGLER_IRWIN
 	iftrue Route35NumberAcceptedM
 	checkevent EVENT_IRWIN_ASKED_FOR_PHONE_NUMBER
@@ -54,33 +53,6 @@ TrainerJugglerIrwin:
 	gettrainername STRING_BUFFER_3, JUGGLER, IRWIN1
 	scall Route35RegisteredNumberM
 	sjump Route35NumberAcceptedM
-
-.WantsBattle:
-	scall Route35RematchM
-	winlosstext JugglerIrwin1BeatenText, 0
-	checkevent EVENT_CLEARED_RADIO_TOWER
-	iftrue .LoadFight2
-	checkflag ENGINE_FLYPOINT_CIANWOOD
-	iftrue .LoadFight1
-	loadtrainer JUGGLER, IRWIN1
-	startbattle
-	reloadmapafterbattle
-	clearevent EVENT_IRWIN_READY_FOR_REMATCH
-	end
-
-.LoadFight1:
-	loadtrainer JUGGLER, IRWIN2
-	startbattle
-	reloadmapafterbattle
-	clearevent EVENT_IRWIN_READY_FOR_REMATCH
-	end
-
-.LoadFight2:
-	loadtrainer JUGGLER, IRWIN3
-	startbattle
-	reloadmapafterbattle
-	clearevent EVENT_IRWIN_READY_FOR_REMATCH
-	end
 
 Route35AskNumber1M:
 	jumpstd AskNumber1MScript
@@ -158,10 +130,13 @@ TrainerBugCatcherArnie:
 	trainer BUG_CATCHER, ARNIE1, EVENT_BEAT_BUG_CATCHER_ARNIE, BugCatcherArnieSeenText, BugCatcherArnieBeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_BUG_CATCHER_ARNIE
 	endifjustbattled
 	opentext
-	checkevent EVENT_ARNIE_READY_FOR_REMATCH
+	checkflag ENGINE_ARNIE_READY_FOR_REMATCH
 	iftrue .WantsBattle
+	checkflag ENGINE_YANMA_SWARM
+	iftrue .YanmaSwarming
 	checkcellnum PHONE_BUG_CATCHER_ARNIE
 	iftrue Route35NumberAcceptedM
 	checkevent EVENT_ARNIE_ASKED_FOR_PHONE_NUMBER
@@ -185,28 +160,67 @@ TrainerBugCatcherArnie:
 .WantsBattle:
 	scall Route35RematchM
 	winlosstext BugCatcherArnieBeatenText, 0
+	readmem wArnieFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight3
+.Fight2:
 	checkflag ENGINE_FLYPOINT_BLACKTHORN
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_LAKE_OF_RAGE
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer BUG_CATCHER, ARNIE1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_ARNIE_READY_FOR_REMATCH
+	loadmem wArnieFightCount, 1
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer BUG_CATCHER, ARNIE2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_ARNIE_READY_FOR_REMATCH
+	loadmem wArnieFightCount, 2
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer BUG_CATCHER, ARNIE3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_ARNIE_READY_FOR_REMATCH
+	loadmem wArnieFightCount, 3
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
+	end
+
+.LoadFight3:
+	loadtrainer BUG_CATCHER, ARNIE4
+	startbattle
+	reloadmapafterbattle
+	loadmem wArnieFightCount, 4
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer BUG_CATCHER, ARNIE5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
+	end
+
+.YanmaSwarming:
+	writetext BugCatcherArnieYanmaText
+	waitbutton
+	closetext
 	end
 
 TrainerFirebreatherWalt:
@@ -329,8 +343,8 @@ PicnickerKimAfterBattleText:
 	done
 
 BirdKeeperBryanSeenText:
-	text "What kinds of #"
-	line "BALL do you use?"
+	text "What kinds of"
+	line "BALLS do you use?"
 	done
 
 BirdKeeperBryanBeatenText:
@@ -351,7 +365,7 @@ BirdKeeperBryanAfterBattleText:
 	cont "take it to KURT."
 
 	para "He turns it into a"
-	line "custom # BALL."
+	line "custom BALL."
 	done
 
 JugglerIrwin1SeenText:
@@ -380,8 +394,8 @@ BugCatcherArnieSeenText:
 	done
 
 BugCatcherArnieBeatenText:
-	text "I see. So you"
-	line "battle that way."
+	text "Huh? I shouldn't"
+	line "have lost that…"
 	done
 
 BugCatcherArnieAfterBattleText:
@@ -390,6 +404,14 @@ BugCatcherArnieAfterBattleText:
 
 	para "Contest at the"
 	line "NATIONAL PARK."
+	done
+
+BugCatcherArnieYanmaText:
+	text "Wow… Look at all"
+	line "those YANMA!"
+
+	para "I'm so blown away,"
+	line "I can't move."
 	done
 
 FirebreatherWaltSeenText:
@@ -453,10 +475,10 @@ Route35_MapEvents:
 	bg_event 11, 31, BGEVENT_READ, Route35Sign
 
 	def_object_events
-	object_event  3, 19, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 4, TrainerCamperIvan, -1
+	object_event  4, 19, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 2, TrainerCamperIvan, -1
 	object_event  8, 20, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerCamperElliot, -1
 	object_event  7, 20, SPRITE_LASS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerPicnickerBrooke, -1
-	object_event 11, 24, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerPicnickerKim, -1
+	object_event 10, 26, SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerPicnickerKim, -1
 	object_event 14, 28, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 0, TrainerBirdKeeperBryan, -1
 	object_event  2, 10, SPRITE_FISHER, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 2, TrainerFirebreatherWalt, -1
 	object_event 16,  7, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 2, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherArnie, -1

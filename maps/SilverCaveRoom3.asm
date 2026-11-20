@@ -26,6 +26,12 @@ Red:
 	special FadeOutToBlack
 	special ReloadSpritesNoPalettes
 	disappear SILVERCAVEROOM3_RED
+; Perfect Crystal: beating Red gives the Gold Trophy and his dolls
+	setevent EVENT_DECO_GOLD_TROPHY
+	setevent EVENT_DECO_CHARMANDER_DOLL
+	setevent EVENT_DECO_CLEFAIRY_DOLL
+	setevent EVENT_DECO_PIKACHU_DOLL
+	setevent EVENT_DECO_BIG_SNORLAX_DOLL
 	pause 15
 	special FadeInFromBlack
 	pause 30
@@ -35,8 +41,8 @@ Red:
 	end
 
 RedSeenText:
-	text "…"
-	line "…"
+	text "<……>"
+	line "<……>"
 	done
 
 RedWinLossText:
@@ -44,8 +50,8 @@ RedWinLossText:
 	done
 
 RedLeavesText:
-	text "…"
-	line "…"
+	text "<……>"
+	line "<……>"
 	done
 
 SilverCaveRoom3_MapEvents:

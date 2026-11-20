@@ -121,7 +121,11 @@ wUnusedScriptByte:: db
 
 wMapTimeOfDay:: db
 
-	ds 3
+; Crystal map name sign (DMG version)
+wPrevLandmark:: db
+wCurLandmark:: db
+wLandmarkSignTimer:: db
+wMapNameSignLetters:: ds $80 - ($60 + 14)
 
 wPrinterConnectionOpen:: db
 wPrinterOpcode:: db
@@ -1490,6 +1494,19 @@ wBugContestWinnersEnd::
 wBugContestWinnerName:: ds NAME_LENGTH
 
 NEXTU
+; poke seer (Crystal)
+wSeerAction:: db
+wSeerNickname:: ds MON_NAME_LENGTH
+wSeerCaughtLocation:: ds 17
+wSeerTimeOfDay:: ds NAME_LENGTH
+wSeerOT:: ds NAME_LENGTH
+wSeerOTGrammar:: db
+wSeerCaughtLevelString:: ds 4
+wSeerCaughtLevel:: db
+wSeerCaughtData:: db
+wSeerCaughtGender:: db
+
+NEXTU
 ; mart items
 wMartItem1BCD:: ds 3
 wMartItem2BCD:: ds 3
@@ -2424,7 +2441,8 @@ wDST::
 ; bit 7: dst
 	db
 
-	ds 1
+wPlayerGender:: ; Crystal: bit PLAYERGENDER_FEMALE_F
+	db
 
 wGameTimeCap::     db
 wGameTimeHours::   dw
@@ -2604,7 +2622,72 @@ wFastShip1FSceneID::                              db
 wFastShipB1FSceneID::                             db
 wMountMoonSquareSceneID::                         db
 
-	ds 197
+; Crystal additions (scene IDs)
+wCianwoodCitySceneID::                            db
+wDragonShrineSceneID::                            db
+wEcruteakGymSceneID::                             db
+wGoldenrodPokecenter1FSceneID::                   db
+wRoute34IlexForestGateSceneID::                   db
+wRoute36SceneID::                                 db
+wRoute42SceneID::                                 db
+wRuinsOfAlphAerodactylChamberSceneID::            db
+wRuinsOfAlphHoOhChamberSceneID::                  db
+wRuinsOfAlphKabutoChamberSceneID::                db
+wRuinsOfAlphOmanyteChamberSceneID::               db
+wTinTower1FSceneID::                              db
+wWiseTriosRoomSceneID::                           db
+
+; Crystal additions (phone rematch fight counts)
+wJackFightCount::    db
+wBeverlyFightCount:: db ; unreferenced
+wHueyFightCount::    db
+wGavenFightCount::   db
+wBethFightCount::    db
+wJoseFightCount::    db
+wReenaFightCount::   db
+wJoeyFightCount::    db
+wWadeFightCount::    db
+wRalphFightCount::   db
+wLizFightCount::     db
+wAnthonyFightCount:: db
+wToddFightCount::    db
+wGinaFightCount::    db
+wIrwinFightCount::   db ; unreferenced
+wArnieFightCount::   db
+wAlanFightCount::    db
+wDanaFightCount::    db
+wChadFightCount::    db
+wDerekFightCount::   db ; unreferenced
+wTullyFightCount::   db
+wBrentFightCount::   db
+wTiffanyFightCount:: db
+wVanceFightCount::   db
+wWiltonFightCount::  db
+wKenjiFightCount::   db ; unreferenced
+wParryFightCount::   db
+wErinFightCount::    db
+
+; Crystal additions (misc)
+wCelebiEvent::
+; bit 2: forest is restless
+	db
+wFarfetchdPosition:: db
+wMapNameSignFlags:: db
+wSwarmFlags:: db
+wBuenasPassword:: db
+wBlueCardBalance:: db
+wDailyRematchFlags:: ds 4
+wDailyPhoneItemFlags:: ds 4
+wDailyPhoneTimeOfDayFlags:: ds 4
+wKenjiBreakTimer:: ds 2 ; Kenji
+wYanmaMapGroup:: db
+wYanmaMapNumber:: db
+wDunsparceMapGroup:: db
+wDunsparceMapNumber:: db
+wKurtApricornQuantity:: db
+wCrystalAdditionsEnd::
+
+	ds 197 - (wCrystalAdditionsEnd - wCianwoodCitySceneID)
 
 wEventFlags:: flag_array NUM_EVENTS
 

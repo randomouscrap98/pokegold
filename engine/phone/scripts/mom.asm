@@ -12,7 +12,7 @@ MomPhoneCalleeScript:
 .started_quest
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_8
 	iftrue MomPhoneHangUpScript
-	writetext MomPhoneGreetingText
+	farwritetext MomPhoneGreetingText
 	promptbutton
 	getcurlandmarkname STRING_BUFFER_3
 	readvar VAR_ENVIRONMENT
@@ -21,7 +21,7 @@ MomPhoneCalleeScript:
 	sjump MomPhoneOther
 
 MomPhoneLandmark:
-	writetext MomPhoneLandmarkText
+	farwritetext MomPhoneLandmarkText
 	promptbutton
 	sjump MomSavingMoney
 
@@ -32,45 +32,37 @@ MomPhoneInTown:
 	ifequal GROUP_VIOLET_CITY, .violet
 	ifequal GROUP_AZALEA_TOWN, .azalea
 	ifequal GROUP_GOLDENROD_CITY, .goldenrod
-	writetext MomPhoneGenericAreaText
+	farwritetext MomPhoneGenericAreaText
 	promptbutton
 	sjump MomSavingMoney
 
 .newbark
-	writetext MomPhoneNewBarkText
+	farwritetext MomPhoneNewBarkText
 	promptbutton
 	sjump MomSavingMoney
 
 .cherrygrove
-	writetext MomPhoneCherrygroveText
+	farwritetext MomPhoneCherrygroveText
 	promptbutton
 	sjump MomSavingMoney
 
 .violet
-	getstring STRING_BUFFER_4, .text_sprout_tower
+	getlandmarkname STRING_BUFFER_4, LANDMARK_SPROUT_TOWER
 	sjump MomPhoneLandmark
-.text_sprout_tower
-	db "SPROUT TOWER@"
-
 .azalea
-	getstring STRING_BUFFER_4, .text_slowpoke_well
+	getlandmarkname STRING_BUFFER_4, LANDMARK_SLOWPOKE_WELL
 	sjump MomPhoneLandmark
-.text_slowpoke_well
-	db "SLOWPOKE WELL@"
-
 .goldenrod
-	getstring STRING_BUFFER_4, .text_radio_tower
+	getlandmarkname STRING_BUFFER_4, LANDMARK_RADIO_TOWER
 	sjump MomPhoneLandmark
-.text_radio_tower
-	db "RADIO TOWER@"
 
 MomPhoneOnRoute:
-	writetext MomOtherAreaText
+	farwritetext MomOtherAreaText
 	promptbutton
 	sjump MomSavingMoney
 
 MomPhoneOther:
-	writetext MomDeterminedText
+	farwritetext MomDeterminedText
 	promptbutton
 	sjump MomSavingMoney
 
@@ -88,63 +80,63 @@ MomSavingMoney:
 
 .SavingHasMoney:
 	getmoney STRING_BUFFER_3, MOMS_MONEY
-	writetext MomCheckBalanceText
+	farwritetext MomCheckBalanceText
 	yesorno
 	iftrue MomPhoneSaveMoneyScript
-	sjump MomPhoneStopSavingMoneyScript
+	sjump MomPhoneWontSaveMoneyScript
 
 .SavingNoMoney:
-	writetext MomImportantToSaveText
+	farwritetext MomImportantToSaveText
 	yesorno
 	iftrue MomPhoneSaveMoneyScript
-	sjump MomPhoneStopSavingMoneyScript
+	sjump MomPhoneWontSaveMoneyScript
 
 .NoMoney:
-	writetext MomYoureNotSavingText
+	farwritetext MomYoureNotSavingText
 	yesorno
 	iftrue MomPhoneSaveMoneyScript
-	sjump MomPhoneStopSavingMoneyScript
+	sjump MomPhoneWontSaveMoneyScript
 
 .HasMoney:
 	getmoney STRING_BUFFER_3, MOMS_MONEY
-	writetext MomYouveSavedText
+	farwritetext MomYouveSavedText
 	yesorno
 	iftrue MomPhoneSaveMoneyScript
-	sjump MomPhoneStopSavingMoneyScript
+	sjump MomPhoneWontSaveMoneyScript
 
 MomPhoneSaveMoneyScript:
 	setflag ENGINE_MOM_SAVING_MONEY
-	writetext MomOKIllSaveText
+	farwritetext MomOKIllSaveText
 	promptbutton
 	sjump MomPhoneHangUpScript
 
-MomPhoneStopSavingMoneyScript:
+MomPhoneWontSaveMoneyScript:
 	clearflag ENGINE_MOM_SAVING_MONEY
-	writetext MomPhoneStopSavingMoneyText
+	farwritetext MomPhoneWontSaveMoneyText
 	promptbutton
 	sjump MomPhoneHangUpScript
 
 MomPhoneHangUpScript:
-	writetext MomPhoneHangUpText
+	farwritetext MomPhoneHangUpText
 	end
 
 MomPhoneNoPokemonScript:
-	writetext MomPhoneNoPokemonText
+	farwritetext MomPhoneNoPokemonText
 	end
 
 MomPhoneNoPokedexScript:
-	writetext MomPhoneNoPokedexText
+	farwritetext MomPhoneNoPokedexText
 	end
 
 MomPhoneNoGymQuestScript:
-	writetext MomPhoneNoGymQuestText
+	farwritetext MomPhoneNoGymQuestText
 	end
 
 MomPhoneLectureScript:
 	setevent EVENT_TALKED_TO_MOM_AFTER_MYSTERY_EGG_QUEST
 	setflag ENGINE_MOM_ACTIVE
 	specialphonecall SPECIALCALL_NONE
-	writetext MomPhoneLectureText
+	farwritetext MomPhoneLectureText
 	yesorno
 	iftrue MomPhoneSaveMoneyScript
-	sjump MomPhoneStopSavingMoneyScript
+	sjump MomPhoneWontSaveMoneyScript

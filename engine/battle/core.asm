@@ -3475,7 +3475,11 @@ TryToRunAwayFromBattle:
 	jp z, .can_escape
 	cp BATTLETYPE_TRAP
 	jp z, .cant_escape
+	cp BATTLETYPE_CELEBI
+	jp z, .cant_escape
 	cp BATTLETYPE_FORCESHINY
+	jp z, .cant_escape
+	cp BATTLETYPE_SUICUNE
 	jp z, .cant_escape
 
 	ld a, [wLinkMode]
@@ -3672,7 +3676,6 @@ InitBattleMon:
 	ld bc, PARTYMON_STRUCT_LENGTH - MON_ATK
 	call CopyBytes
 	call ApplyStatusEffectOnPlayerStats
-	call BadgeStatBoosts
 	ret
 
 BattleCheckPlayerShininess:
@@ -5304,8 +5307,7 @@ MoveSelectionScreen:
 	jr .loop
 
 .done
-	; Bug: this will result in a move with PP Up confusing the game.
-	and a ; should be "and PP_MASK"
+	and PP_MASK ; Perfect Crystal fix (was "and a")
 	ret nz
 
 .force_struggle
@@ -5934,7 +5936,7 @@ LoadEnemyMon:
 
 ; No reason to keep going if length > 1536 mm (i.e. if HIGH(length) > 6 feet)
 	ld a, [wMagikarpLength]
-	cp HIGH(1536) ; should be "cp 5", since 1536 mm = 5'0", but HIGH(1536) = 6
+	cp 5 ; Perfect Crystal fix: 1536 mm = 5'0"
 	jr nz, .CheckMagikarpArea
 
 ; 5% chance of skipping both size checks
@@ -5943,7 +5945,7 @@ LoadEnemyMon:
 	jr c, .CheckMagikarpArea
 ; Try again if length >= 1616 mm (i.e. if LOW(length) >= 4 inches)
 	ld a, [wMagikarpLength + 1]
-	cp LOW(1616) ; should be "cp 4", since 1616 mm = 5'4", but LOW(1616) = 80
+	cp 4 ; Perfect Crystal fix: 1616 mm = 5'4"
 	jr nc, .GenerateDVs
 
 ; 20% chance of skipping this check
@@ -5952,7 +5954,7 @@ LoadEnemyMon:
 	jr c, .CheckMagikarpArea
 ; Try again if length >= 1600 mm (i.e. if LOW(length) >= 3 inches)
 	ld a, [wMagikarpLength + 1]
-	cp LOW(1600) ; should be "cp 3", since 1600 mm = 5'3", but LOW(1600) = 64
+	cp 3 ; Perfect Crystal fix: 1600 mm = 5'3"
 	jr nc, .GenerateDVs
 
 .CheckMagikarpArea:
@@ -5971,17 +5973,17 @@ LoadEnemyMon:
 ; smaller than 4'0" may be caught by the filter, a lot more than intended.
 	ld a, [wMapGroup]
 	cp GROUP_LAKE_OF_RAGE
-	jr z, .Happiness
+	jr nz, .Happiness ; Perfect Crystal fix
 	ld a, [wMapNumber]
 	cp MAP_LAKE_OF_RAGE
-	jr z, .Happiness
+	jr nz, .Happiness ; Perfect Crystal fix
 ; 40% chance of not flooring
 	call Random
 	cp 39 percent + 1
 	jr c, .Happiness
 ; Try again if length < 1024 mm (i.e. if HIGH(length) < 3 feet)
 	ld a, [wMagikarpLength]
-	cp HIGH(1024) ; should be "cp 3", since 1024 mm = 3'4", but HIGH(1024) = 4
+	cp 3 ; Perfect Crystal fix: 1024 mm = 3'4"
 	jr c, .GenerateDVs ; try again
 
 ; Finally done with DVs
@@ -7030,7 +7032,6 @@ GiveExperiencePoints:
 	ld [wApplyStatLevelMultipliersToEnemy], a
 	call ApplyStatLevelMultiplierOnAllStats
 	callfar ApplyStatusEffectOnPlayerStats
-	callfar BadgeStatBoosts
 	callfar UpdatePlayerHUD
 	call EmptyBattleTextbox
 	call LoadTilemapToTempTilemap
@@ -8612,15 +8613,15 @@ GetTrainerBackpic:
 ; Load the player character's backpic (6x6) into VRAM starting from vTiles2 tile $31.
 
 ; Special exception for Dude.
-	ld hl, ChrisBackpic
+	farcall GetPlayerBackpicPointer ; Crystal: Chris or Kris
 	ld a, [wBattleType]
 	cp BATTLETYPE_TUTORIAL
 	jr nz, .ok
 	ld hl, DudeBackpic
+	ld b, BANK(DudeBackpic)
 
 .ok:
 	ld de, vTiles2 tile $31
-	ld b, BANK(ChrisBackpic) ; aka BANK(DudeBackpic)
 	ld c, 7 * 7
 	predef DecompressGet2bpp
 	ret
@@ -8725,6 +8726,9 @@ BattleStartMessage:
 	jr z, .PrintBattleStartText
 	ld hl, PokemonFellFromTreeText
 	cp BATTLETYPE_TREE
+	jr z, .PrintBattleStartText
+	ld hl, WildCelebiAppearedText
+	cp BATTLETYPE_CELEBI
 	jr z, .PrintBattleStartText
 	ld hl, WildPokemonAppearedText
 

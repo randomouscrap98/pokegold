@@ -123,7 +123,7 @@ UndergroundRivalBattleScript:
 	checkevent EVENT_RIVAL_BURNED_TOWER
 	iftrue .Continue
 	setevent EVENT_RIVAL_BURNED_TOWER
-	setmapscene BURNED_TOWER_1F, SCENE_BURNEDTOWER1F_FIREBREATHER_DICK
+	setmapscene BURNED_TOWER_1F, SCENE_BURNEDTOWER1F_RIVAL_BATTLE
 .Continue:
 	playmusic MUSIC_RIVAL_ENCOUNTER
 	opentext
@@ -688,7 +688,7 @@ BurglarDuncanBeatenText:
 BurglarDuncanAfterBattleText:
 	text "Steal and sell!"
 	line "That's basic in"
-	cont "crime, bub!"
+	cont "crime, kid!"
 	done
 
 BurglarEddieSeenText:
@@ -795,11 +795,11 @@ GoldenrodUndergroundSwitchRoomEntrances_MapEvents:
 	warp_event 22, 10, GOLDENROD_UNDERGROUND_WAREHOUSE, 1
 	warp_event 23, 10, GOLDENROD_UNDERGROUND_WAREHOUSE, 2
 	warp_event  5, 25, GOLDENROD_UNDERGROUND, 2
-	warp_event  4, 29, GOLDENROD_CITY, 15
-	warp_event  5, 29, GOLDENROD_CITY, 15
+	warp_event  4, 29, GOLDENROD_CITY, 14
+	warp_event  5, 29, GOLDENROD_CITY, 14
 	warp_event 21, 25, GOLDENROD_UNDERGROUND, 1
-	warp_event 20, 29, GOLDENROD_CITY, 14
-	warp_event 21, 29, GOLDENROD_CITY, 14
+	warp_event 20, 29, GOLDENROD_CITY, 13
+	warp_event 21, 29, GOLDENROD_CITY, 13
 
 	def_coord_events
 	coord_event 19,  4, SCENE_GOLDENRODUNDERGROUNDSWITCHROOMENTRANCES_RIVAL_BATTLE, UndergroundRivalScene1

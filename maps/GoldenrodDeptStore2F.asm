@@ -50,11 +50,12 @@ GoldenrodDeptStore2FUnusedText1: ; unreferenced
 	done
 
 GoldenrodDeptStore2FUnusedText2: ; unreferenced
-	text "Giving #MON"
-	line "items to hold dur-"
-	cont "ing battle could "
-	cont "tip the scales in"
-	cont "your favor."
+	text "By giving #MON"
+	line "items to hold, I"
+
+	para "bet trainers will"
+	line "develop new battle"
+	cont "techniques."
 	done
 
 GoldenrodDeptStore2FYoungsterText:

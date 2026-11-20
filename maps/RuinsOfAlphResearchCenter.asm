@@ -76,6 +76,8 @@ RuinsOfAlphResearchCenterScientist3Script:
 RuinsOfAlphResearchCenterScientist1Script:
 	faceplayer
 	opentext
+	readvar VAR_UNOWNCOUNT
+	ifequal NUM_UNOWN, .GotAllUnown
 	checkflag ENGINE_UNOWN_DEX
 	iftrue .GotUnownDex
 	checkevent EVENT_MADE_UNOWN_APPEAR_IN_RUINS
@@ -97,9 +99,18 @@ RuinsOfAlphResearchCenterScientist1Script:
 	closetext
 	end
 
+.GotAllUnown:
+	writetext RuinsOfAlphResearchCenterScientist1Text_GotAllUnown
+	waitbutton
+	closetext
+	clearevent EVENT_RUINS_OF_ALPH_OUTSIDE_TOURIST_YOUNGSTERS
+	end
+
 RuinsOfAlphResearchCenterScientist2Script:
 	faceplayer
 	opentext
+	readvar VAR_UNOWNCOUNT
+	ifequal NUM_UNOWN, .GotAllUnown
 	checkevent EVENT_MADE_UNOWN_APPEAR_IN_RUINS
 	iftrue .UnownAppeared
 	writetext RuinsOfAlphResearchCenterScientist2Text
@@ -109,6 +120,12 @@ RuinsOfAlphResearchCenterScientist2Script:
 
 .UnownAppeared:
 	writetext RuinsOfAlphResearchCenterScientist2Text_UnownAppeared
+	waitbutton
+	closetext
+	end
+
+.GotAllUnown:
+	writetext RuinsOfAlphResearchCenterScientist2Text_GotAllUnown
 	waitbutton
 	closetext
 	end
@@ -244,6 +261,20 @@ RuinsOfAlphResearchCenterScientist1Text_UnownAppeared:
 	line "investigate this."
 	done
 
+RuinsOfAlphResearchCenterScientist1Text_GotAllUnown:
+	text "Our investigation,"
+	line "with your help, is"
+
+	para "giving us insight"
+	line "into the RUINS."
+
+	para "The RUINS appear"
+	line "to have been built"
+
+	para "as a habitat for"
+	line "#MON."
+	done
+
 RuinsOfAlphResearchCenterScientist2Text:
 	text "There are odd pat-"
 	line "terns drawn on the"
@@ -273,6 +304,45 @@ RuinsOfAlphResearchCenterScientist2Text_UnownAppeared:
 	para "That must mean"
 	line "there are many"
 	cont "kinds of them…"
+	done
+
+RuinsOfAlphResearchCenterUnusedText1: ; unreferenced
+	text "We think something"
+	line "caused the cryptic"
+
+	para "patterns to appear"
+	line "in the RUINS."
+
+	para "We've focused our"
+	line "studies on that."
+	done
+
+RuinsOfAlphResearchCenterUnusedText2: ; unreferenced
+	text "According to my"
+	line "research…"
+
+	para "Those mysterious"
+	line "patterns appeared"
+
+	para "when the #COM"
+	line "CENTER was built."
+
+	para "It must mean that"
+	line "radio waves have"
+
+	para "some sort of a"
+	line "link…"
+	done
+
+RuinsOfAlphResearchCenterScientist2Text_GotAllUnown:
+	text "Why did those"
+	line "ancient patterns"
+
+	para "appear on the wall"
+	line "now?"
+
+	para "The mystery"
+	line "deepens…"
 	done
 
 RuinsOfAlphResearchCenterComputerText:

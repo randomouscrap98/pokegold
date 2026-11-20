@@ -47,8 +47,17 @@ TrainerGuitaristClyde:
 
 .Script:
 	endifjustbattled
+	special CheckMobileAdapterStatusSpecial
+	iftrue .mobile
 	opentext
 	writetext GuitaristClydeAfterBattleText
+	waitbutton
+	closetext
+	end
+
+.mobile
+	opentext
+	writetext GuitaristClydeAfterBattleMobileText
 	waitbutton
 	closetext
 	end
@@ -60,6 +69,7 @@ FastShipBed:
 	closetext
 	special FadeOutToBlack
 	special ReloadSpritesNoPalettes
+	special StubbedTrainerRankings_Healings
 	special HealParty
 	playmusic MUSIC_HEAL
 	pause 60
@@ -122,13 +132,13 @@ FirebreatherLyleAfterBattleText:
 
 BugCatcherKenSeenText:
 	text "I'm visiting my"
-	line "Grandma to catch"
+	line "grandma to catch"
 	cont "me some bugs!"
 	done
 
 BugCatcherKenBeatenText:
-	text "Ooh, wow. You're"
-	line "tough, dude!"
+	text "Ooh, wow."
+	line "You're tough!"
 	done
 
 BugCatcherKenAfterBattleText:
@@ -168,6 +178,16 @@ GuitaristClydeSeenText:
 GuitaristClydeBeatenText:
 	text "Yowza!"
 	line "Total distortion!"
+	done
+
+GuitaristClydeAfterBattleMobileText:
+	text "I was going to"
+	line "make my debut at"
+	cont "the BATTLE TOWER…"
+
+	para "I should go back"
+	line "to VERMILION and"
+	cont "redo my training…"
 	done
 
 GuitaristClydeAfterBattleText:

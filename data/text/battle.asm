@@ -7,6 +7,13 @@ BattleText_PlayerPickedUpPayDayMoney:
 	text "!"
 	prompt
 
+WildCelebiAppearedText: ; Crystal
+	text "Wild @"
+	text_ram wEnemyMonNickname
+	text_start
+	line "appeared!"
+	prompt
+
 WildPokemonAppearedText:
 	text "Wild @"
 	text_ram wEnemyMonNickname

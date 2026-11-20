@@ -38,8 +38,16 @@ VermilionGymSurgeScript:
 
 .FightDone:
 	writetext LtSurgeFightDoneText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue .SurgeRematch
 	closetext
+	end
+
+.SurgeRematch:
+	winlosstext Surge_RematchDefeat, 0
+	loadtrainer LT_SURGE, LT_SURGE1
+	startbattle
+	reloadmapafterbattle
 	end
 
 TrainerGentlemanGregory:
@@ -103,8 +111,8 @@ VermilionGymStatue:
 	jumpstd GymStatue2Script
 
 LtSurgeIntroText:
-	text "SURGE: Hey, little"
-	line "boy!"
+	text "SURGE: Hey, you"
+	line "little tyke!"
 
 	para "I have to hand it"
 	line "to you. It may not"
@@ -129,7 +137,7 @@ LtSurgeWinLossText:
 	text "SURGE: Arrrgh!"
 	line "You are strong!"
 
-	para "OK, boy. You get"
+	para "OK, kid. You get"
 	line "THUNDERBADGE!"
 	done
 
@@ -139,24 +147,24 @@ ReceivedThunderBadgeText:
 	done
 
 LtSurgeThunderBadgeText:
-	text "SURGE: THUNDER-"
-	line "BADGE increases"
-	cont "#MON's speed. "
-
-	para "Consider it proof"
-	line "that you defeated"
-
-	para "me. You wear it"
+	text "SURGE: Consider it"
+	line "proof that you"
+	cont "defeated me."
+	para "You wear it"
 	line "proudly, hear?"
 	done
 
 LtSurgeFightDoneText:
-	text "SURGE: Hey, boy!"
+	text "SURGE: Hey, kid!"
 	line "Still slugging and"
 	cont "chugging away?"
 
 	para "My #MON and I"
 	line "are still at it!"
+
+	para "How about yours,"
+	line "show me what you"
+	cont "got?"
 	done
 
 GentlemanGregorySeenText:
@@ -292,3 +300,8 @@ VermilionGym_MapEvents:
 	object_event  4,  7, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_DOWN, 3, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerGuitaristVincent, -1
 	object_event  0, 10, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 4, TrainerJugglerHorton, -1
 	object_event  7, 15, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 1, VermilionGymGuideScript, -1
+
+Surge_RematchDefeat:
+	text "You're still"
+	line "holding up kid!"
+	done

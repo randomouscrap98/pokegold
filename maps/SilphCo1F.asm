@@ -11,21 +11,8 @@ SilphCoReceptionistScript:
 	jumptextfaceplayer SilphCoReceptionistText
 
 SilphCoOfficerScript:
-	faceplayer
-	opentext
-	checkevent EVENT_GOT_UP_GRADE
-	iftrue .GotUpGrade
-	writetext SilphCoOfficerText
-	promptbutton
-	verbosegiveitem UP_GRADE
-	iffalse .NoRoom
-	setevent EVENT_GOT_UP_GRADE
-.GotUpGrade:
-	writetext SilphCoOfficerText_GotUpGrade
-	waitbutton
-.NoRoom:
-	closetext
-	end
+; Perfect Crystal: no Up-Grade gift (Porygon evolves with a Thunderstone)
+	jumptextfaceplayer SilphCoOfficerText
 
 SilphCoReceptionistText:
 	text "Welcome. This is"
@@ -37,12 +24,6 @@ SilphCoOfficerText:
 	text "Only employees are"
 	line "permitted to go"
 	cont "upstairs."
-
-	para "But since you came"
-	line "such a long way,"
-
-	para "have this neat"
-	line "little souvenir."
 	done
 
 SilphCoOfficerText_GotUpGrade:

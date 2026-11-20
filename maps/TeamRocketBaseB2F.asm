@@ -165,6 +165,7 @@ LanceHealsCommon:
 	waitbutton
 	closetext
 	special FadeOutToWhite
+	special StubbedTrainerRankings_Healings
 	playsound SFX_FULL_HEAL
 	special HealParty
 	special FadeInFromWhite
@@ -660,7 +661,7 @@ RocketBaseLancePostBattleText:
 	done
 
 RocketBaseLancePowerOffText:
-	text "Sorry, <PLAYER>."
+	text "Sorry, <PLAY_G>."
 	line "I saw how well you"
 
 	para "were doing, so I"
@@ -699,7 +700,7 @@ RockerBaseLanceElectrodeFaintText:
 	para "makes me feel"
 	line "guilty."
 
-	para "<PLAYER>, let's"
+	para "<PLAY_G>, let's"
 	line "split the job."
 	done
 
@@ -753,7 +754,7 @@ RocketBaseLanceWhirlpoolText:
 	done
 
 RocketBaseLanceMonMasterText:
-	text "<PLAYER>…"
+	text "<PLAY_G>…"
 
 	para "The journey to be-"
 	line "coming the #MON"
@@ -795,7 +796,7 @@ LanceHealsText1:
 	done
 
 LanceHealsText2:
-	text "LANCE: <PLAYER>,"
+	text "LANCE: <PLAY_G>,"
 	line "let's give it our"
 	cont "best for #MON."
 	done
@@ -963,6 +964,6 @@ TeamRocketBaseB2F_MapEvents:
 	object_event 22,  7, SPRITE_VOLTORB, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_TEAM_ROCKET_BASE_B2F_ELECTRODE_2
 	object_event 22,  9, SPRITE_VOLTORB, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_TEAM_ROCKET_BASE_B2F_ELECTRODE_3
 	object_event 25, 13, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerGruntM17, EVENT_TEAM_ROCKET_BASE_POPULATION
-	object_event  2,  1, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerGruntM18, EVENT_TEAM_ROCKET_BASE_POPULATION
+	object_event  4,  1, SPRITE_ROCKET, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 1, TrainerGruntM18, EVENT_TEAM_ROCKET_BASE_POPULATION
 	object_event 21, 14, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 4, TrainerGruntM19, EVENT_TEAM_ROCKET_BASE_POPULATION
 	object_event  3, 10, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, TeamRocketBaseB2FTMThief, EVENT_TEAM_ROCKET_BASE_B2F_TM_THIEF

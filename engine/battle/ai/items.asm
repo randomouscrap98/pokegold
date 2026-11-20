@@ -714,7 +714,6 @@ EnemyUsedFullHealRed: ; unreferenced
 	jp PrintText_UsedItemOn_AND_AIUpdateHUD
 
 AI_HealStatus:
-; BUG: AI use of Full Heal or Full Restore does not cure Nightmare status (see docs/bugs_and_glitches.md)
 ; BUG: AI use of Full Heal or Full Restore does not cure Attack or Speed drops from burn or paralysis (see docs/bugs_and_glitches.md)
 	ld a, [wCurOTMon]
 	ld hl, wOTPartyMon1Status
@@ -723,6 +722,8 @@ AI_HealStatus:
 	xor a
 	ld [hl], a
 	ld [wEnemyMonStatus], a
+	ld hl, wEnemySubStatus1 ; Perfect Crystal: also cure Nightmare
+	res SUBSTATUS_NIGHTMARE, [hl]
 	ld hl, wEnemySubStatus5
 	res SUBSTATUS_TOXIC, [hl]
 	ret

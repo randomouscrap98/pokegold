@@ -91,7 +91,7 @@ Route36NationalParkGateLeavingContestEarlyScript:
 	playsound SFX_EXIT_BUILDING
 	special FadeOutToWhite
 	waitsfx
-	warp NATIONAL_PARK_BUG_CONTEST, 33, 18
+	warpfacing LEFT, NATIONAL_PARK_BUG_CONTEST, 33, 18
 	end
 
 .CopyContestants:
@@ -175,7 +175,7 @@ Route36OfficerScriptContest:
 	special FadeOutToWhite
 	waitsfx
 	special SelectRandomBugContestContestants
-	warp NATIONAL_PARK_BUG_CONTEST, 33, 18
+	warpfacing LEFT, NATIONAL_PARK_BUG_CONTEST, 33, 18
 	end
 
 .LeaveMonsWithOfficer:
@@ -482,8 +482,8 @@ Route36NationalParkGateOfficer1AskToParticipateText:
 	para "Bug-Catching Con-"
 	line "test is on today."
 
-	para "The rules are"
-	line "simple."
+	para "The rules are sim-"
+	line "ple."
 
 	para "Using one of your"
 	line "#MON, catch a"
@@ -519,7 +519,7 @@ Route36NationalParkGateOfficer1ExplainsRulesText:
 	line "PARK BALLS, you're"
 	cont "done."
 
-	para "You may keep the"
+	para "You can keep the"
 	line "last #MON you"
 	cont "catch as your own."
 
@@ -549,7 +549,7 @@ Route36NationalParkGateOfficer1AskToUseFirstMonText:
 	done
 
 Route36NationalParkGateOfficer1WellHoldYourMonText:
-	text "Fine. We'll hold"
+	text "Fine, we'll hold"
 	line "your other #MON"
 	cont "while you compete."
 	done
@@ -595,7 +595,7 @@ Route36NationalParkGateOfficer1MakeRoomText:
 	para "and your PC BOX"
 	line "are full."
 
-	para "You have nowhere"
+	para "You have no room"
 	line "to put the bug"
 	cont "#MON you catch."
 
@@ -624,7 +624,7 @@ Route36NationalParkGateOfficer1WantToFinishText:
 	text "You still have @"
 	text_ram wStringBuffer3
 	text_start
-	line "minutes left."
+	line "minute(s) left."
 
 	para "Do you want to"
 	line "finish now?"
@@ -821,8 +821,11 @@ UnusedBugCatchingContestExplanationText:
 	para "for participating,"
 	line "you also get to"
 
-	para "keep a bug #MON"
-	line "that you catch."
+	para "keep the bug"
+	line "#MON you may"
+
+	para "have at the end of"
+	line "the contest."
 	done
 
 Route36NationalParkGateOfficer1WellHoldPrizeText:

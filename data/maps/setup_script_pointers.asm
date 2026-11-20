@@ -57,3 +57,4 @@ MapSetupCommands:
 	add_mapsetup SuspendMapAnims ; 2a
 	add_mapsetup ApplyMapPalettes ; 2b
 	add_mapsetup EnableTextAcceleration ; 2c
+	add_mapsetup InitMapNameSign ; 2d (Crystal)

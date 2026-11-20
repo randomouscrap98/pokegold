@@ -31,7 +31,7 @@ LancesRoomDoorsCallback:
 
 LancesRoomDoorLocksBehindYouScript:
 	applymovement PLAYER, LancesRoom_EnterMovement
-	reanchormap $85
+	reanchormap $86
 	playsound SFX_STRENGTH
 	earthquake 80
 	changeblock 4, 22, $34 ; wall
@@ -125,7 +125,7 @@ LancesRoomLanceScript:
 	applymovement LANCESROOM_MARY, LancesRoomMovementData_MaryRunsBackAndForth
 	special FadeOutToWhite
 	pause 15
-	warp HALL_OF_FAME, 4, 13
+	warpfacing UP, HALL_OF_FAME, 4, 13
 	end
 
 LancesRoom_EnterMovement:
@@ -138,14 +138,12 @@ LancesRoom_EnterMovement:
 MovementData_ApproachLanceFromLeft:
 	step UP
 	step UP
-	step UP
 	turn_head RIGHT
 	step_end
 
 MovementData_ApproachLanceFromRight:
 	step UP
 	step LEFT
-	step UP
 	step UP
 	turn_head RIGHT
 	step_end
@@ -154,12 +152,10 @@ LancesRoomMovementData_MaryRushesIn:
 	big_step UP
 	big_step UP
 	big_step UP
-	big_step UP
 	turn_head DOWN
 	step_end
 
 LancesRoomMovementData_OakWalksIn:
-	step UP
 	step UP
 	step UP
 	step_end
@@ -212,7 +208,7 @@ LanceBattleIntroText:
 	text "LANCE: I've been"
 	line "waiting for you."
 
-	para "<PLAYER>!"
+	para "<PLAY_G>!"
 
 	para "I knew that you,"
 	line "with your skills,"
@@ -262,7 +258,7 @@ LanceBattleAfterText:
 
 	para "You have become"
 	line "truly powerful,"
-	cont "<PLAYER>."
+	cont "<PLAY_G>."
 
 	para "Your #MON have"
 	line "responded to your"
@@ -287,13 +283,13 @@ LancesRoomMaryOhNoOakText:
 
 LancesRoomOakCongratulationsText:
 	text "PROF.OAK: Ah,"
-	line "<PLAYER>!"
+	line "<PLAY_G>!"
 
 	para "It's been a long"
 	line "while."
 
 	para "You certainly look"
-	line "more mature."
+	line "more impressive."
 
 	para "Your conquest of"
 	line "the LEAGUE is just"
@@ -315,7 +311,7 @@ LancesRoomOakCongratulationsText:
 	line "severed."
 
 	para "Congratulations,"
-	line "<PLAYER>!"
+	line "<PLAY_G>!"
 	done
 
 LancesRoomMaryInterviewText:
@@ -329,7 +325,7 @@ LancesRoomNoisyText:
 	line "getting to be a"
 	cont "bit too noisy…"
 
-	para "<PLAYER>, could you"
+	para "<PLAY_G>, could you"
 	line "come with me?"
 	done
 
@@ -345,8 +341,8 @@ LancesRoom_MapEvents:
 	def_warp_events
 	warp_event  4, 23, KARENS_ROOM, 3
 	warp_event  5, 23, KARENS_ROOM, 4
-	warp_event  4,  0, HALL_OF_FAME, 1
-	warp_event  5,  0, HALL_OF_FAME, 2
+	warp_event  4,  1, HALL_OF_FAME, 1
+	warp_event  5,  1, HALL_OF_FAME, 2
 
 	def_coord_events
 	coord_event  4,  5, SCENE_LANCESROOM_APPROACH_LANCE, Script_ApproachLanceFromLeft
@@ -355,6 +351,6 @@ LancesRoom_MapEvents:
 	def_bg_events
 
 	def_object_events
-	object_event  5,  2, SPRITE_LANCE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LancesRoomLanceScript, -1
+	object_event  5,  3, SPRITE_LANCE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LancesRoomLanceScript, -1
 	object_event  4,  7, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_LANCES_ROOM_OAK_AND_MARY
 	object_event  4,  7, SPRITE_OAK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_LANCES_ROOM_OAK_AND_MARY

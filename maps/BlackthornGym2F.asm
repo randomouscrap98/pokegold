@@ -82,47 +82,40 @@ CooltrainermCodySeenText:
 	text "It's not as if we"
 	line "all use dragon-"
 	cont "type #MON."
-
-	para "My policy is to"
-	line "use #MON that"
-
-	para "are stronger than"
-	line "dragon #MON."
 	done
 
 CooltrainermCodyBeatenText:
-	text "You are special…"
+	text "Rats! If only I"
+	line "had a dragon!"
 	done
 
 CooltrainermCodyAfterBattleText:
-	text "But just watch!"
-	line "My #MON will"
+	text "Members of our"
+	line "dragon-user clan"
 
-	para "become even more"
-	line "powerful."
+	para "can use dragon"
+	line "#MON only after"
 
-	para "We'll be tougher"
-	line "as a trainer and"
-	cont "#MON team."
+	para "our MASTER allows"
+	line "it."
 	done
 
 CooltrainerfFranSeenText:
-	text "We go through rig-"
-	line "orous training un-"
-	cont "der CLAIR. I can't"
-	cont "afford to lose."
+	text "I can't allow a"
+	line "nameless trainer"
+	cont "past me!"
+
+	para "CLAIR would be"
+	line "livid if I did!"
 	done
 
 CooltrainerfFranBeatenText:
-	text "Arrrgh! I'm so"
-	line "disgusted!"
+	text "Awww… I lost…"
 	done
 
 CooltrainerfFranAfterBattleText:
-	text "Whew…"
-
-	para "I'll have to re-"
-	line "think my training…"
+	text "Uh-oh… CLAIR is"
+	line "going to be mad…"
 	done
 
 BlackthornGym2FBoulderFellText:

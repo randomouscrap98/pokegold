@@ -58,9 +58,8 @@ CeladonDeptStore3FYoungsterText:
 CeladonDeptStore3FGameboyKid1Text:
 	text "Uh-oh! I traded my"
 	line "#MON without"
-
-	para "removing the UP-"
-	line "GRADE from it."
+	para "removing the"
+	line "item from it."
 	done
 
 CeladonDeptStore3FGameboyKid2Text:
@@ -72,12 +71,6 @@ CeladonDeptStore3FGameboyKid2Text:
 
 	para "never get enough"
 	line "coins…"
-
-	para "…Huh?"
-
-	para "The traded PORYGON"
-	line "turned into a dif-"
-	cont "ferent #MON!"
 	done
 
 CeladonDeptStore3FSuperNerdText:

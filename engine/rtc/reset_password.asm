@@ -14,8 +14,7 @@ _ResetClock:
 	ld a, [wMenuCursorY]
 	cp 1
 	ret z
-	call ClockResetPassword
-	jr c, .wrongpassword
+	; Perfect Crystal: no password needed to reset the clock
 	ld a, BANK(sRTCStatusFlags)
 	call OpenSRAM
 	ld a, RTC_RESET

@@ -20,6 +20,7 @@
 	charmap "@",         $50 ; string terminator
 	charmap "<PARA>",    $51
 	charmap "<PLAYER>",  $52 ; wPlayerName
+	charmap "<PLAY_G>",  $52 ; Crystal: gendered player name (same as <PLAYER> in English)
 	charmap "<RIVAL>",   $53 ; wRivalName
 	charmap "#",         $54 ; "POKé"
 	charmap "<CONT>",    $55
@@ -416,3 +417,13 @@
 	charmap "７", $fd
 	charmap "８", $fe
 	charmap "９", $ff
+
+; Unown charmap, for Unown words (see gfx/tilesets/unown_font.png)
+pushc
+	newcharmap unown
+	DEF PRINTABLE_UNOWN EQUS "ABCDEFGHIJKLMNOPQRSTUVWXYZ-"
+	for i, STRLEN(#PRINTABLE_UNOWN)
+		charmap STRSLICE(#PRINTABLE_UNOWN, i, i + 1), $10 * (i / 8) + 2 * i
+	endr
+	charmap "@", $ff ; end
+popc

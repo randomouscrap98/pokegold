@@ -1694,7 +1694,7 @@ GivePoke::
 	call CopyBytes
 	pop af
 	and a
-	jr z, .wildmon
+	jp z, .wildmon
 	pop de
 	pop bc
 	pop hl
@@ -1724,8 +1724,18 @@ GivePoke::
 	ld d, h
 	ld e, l
 	pop hl
+.otnameloop
 	ld a, [wScriptBank]
-	call FarCopyBytes
+	call GetFarByte
+	ld [de], a
+	inc hl
+	inc de
+	cp '@'
+	jr nz, .otnameloop
+	ld a, [wScriptBank]
+	call GetFarByte
+	ld b, a
+	push bc
 	ld a, [wCurPartyMon]
 	ld hl, wPartyMon1ID
 	ld bc, PARTYMON_STRUCT_LENGTH
@@ -1733,25 +1743,49 @@ GivePoke::
 	ld a, HIGH(RANDY_OT_ID)
 	ld [hli], a
 	ld [hl], LOW(RANDY_OT_ID)
+	pop bc
+	farcall SetGiftPartyMonCaughtData
 	jr .skip_nickname
 
 .send_to_box
 	ld a, BANK(sBoxMonOTs)
 	call OpenSRAM
 	ld de, sBoxMonOTs
-	ld bc, MON_NAME_LENGTH
+.loop
 	ld a, [wScriptBank]
-	call FarCopyBytes
+	call GetFarByte
+	ld [de], a
+	inc hl
+	inc de
+	cp '@'
+	jr nz, .loop
+	ld a, [wScriptBank]
+	call GetFarByte
+	ld b, a
 	ld hl, sBoxMon1ID
 	call Random
 	ld [hli], a
 	call Random
 	ld [hl], a
 	call CloseSRAM
+	farcall SetGiftBoxMonCaughtData
 	jr .skip_nickname
 
 .wildmon
-	callfar GiveANickname_YesNo
+	pop de
+	pop bc
+	push bc
+	push de
+	ld a, b
+	and a
+	jr z, .party
+	farcall SetBoxMonCaughtData
+	jr .set_caught_data
+
+.party
+	farcall SetCaughtData
+.set_caught_data
+	farcall GiveANickname_YesNo
 	pop de
 	jr c, .skip_nickname
 	call InitNickname

@@ -147,13 +147,6 @@ CheckPhoneCall::
 	farcall CheckReceiveCallTimer
 	ret
 
-.unused ; unreferenced
-	ret
-
-FarInitCallReceiveDelay: ; unreferenced
-	farcall InitCallReceiveDelay
-	ret
-
 CheckPhoneContactTimeOfDay:
 	push hl
 	push bc
@@ -402,8 +395,8 @@ LoadCallerScript:
 	ld [wCurCaller], a
 	and a
 	jr nz, .actualcaller
-	ld hl, WrongNumber
 	ld a, BANK(WrongNumber)
+	ld hl, WrongNumber
 	jr .proceed
 
 .actualcaller
@@ -457,7 +450,10 @@ Script_SpecialElmCall: ; unreferenced
 
 RingTwice_StartCall:
 	call .Ring
-; fallthrough (rings a second time)
+	call .Ring
+	farcall StubbedTrainerRankings_PhoneCalls
+	ret
+
 .Ring:
 	call Phone_StartRinging
 	call Phone_Wait20Frames
@@ -482,7 +478,10 @@ PhoneCall::
 	ld a, d
 	ld [wPhoneCaller + 1], a
 	call .Ring
-; fallthrough (rings a second time)
+	call .Ring
+	farcall StubbedTrainerRankings_PhoneCalls
+	ret
+
 .Ring:
 	call Phone_StartRinging
 	call Phone_Wait20Frames
@@ -663,8 +662,6 @@ GetCallerName:
 	ld d, [hl]
 	pop hl
 	call PlaceString
-	ld a, ':'
-	ld [bc], a
 	ret
 
 INCLUDE "data/phone/non_trainer_names.asm"

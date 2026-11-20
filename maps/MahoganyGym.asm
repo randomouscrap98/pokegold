@@ -52,9 +52,17 @@ MahoganyGymPryceScript:
 
 PryceScript_Defeat:
 	writetext PryceText_CherishYourPokemon
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue PryceRematch
 MahoganyGym_NoRoomForIcyWind:
 	closetext
+	end
+
+PryceRematch:
+	winlosstext Pryce_RematchDefeat, 0
+	loadtrainer PRYCE, PRYCE1
+	startbattle
+	reloadmapafterbattle
 	end
 
 MahoganyGymActivateRockets:
@@ -199,13 +207,10 @@ Text_ReceivedGlacierBadge:
 
 PryceText_GlacierBadgeSpeech:
 	text "That BADGE will"
-	line "raise the SPECIAL"
-	cont "stats of #MON."
-
-	para "It also lets your"
-	line "#MON use WHIRL-"
-	cont "POOL to get across"
-	cont "real whirlpools."
+	line "let your #MON"
+	para "use WHIRLPOOL to"
+	line "get across real"
+	cont "whirlpools."
 
 	para "And this… This is"
 	line "a gift from me!"
@@ -236,6 +241,11 @@ PryceText_CherishYourPokemon:
 
 	para "Cherish your time"
 	line "together!"
+
+	para "Shall we test"
+	line "your bond with"
+
+	para "your #MON?"
 	done
 
 BoarderRonaldSeenText:
@@ -391,3 +401,8 @@ MahoganyGym_MapEvents:
 	object_event  5,  9, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBoarderBrad, -1
 	object_event  2,  4, SPRITE_ROCKER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBoarderDouglas, -1
 	object_event  7, 15, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, MahoganyGymGuideScript, -1
+
+Pryce_RematchDefeat:
+	text "Your bond seems"
+	line "strong."
+	done

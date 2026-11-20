@@ -104,6 +104,9 @@ OlivineGymSign:
 OlivineLighthouseSign:
 	jumptext OlivineLighthouseSignText
 
+OlivineCityBattleTowerSign:
+	jumptext OlivineCityBattleTowerSignText
+
 OlivineCityPokecenterSign:
 	jumpstd PokecenterSignScript
 
@@ -236,8 +239,10 @@ OlivineCityStandingYoungsterPokedexText:
 	done
 
 OlivineCitySailor2Text:
-	text "Hello, laddie!"
-	line "The sea is sweet!"
+	text "The sea is sweet!"
+
+	para "Sunsets on the sea"
+	line "are marvelous!"
 
 	para "Sing with me! "
 	line "Yo-ho! Blow the"
@@ -267,8 +272,18 @@ OlivineGymSignText:
 
 OlivineLighthouseSignText:
 	text "OLIVINE LIGHTHOUSE"
-	line "Also Known as the"
+	line "Also known as the"
 	cont "GLITTER LIGHTHOUSE"
+	done
+
+OlivineCityBattleTowerSignText:
+	text "BATTLE TOWER AHEAD"
+	line "Opening Now!"
+	done
+
+OlivineCityBattleTowerSignText_NotYetOpen: ; unreferenced
+; originally shown when the Battle Tower was closed
+	text "BATTLE TOWER AHEAD"
 	done
 
 OlivineCity_MapEvents:
@@ -296,11 +311,12 @@ OlivineCity_MapEvents:
 	bg_event 20, 24, BGEVENT_READ, OlivineCityPortSign
 	bg_event  7, 11, BGEVENT_READ, OlivineGymSign
 	bg_event 30, 28, BGEVENT_READ, OlivineLighthouseSign
+	bg_event  3, 23, BGEVENT_READ, OlivineCityBattleTowerSign
 	bg_event 14, 21, BGEVENT_READ, OlivineCityPokecenterSign
 	bg_event 20, 17, BGEVENT_READ, OlivineCityMartSign
 
 	def_object_events
 	object_event 26, 27, SPRITE_SAILOR, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor1Script, -1
-	object_event 20, 13, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, OlivineCityStandingYoungsterScript, -1
+	object_event 20, 13, SPRITE_STANDING_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, OlivineCityStandingYoungsterScript, -1
 	object_event 17, 21, SPRITE_SAILOR, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCitySailor2Script, -1
 	object_event 10, 11, SPRITE_OLIVINE_RIVAL, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_OLIVINE_CITY

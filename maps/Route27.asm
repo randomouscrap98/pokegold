@@ -61,10 +61,13 @@ TrainerBirdKeeperJose2:
 	trainer BIRD_KEEPER, JOSE2, EVENT_BEAT_BIRD_KEEPER_JOSE2, BirdKeeperJose2SeenText, BirdKeeperJose2BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_BIRDKEEPER_JOSE
 	endifjustbattled
 	opentext
-	checkevent EVENT_JOSE_READY_FOR_REMATCH
+	checkflag ENGINE_JOSE_READY_FOR_REMATCH
 	iftrue .WantsBattle
+	checkflag ENGINE_JOSE_HAS_STAR_PIECE
+	iftrue .HasStarPiece
 	checkcellnum PHONE_BIRDKEEPER_JOSE
 	iftrue .NumberAccepted
 	checkevent EVENT_JOSE_ASKED_FOR_PHONE_NUMBER
@@ -88,29 +91,48 @@ TrainerBirdKeeperJose2:
 .WantsBattle:
 	scall .Rematch
 	winlosstext BirdKeeperJose2BeatenText, 0
+	readmem wJoseFightCount
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight2:
 	checkevent EVENT_RESTORED_POWER_TO_KANTO
 	iftrue .LoadFight2
+.Fight1:
 	checkevent EVENT_BEAT_ELITE_FOUR
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer BIRD_KEEPER, JOSE2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_JOSE_READY_FOR_REMATCH
+	loadmem wJoseFightCount, 1
+	clearflag ENGINE_JOSE_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer BIRD_KEEPER, JOSE1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_JOSE_READY_FOR_REMATCH
+	loadmem wJoseFightCount, 2
+	clearflag ENGINE_JOSE_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer BIRD_KEEPER, JOSE3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_JOSE_READY_FOR_REMATCH
+	clearflag ENGINE_JOSE_READY_FOR_REMATCH
 	end
+
+.HasStarPiece:
+	scall .Gift
+	verbosegiveitem STAR_PIECE
+	iffalse .NoRoom
+	clearflag ENGINE_JOSE_HAS_STAR_PIECE
+	sjump .NumberAccepted
+
+.NoRoom:
+	sjump .PackFull
 
 .AskNumber1:
 	jumpstd AskNumber1MScript
@@ -140,6 +162,14 @@ TrainerBirdKeeperJose2:
 	jumpstd RematchMScript
 	end
 
+.Gift:
+	jumpstd GiftMScript
+	end
+
+.PackFull:
+	jumpstd PackFullMScript
+	end
+
 TrainerCooltrainermBlake:
 	trainer COOLTRAINERM, BLAKE, EVENT_BEAT_COOLTRAINERM_BLAKE, CooltrainermBlakeSeenText, CooltrainermBlakeBeatenText, 0, .Script
 
@@ -166,9 +196,10 @@ TrainerCooltrainerfReena:
 	trainer COOLTRAINERF, REENA1, EVENT_BEAT_COOLTRAINERF_REENA, CooltrainerfReenaSeenText, CooltrainerfReenaBeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_COOLTRAINERF_REENA
 	endifjustbattled
 	opentext
-	checkevent EVENT_REENA_READY_FOR_REMATCH
+	checkflag ENGINE_REENA_READY_FOR_REMATCH
 	iftrue .WantsBattle
 	checkcellnum PHONE_COOLTRAINERF_REENA
 	iftrue .NumberAccepted
@@ -193,28 +224,37 @@ TrainerCooltrainerfReena:
 .WantsBattle:
 	scall .Rematch
 	winlosstext CooltrainerfReenaBeatenText, 0
+	readmem wReenaFightCount
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight2:
 	checkevent EVENT_RESTORED_POWER_TO_KANTO
 	iftrue .LoadFight2
+.Fight1:
 	checkevent EVENT_BEAT_ELITE_FOUR
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer COOLTRAINERF, REENA1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_REENA_READY_FOR_REMATCH
+	loadmem wReenaFightCount, 1
+	clearflag ENGINE_REENA_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer COOLTRAINERF, REENA2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_REENA_READY_FOR_REMATCH
+	loadmem wReenaFightCount, 2
+	clearflag ENGINE_REENA_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer COOLTRAINERF, REENA3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_REENA_READY_FOR_REMATCH
+	clearflag ENGINE_REENA_READY_FOR_REMATCH
 	end
 
 .AskNumber1:
@@ -421,8 +461,8 @@ BirdKeeperJose2AfterBattleText:
 TohjoFallsSignText:
 	text "TOHJO FALLS"
 
-	para "The Link Between"
-	line "KANTO and JOHTO"
+	para "THE LINK BETWEEN"
+	line "KANTO AND JOHTO"
 	done
 
 Route27_MapEvents:
@@ -441,11 +481,11 @@ Route27_MapEvents:
 	bg_event 25,  7, BGEVENT_READ, TohjoFallsSign
 
 	def_object_events
-	object_event 49,  7, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerCooltrainermBlake, -1
-	object_event 58,  6, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 5, TrainerCooltrainermBrian, -1
-	object_event 72, 11, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 5, TrainerCooltrainerfReena, -1
+	object_event 48,  7, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerCooltrainermBlake, -1
+	object_event 58,  6, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerCooltrainermBrian, -1
+	object_event 72, 10, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerCooltrainerfReena, -1
 	object_event 37,  6, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 2, TrainerCooltrainerfMegan, -1
-	object_event 64,  7, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 5, TrainerPsychicGilbert, -1
+	object_event 65,  7, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPsychicGilbert, -1
 	object_event 58, 13, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperJose2, -1
 	object_event 60, 12, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route27TMSolarbeam, EVENT_ROUTE_27_TM_SOLARBEAM
 	object_event 53, 12, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route27RareCandy, EVENT_ROUTE_27_RARE_CANDY

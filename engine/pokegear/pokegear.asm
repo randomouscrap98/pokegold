@@ -132,15 +132,23 @@ Pokegear_LoadGFX:
 	call GetWorldMapLocation
 	cp LANDMARK_FAST_SHIP
 	jr z, .ssaqua
-	ld hl, ChrisSpriteGFX
+	farcall GetPlayerIcon
+	push de
+	ld h, d
+	ld l, e
+	ld a, b
+	; standing sprite
+	push af
 	ld de, vTiles0 tile $10
 	ld bc, 4 tiles
-	ld a, BANK(ChrisSpriteGFX)
 	call FarCopyBytes
-	ld hl, ChrisSpriteGFX + 12 tiles
+	pop af
+	pop hl
+	; walking sprite
+	ld de, 12 tiles
+	add hl, de
 	ld de, vTiles0 tile $14
 	ld bc, 4 tiles
-	ld a, BANK(ChrisSpriteGFX)
 	call FarCopyBytes
 	ret
 
@@ -302,7 +310,7 @@ InitPokegearTilemap:
 .Clock:
 	ld de, ClockTilemapRLE
 	call Pokegear_LoadTilemapRLE
-	hlcoord 13, 1
+	hlcoord 12, 1
 	ld de, .switch
 	call PlaceString
 	hlcoord 0, 12
@@ -312,7 +320,7 @@ InitPokegearTilemap:
 	ret
 
 .switch
-	db "SWITCH▶@"
+	db " SWITCH▶@"
 
 .Map:
 	ld a, [wPokegearMapPlayerIconLandmark]
@@ -558,8 +566,8 @@ PokegearMap_KantoMap:
 	jr PokegearMap_ContinueMap
 
 PokegearMap_JohtoMap:
-	ld d, LANDMARK_SILVER_CAVE
-	ld e, LANDMARK_NEW_BARK_TOWN
+	ld d, JOHTO_LANDMARK_LAST
+	ld e, JOHTO_LANDMARK
 PokegearMap_ContinueMap:
 	ld hl, hJoyLast
 	ld a, [hl]
@@ -648,7 +656,13 @@ PokegearMap_ContinueMap:
 PokegearMap_InitPlayerIcon:
 	push af
 	depixel 0, 0
-	ld a, SPRITE_ANIM_OBJ_RED_WALK
+	ld b, SPRITE_ANIM_OBJ_RED_WALK
+	ld a, [wPlayerGender]
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .got_gender
+	ld b, SPRITE_ANIM_OBJ_BLUE_WALK
+.got_gender
+	ld a, b
 	call InitSpriteAnimStruct
 	ld hl, SPRITEANIMSTRUCT_TILE_ID
 	add hl, bc
@@ -715,8 +729,8 @@ TownMap_GetKantoLandmarkLimits:
 	ld a, [wStatusFlags]
 	bit STATUSFLAGS_HALL_OF_FAME_F, a
 	jr z, .not_hof
-	ld d, LANDMARK_ROUTE_28
-	ld e, LANDMARK_PALLET_TOWN
+	ld d, KANTO_LANDMARK_LAST
+	ld e, KANTO_LANDMARK
 	ret
 
 .not_hof
@@ -1441,6 +1455,7 @@ RadioChannels:
 	dbw 16, .PKMNTalkAndPokedexShow ; 04.5
 	dbw 28, .PokemonMusic           ; 07.5
 	dbw 32, .LuckyChannel           ; 08.5
+	dbw 40, .BuenasPassword         ; 10.5
 	dbw 52, .RuinsOfAlphRadio       ; 13.5
 	dbw 64, .PlacesAndPeople        ; 16.5
 	dbw 72, .LetsAllSing            ; 18.5
@@ -1468,6 +1483,11 @@ RadioChannels:
 	jr nc, .NoSignal
 	jp LoadStation_LuckyChannel
 
+.BuenasPassword:
+	call .InJohto
+	jr nc, .NoSignal
+	jp LoadStation_BuenasPassword
+
 .RuinsOfAlphRadio:
 	ld a, [wPokegearMapPlayerIconLandmark]
 	cp LANDMARK_RUINS_OF_ALPH
@@ -1477,11 +1497,17 @@ RadioChannels:
 .PlacesAndPeople:
 	call .InJohto
 	jr c, .NoSignal
+	ld a, [wPokegearFlags]
+	bit POKEGEAR_EXPN_CARD_F, a
+	jr z, .NoSignal
 	jp LoadStation_PlacesAndPeople
 
 .LetsAllSing:
 	call .InJohto
 	jr c, .NoSignal
+	ld a, [wPokegearFlags]
+	bit POKEGEAR_EXPN_CARD_F, a
+	jr z, .NoSignal
 	jp LoadStation_LetsAllSing
 
 .PokeFluteRadio:
@@ -1569,6 +1595,24 @@ LoadStation_LuckyChannel:
 	call Radio_BackUpFarCallParams
 	ld de, LuckyChannelName
 	ret
+
+LoadStation_BuenasPassword:
+	ld a, BUENAS_PASSWORD
+	ld [wCurRadioLine], a
+	xor a
+	ld [wNumRadioLinesPrinted], a
+	ld a, BANK(PlayRadioShow)
+	ld hl, PlayRadioShow
+	call Radio_BackUpFarCallParams
+	ld de, NotBuenasPasswordName
+	ld a, [wStatusFlags2]
+	bit STATUSFLAGS2_ROCKETS_IN_RADIO_TOWER_F, a
+	ret z
+	ld de, BuenasPasswordName
+	ret
+
+BuenasPasswordName:    db "BUENA'S PASSWORD@"
+NotBuenasPasswordName: db "@"
 
 LoadStation_UnownRadio:
 	ld a, UNOWN_RADIO
@@ -1671,13 +1715,25 @@ Radio_BackUpFarCallParams:
 	ret
 
 NoRadioStation:
-; no radio music
+	call NoRadioMusic
+	call NoRadioName
+; no radio channel
+	xor a
+	ld [wPokegearRadioChannelBank], a
+	ld [wPokegearRadioChannelAddr], a
+	ld [wPokegearRadioChannelAddr + 1], a
+	ld a, $1
+	ldh [hBGMapMode], a
+	ret
+
+NoRadioMusic:
 	ld de, MUSIC_NONE
 	call PlayMusic
 	ld a, ENTER_MAP_MUSIC
 	ld [wPokegearRadioMusicPlaying], a
+	ret
 
-; no radio name
+NoRadioName:
 	xor a
 	ldh [hBGMapMode], a
 	hlcoord 1, 8
@@ -1686,14 +1742,6 @@ NoRadioStation:
 	hlcoord 0, 12
 	lb bc, 4, 18
 	call Textbox
-
-; no radio channel
-	xor a
-	ld [wPokegearRadioChannelBank], a
-	ld [wPokegearRadioChannelAddr], a
-	ld [wPokegearRadioChannelAddr + 1], a
-	ld a, $1
-	ldh [hBGMapMode], a
 	ret
 
 OaksPKMNTalkName:     db "OAK's <PK><MN> Talk@"
@@ -2487,8 +2535,17 @@ Pokedex_GetArea:
 	add $78 ; where the player's sprite is loaded
 	ld [hli], a ; tile id
 	inc de
-	xor a ; PAL_OW_RED
+	push bc
+	ld c, PAL_OW_RED
+	ld a, [wPlayerGender]
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .male
+	assert PAL_OW_RED + 1 == PAL_OW_BLUE
+	inc c
+.male
+	ld a, c
 	ld [hli], a ; attributes
+	pop bc
 	jr .ShowPlayerLoop
 
 .clear_oam
@@ -2541,8 +2598,7 @@ Pokedex_GetArea:
 	ld a, [wTownMapPlayerIconLandmark]
 	cp LANDMARK_FAST_SHIP
 	jr z, .FastShip
-	ld de, ChrisSpriteGFX
-	ld b, BANK(ChrisSpriteGFX)
+	farcall GetPlayerIcon
 	ret
 
 .FastShip:
@@ -2678,20 +2734,29 @@ TownMapMon:
 TownMapPlayerIcon:
 ; Draw the player icon at town map location in a
 	push af
-	ld de, ChrisSpriteGFX
+	farcall GetPlayerIcon
 ; Standing icon
 	ld hl, vTiles0 tile $10
-	lb bc, BANK(ChrisSpriteGFX), 4
+	ld c, 4 ; # tiles
 	call Request2bpp
 ; Walking icon
-	ld de, ChrisSpriteGFX + 12 tiles
+	ld hl, 12 tiles
+	add hl, de
+	ld d, h
+	ld e, l
 	ld hl, vTiles0 tile $14
-	lb bc, BANK(ChrisSpriteGFX), 4
+	ld c, 4 ; # tiles
 	ld a, BANK(ChrisSpriteGFX) ; does nothing
 	call Request2bpp
 ; Animation/palette
 	depixel 0, 0
-	ld a, SPRITE_ANIM_OBJ_RED_WALK
+	ld b, SPRITE_ANIM_OBJ_RED_WALK ; Male
+	ld a, [wPlayerGender]
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .got_gender
+	ld b, SPRITE_ANIM_OBJ_BLUE_WALK ; Female
+.got_gender
+	ld a, b
 	call InitSpriteAnimStruct
 	ld hl, SPRITEANIMSTRUCT_TILE_ID
 	add hl, bc

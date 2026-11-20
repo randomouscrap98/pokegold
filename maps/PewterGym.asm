@@ -34,8 +34,16 @@ PewterGymBrockScript:
 
 .FightDone:
 	writetext BrockFightDoneText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue .BrockRematch
 	closetext
+	end
+
+.BrockRematch:
+	winlosstext Brock_RematchDefeat, 0
+	loadtrainer BROCK, BROCK1
+	startbattle
+	reloadmapafterbattle
 	end
 
 TrainerCamperJerry:
@@ -117,18 +125,12 @@ ReceivedBoulderBadgeText:
 	done
 
 BrockBoulderBadgeText:
-	text "BROCK: <PLAYER>,"
+	text "BROCK: <PLAY_G>,"
 	line "thanks. I enjoyed"
 
 	para "battling you, even"
 	line "though I am a bit"
 	cont "upset."
-
-	para "That BOULDERBADGE"
-	line "will make your"
-
-	para "#MON even more"
-	line "powerful."
 	done
 
 BrockFightDoneText:
@@ -142,6 +144,9 @@ BrockFightDoneText:
 	line "I'm going to be-"
 	cont "come a lot strong-"
 	cont "er too."
+
+	para "Shall I prove it"
+	line "to you now?"
 	done
 
 CamperJerrySeenText:
@@ -223,3 +228,9 @@ PewterGym_MapEvents:
 	object_event  5,  1, SPRITE_BROCK, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, PewterGymBrockScript, -1
 	object_event  2,  5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerCamperJerry, -1
 	object_event  6, 11, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 1, PewterGymGuideScript, -1
+
+Brock_RematchDefeat:
+	text "BROCK: You're"
+	line "stronger than I"
+	cont "expected…"
+	done

@@ -20,7 +20,7 @@ ElmsHouseBookshelf:
 	jumpstd DifficultBookshelfScript
 
 ElmsWifeText:
-	text "Hi, <PLAYER>! My"
+	text "Hi, <PLAY_G>! My"
 	line "husband's always"
 
 	para "so busy--I hope"
@@ -36,7 +36,7 @@ ElmsWifeText:
 ElmsSonText:
 	text "When I grow up,"
 	line "I'm going to help"
-	cont "my Dad!"
+	cont "my dad!"
 
 	para "I'm going to be a"
 	line "great #MON"

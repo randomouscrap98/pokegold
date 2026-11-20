@@ -30,6 +30,7 @@ EngineFlags:
 	engine_flag wStatusFlags, STATUSFLAGS_CAUGHT_POKERUS_F
 	engine_flag wStatusFlags, STATUSFLAGS_ROCKET_SIGNAL_F
 	engine_flag wStatusFlags, STATUSFLAGS_HALL_OF_FAME_F
+	engine_flag wStatusFlags, STATUSFLAGS_MAIN_MENU_MOBILE_CHOICES_F
 
 	engine_flag wStatusFlags2, STATUSFLAGS2_BUG_CONTEST_TIMER_F
 	engine_flag wStatusFlags2, STATUSFLAGS2_SAFARI_GAME_F
@@ -62,10 +63,10 @@ EngineFlags:
 	engine_flag wKantoBadges, EARTHBADGE
 
 	; unown sets (see data/wild/unlocked_unowns.asm)
-	engine_flag wUnlockedUnowns, 0 ; A-K
-	engine_flag wUnlockedUnowns, 1 ; L-R
-	engine_flag wUnlockedUnowns, 2 ; S-W
-	engine_flag wUnlockedUnowns, 3 ; X-Z
+	engine_flag wUnlockedUnowns, UNLOCKED_UNOWNS_A_TO_K_F
+	engine_flag wUnlockedUnowns, UNLOCKED_UNOWNS_L_TO_R_F
+	engine_flag wUnlockedUnowns, UNLOCKED_UNOWNS_S_TO_W_F
+	engine_flag wUnlockedUnowns, UNLOCKED_UNOWNS_X_TO_Z_F
 	engine_flag wUnlockedUnowns, 4 ; unused
 	engine_flag wUnlockedUnowns, 5 ; unused
 	engine_flag wUnlockedUnowns, 6 ; unused
@@ -106,7 +107,7 @@ EngineFlags:
 
 	engine_flag wDailyFlags1, DAILYFLAGS1_KURT_MAKING_BALLS_F
 	engine_flag wDailyFlags1, DAILYFLAGS1_BUG_CONTEST_F
-	engine_flag wDailyFlags1, DAILYFLAGS1_SWARM_F
+	engine_flag wDailyFlags1, DAILYFLAGS1_FISH_SWARM_F
 	engine_flag wDailyFlags1, DAILYFLAGS1_TIME_CAPSULE_F
 	engine_flag wDailyFlags1, DAILYFLAGS1_ALL_FRUIT_TREES_F
 	engine_flag wDailyFlags1, DAILYFLAGS1_GOT_SHUCKIE_TODAY_F
@@ -119,5 +120,83 @@ EngineFlags:
 	engine_flag wDailyFlags2, DAILYFLAGS2_GOLDENROD_DEPT_STORE_TM27_RETURN_F
 	engine_flag wDailyFlags2, DAILYFLAGS2_DAISYS_GROOMING_F
 	engine_flag wDailyFlags2, DAILYFLAGS2_INDIGO_PLATEAU_RIVAL_FIGHT_F
+	engine_flag wDailyFlags2, DAILYFLAGS2_MOVE_TUTOR_F
+	engine_flag wDailyFlags2, DAILYFLAGS2_BUENAS_PASSWORD_F
+
+	engine_flag wSwarmFlags, SWARMFLAGS_BUENAS_PASSWORD_F
+	engine_flag wSwarmFlags, SWARMFLAGS_GOLDENROD_DEPT_STORE_SALE_F
+
+	engine_flag wGameTimerPaused, GAME_TIMER_MOBILE_F
+
+	engine_flag wPlayerGender, PLAYERGENDER_FEMALE_F
+
+	engine_flag wCelebiEvent, CELEBIEVENT_FOREST_IS_RESTLESS_F
+
+	; rematches
+	engine_flag wDailyRematchFlags,  0 ; jack
+	engine_flag wDailyRematchFlags,  1 ; huey
+	engine_flag wDailyRematchFlags,  2 ; gaven
+	engine_flag wDailyRematchFlags,  3 ; beth
+	engine_flag wDailyRematchFlags,  4 ; jose
+	engine_flag wDailyRematchFlags,  5 ; reena
+	engine_flag wDailyRematchFlags,  6 ; joey
+	engine_flag wDailyRematchFlags,  7 ; wade
+	engine_flag wDailyRematchFlags,  8 ; ralph
+	engine_flag wDailyRematchFlags,  9 ; liz
+	engine_flag wDailyRematchFlags, 10 ; anthony
+	engine_flag wDailyRematchFlags, 11 ; todd
+	engine_flag wDailyRematchFlags, 12 ; gina
+	engine_flag wDailyRematchFlags, 13 ; arnie
+	engine_flag wDailyRematchFlags, 14 ; alan
+	engine_flag wDailyRematchFlags, 15 ; dana
+	engine_flag wDailyRematchFlags, 16 ; chad
+	engine_flag wDailyRematchFlags, 17 ; tully
+	engine_flag wDailyRematchFlags, 18 ; brent
+	engine_flag wDailyRematchFlags, 19 ; tiffany
+	engine_flag wDailyRematchFlags, 20 ; vance
+	engine_flag wDailyRematchFlags, 21 ; wilton
+	engine_flag wDailyRematchFlags, 22 ; parry
+	engine_flag wDailyRematchFlags, 23 ; erin
+
+	engine_flag wDailyPhoneItemFlags, 0 ; beverly has nugget
+	engine_flag wDailyPhoneItemFlags, 1 ; jose has star piece
+	engine_flag wDailyPhoneItemFlags, 2 ; wade has item (see EVENT_WADE_HAS_*** in constants/event_flags.asm)
+	engine_flag wDailyPhoneItemFlags, 3 ; gina has leaf stone
+	engine_flag wDailyPhoneItemFlags, 4 ; alan has fire stone
+	engine_flag wDailyPhoneItemFlags, 5 ; liz has thunderstone
+	engine_flag wDailyPhoneItemFlags, 6 ; derek has nugget
+	engine_flag wDailyPhoneItemFlags, 7 ; tully has water stone
+	engine_flag wDailyPhoneItemFlags, 8 ; tiffany has pink bow
+	engine_flag wDailyPhoneItemFlags, 9 ; wilton has item (see EVENT_WILTON_HAS_*** in constants/event_flags.asm)
+
+	engine_flag wDailyPhoneTimeOfDayFlags,  0 ; jack
+	engine_flag wDailyPhoneTimeOfDayFlags,  1 ; huey
+	engine_flag wDailyPhoneTimeOfDayFlags,  2 ; gaven
+	engine_flag wDailyPhoneTimeOfDayFlags,  3 ; beth
+	engine_flag wDailyPhoneTimeOfDayFlags,  4 ; jose
+	engine_flag wDailyPhoneTimeOfDayFlags,  5 ; reena
+	engine_flag wDailyPhoneTimeOfDayFlags,  6 ; joey
+	engine_flag wDailyPhoneTimeOfDayFlags,  7 ; wade
+	engine_flag wDailyPhoneTimeOfDayFlags,  8 ; ralph
+	engine_flag wDailyPhoneTimeOfDayFlags,  9 ; liz
+	engine_flag wDailyPhoneTimeOfDayFlags, 10 ; anthony
+	engine_flag wDailyPhoneTimeOfDayFlags, 11 ; todd
+	engine_flag wDailyPhoneTimeOfDayFlags, 12 ; gina
+	engine_flag wDailyPhoneTimeOfDayFlags, 13 ; arnie
+	engine_flag wDailyPhoneTimeOfDayFlags, 14 ; alan
+	engine_flag wDailyPhoneTimeOfDayFlags, 15 ; dana
+	engine_flag wDailyPhoneTimeOfDayFlags, 16 ; chad
+	engine_flag wDailyPhoneTimeOfDayFlags, 17 ; tully
+	engine_flag wDailyPhoneTimeOfDayFlags, 18 ; brent
+	engine_flag wDailyPhoneTimeOfDayFlags, 19 ; tiffany
+	engine_flag wDailyPhoneTimeOfDayFlags, 20 ; vance
+	engine_flag wDailyPhoneTimeOfDayFlags, 21 ; wilton
+	engine_flag wDailyPhoneTimeOfDayFlags, 22 ; parry
+	engine_flag wDailyPhoneTimeOfDayFlags, 23 ; erin
+
+	engine_flag wPlayerSpriteSetupFlags, PLAYERSPRITESETUP_FEMALE_TO_MALE_F
+
+	engine_flag wSwarmFlags, SWARMFLAGS_DUNSPARCE_SWARM_F
+	engine_flag wSwarmFlags, SWARMFLAGS_YANMA_SWARM_F
 
 	assert_table_length NUM_ENGINE_FLAGS

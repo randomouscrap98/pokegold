@@ -3835,6 +3835,10 @@ Sfx_2Boops_Ch5:
 	pitch_sweep 0, 8
 	sound_ret
 
+Sfx_IntroWhoosh:
+	channel_count 1
+	channel 8, Sfx_IntroWhoosh_Ch8
+
 Sfx_Menu_Ch8:
 	noise_note 1, 14, 2, 51
 	noise_note 8, 14, 1, 34
@@ -4885,6 +4889,18 @@ Sfx_Unknown60_Ch8:
 	noise_note 15, 15, 2, 67
 	sound_ret
 
+Sfx_IntroWhoosh_Ch8:
+	noise_note 1, 1, 0, 16
+	noise_note 2, 2, 0, 16
+	noise_note 2, 3, 0, 32
+	noise_note 2, 4, 0, 32
+	noise_note 2, 5, 0, 33
+	noise_note 2, 6, 0, 34
+	noise_note 4, 7, 0, 34
+	noise_note 8, 8, 0, 34
+	noise_note 15, 9, 4, 34
+	sound_ret
+
 Sfx_Unknown61_Ch8:
 	noise_note 4, 13, 1, 65
 	sound_ret
@@ -4905,11 +4921,12 @@ Sfx_Burn_Ch8:
 	sound_ret
 
 Sfx_TitleScreenEntrance_Ch8:
-	noise_note 8, 3, 12, 32
-	noise_note 6, 10, 0, 32
-	noise_note 8, 11, 0, 33
-	noise_note 10, 12, 0, 34
-	noise_note 15, 13, 2, 35
+	noise_note 2, 7, 0, 34
+	noise_note 2, 8, 0, 35
+	noise_note 2, 9, 0, 36
+	noise_note 2, 10, 0, 37
+	noise_note 2, 11, 0, 38
+	noise_note 15, 12, 2, 38
 	sound_ret
 
 Sfx_Unknown66_Ch5:
@@ -5181,4 +5198,28 @@ Sfx_StopSlot_Ch5:
 	duty_cycle 2
 	square_note 1, 15, 8, 1888
 	square_note 4, 8, 2, 1888
+	sound_ret
+
+Sfx_GlassTing:
+	channel_count 1
+	channel 5, Sfx_GlassTing_Ch5
+
+Sfx_GlassTing_Ch5:
+	duty_cycle 2
+	square_note 32, 13, 1, 2012
+	sound_ret
+
+Sfx_GlassTing2:
+	channel_count 2
+	channel 5, Sfx_GlassTing2_Ch5
+	channel 6, Sfx_GlassTing2_Ch6
+
+Sfx_GlassTing2_Ch5:
+	duty_cycle 2
+	square_note 16, 15, 1, 2012
+	sound_ret
+
+Sfx_GlassTing2_Ch6:
+	duty_cycle 2
+	square_note 16, 13, 1, 2013
 	sound_ret

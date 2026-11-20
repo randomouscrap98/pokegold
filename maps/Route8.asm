@@ -115,7 +115,7 @@ BikerZekeSeenText:
 	text "We're the KANTO"
 	line "#MON FEDERA-"
 	cont "TION!"
-	cont "Right on, dude!"
+	cont "Right on!"
 	done
 
 BikerZekeBeatenText:
@@ -144,25 +144,20 @@ SupernerdSamAfterBattleText:
 	done
 
 SupernerdTomSeenText:
-	text "We can't do with-"
-	line "out electricity."
-
-	para "The POWER PLANT"
-	line "supplies us with"
-	cont "electricity."
+	text "Hm… You've got"
+	line "many GYM BADGES."
 	done
 
 SupernerdTomBeatenText:
-	text "Don't waste"
-	line "electricity!"
+	text "Just as I thought…"
+	line "You're tough!"
 	done
 
 SupernerdTomAfterBattleText:
-	text "The POWER PLANT"
-	line "north of LAVENDER"
-
-	para "supplies power to"
-	line "the MAGNET TRAIN."
+	text "GYM BADGES show"
+	line "that you are"
+	cont "an experienced"
+	cont "trainer."
 	done
 
 Route8LockedDoorText:
@@ -193,6 +188,6 @@ Route8_MapEvents:
 	object_event 10,  8, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 5, TrainerBikerDwayne, -1
 	object_event 10,  9, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 5, TrainerBikerHarris, -1
 	object_event 10, 10, SPRITE_BIKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 5, TrainerBikerZeke, -1
-	object_event 20,  6, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 4, TrainerSupernerdSam, -1
-	object_event 27,  9, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerSupernerdTom, -1
+	object_event 23,  2, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerSupernerdSam, -1
+	object_event 31, 12, SPRITE_SUPER_NERD, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 4, TrainerSupernerdTom, -1
 	object_event 33,  5, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route8FruitTree, -1

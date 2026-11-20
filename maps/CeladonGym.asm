@@ -43,8 +43,16 @@ CeladonGymErikaScript:
 	setevent EVENT_GOT_TM19_GIGA_DRAIN
 .GotGigaDrain:
 	writetext ErikaAfterBattleText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue ErikaRematch
 	closetext
+	end
+
+ErikaRematch:
+	winlosstext Erika_RematchDefeat, 0
+	loadtrainer ERIKA, ERIKA1
+	startbattle
+	reloadmapafterbattle
 	end
 
 TrainerLassMichelle:
@@ -185,11 +193,16 @@ ErikaAfterBattleText:
 
 	para "trainers spurs me"
 	line "to do better…"
+
+	para "A friendly rematch"
+	line "won't be too bad I"
+	cont "guess."
 	done
 
 LassMichelleSeenText:
-	text "Wait! Only girls"
-	line "are allowed here!"
+	text "Do you think a"
+	line "girls-only GYM"
+	cont "is rare?"
 	done
 
 LassMichelleBeatenText:
@@ -197,14 +210,8 @@ LassMichelleBeatenText:
 	done
 
 LassMichelleAfterBattleText:
-	text "We don't dislike"
-	line "boys or anything."
-
-	para "But there are"
-	line "certain subjects"
-
-	para "that only girls"
-	line "can talk about."
+	text "I just got care-"
+	line "less, that's all!"
 	done
 
 PicnickerTanyaSeenText:
@@ -290,3 +297,9 @@ CeladonGym_MapEvents:
 	object_event  3,  5, SPRITE_BEAUTY, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerBeautyJulia, -1
 	object_event  4, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsJoAndZoe1, -1
 	object_event  5, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsJoAndZoe2, -1
+
+Erika_RematchDefeat:
+	text "You're still quite"
+	line "good, I accept"
+	cont "defeat."
+	done

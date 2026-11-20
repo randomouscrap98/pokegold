@@ -5,6 +5,7 @@
 	const GOLDENRODUNDERGROUNDWAREHOUSE_GENTLEMAN
 	const GOLDENRODUNDERGROUNDWAREHOUSE_POKE_BALL1
 	const GOLDENRODUNDERGROUNDWAREHOUSE_POKE_BALL2
+	const GOLDENRODUNDERGROUNDWAREHOUSE_POKE_BALL3
 
 GoldenrodUndergroundWarehouse_MapScripts:
 	def_scene_scripts
@@ -91,6 +92,9 @@ GoldenrodUndergroundWarehouseMaxEther:
 GoldenrodUndergroundWarehouseTMSleepTalk:
 	itemball TM_SLEEP_TALK
 
+GoldenrodUndergroundWarehouseUltraBall:
+	itemball ULTRA_BALL
+
 GruntM24SeenText:
 	text "How did you get"
 	line "this far?"
@@ -101,7 +105,7 @@ GruntM24SeenText:
 	done
 
 GruntM24BeatenText:
-	text "He disposed of me…"
+	text "I got disposed of…"
 	done
 
 GruntM24AfterBattleText:
@@ -223,3 +227,4 @@ GoldenrodUndergroundWarehouse_MapEvents:
 	object_event 12,  8, SPRITE_GENTLEMAN, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodUndergroundWarehouseDirectorScript, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
 	object_event 18, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundWarehouseMaxEther, EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_MAX_ETHER
 	object_event 13,  9, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundWarehouseTMSleepTalk, EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_TM_SLEEP_TALK
+	object_event  2,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundWarehouseUltraBall, EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_ULTRA_BALL

@@ -59,10 +59,20 @@ SSAquaGranddaughterBefore:
 	showemote EMOTE_SHOCK, FASTSHIPCABINS_SE_SSE_CAPTAINSCABIN_GENTLEMAN, 15
 	applymovement FASTSHIPCABINS_SE_SSE_CAPTAINSCABIN_TWIN1, SSAquaGranddaughterEntersCabinMovement
 	turnobject FASTSHIPCABINS_SE_SSE_CAPTAINSCABIN_GENTLEMAN, RIGHT
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .PlayerIsFemale
 	opentext
 	writetext SSAquaGranddaughterWasPlayingMText
 	waitbutton
 	closetext
+	sjump .cont
+
+.PlayerIsFemale:
+	opentext
+	writetext SSAquaGranddaughterWasPlayingFText
+	waitbutton
+	closetext
+.cont:
 	turnobject FASTSHIPCABINS_SE_SSE_CAPTAINSCABIN_TWIN2, DOWN
 	applymovement FASTSHIPCABINS_SE_SSE_CAPTAINSCABIN_GENTLEMAN, SSAquaGrandpaApproachesPlayerMovement
 	opentext
@@ -247,15 +257,13 @@ SSAquaCaptainHowDoYouLikeText:
 	done
 
 SSAquaCantFindGranddaughterText:
-	text "Hello, son…"
-	line "I can't find my"
-	cont "granddaughter."
+	text "Oh, hello…"
+
+	para "I still can't find"
+	line "my granddaughter."
 
 	para "If she's on the"
 	line "ship, that's OK."
-
-	para "But what if she"
-	line "fell overboard?"
 
 	para "She's an energetic"
 	line "child, so she may"
@@ -265,8 +273,8 @@ SSAquaCantFindGranddaughterText:
 	done
 
 SSAquaEntertainedGranddaughterText:
-	text "<PLAYER>, was it? I"
-	line "heard you enter-"
+	text "<PLAY_G>, was it?"
+	line "I heard you enter-"
 	cont "tained my grand-"
 	cont "daughter."
 
@@ -315,13 +323,21 @@ SSAquaGranddaughterWasPlayingMText:
 	line "and this guy!"
 	done
 
+SSAquaGranddaughterWasPlayingFText:
+	text "Grandpa, here I"
+	line "am! I was playing"
+
+	para "with the CAPTAIN"
+	line "and this big girl!"
+	done
+
 SSAquaGranddaughterHadFunText:
 	text "I had lots of fun"
 	line "playing!"
 	done
 
 PokefanmColinSeenText:
-	text "Hey, son! Want to"
+	text "Hey, kid! Want to"
 	line "battle with me?"
 	done
 

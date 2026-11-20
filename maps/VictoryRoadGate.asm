@@ -72,7 +72,7 @@ VictoryRoadGateEightBadgesText:
 	line "BADGES of JOHTO!"
 
 	para "Please, go right"
-	line "ahead, sir!"
+	line "on through!"
 	done
 
 VictoryRoadGateLeftBlackBeltText:

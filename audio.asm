@@ -23,7 +23,6 @@ INCLUDE "audio/music/goldenrodcity.asm"
 INCLUDE "audio/music/vermilioncity.asm"
 INCLUDE "audio/music/titlescreen.asm"
 INCLUDE "audio/music/ruinsofalphinterior.asm"
-INCLUDE "audio/music/lookpokemaniac.asm"
 INCLUDE "audio/music/trainervictory.asm"
 
 
@@ -126,6 +125,21 @@ INCLUDE "audio/music/pokeflutechannel.asm"
 INCLUDE "audio/music/bugcatchingcontest.asm"
 
 
+SECTION "Songs 5", ROMX
+
+INCLUDE "audio/music/mobileadaptermenu.asm"
+INCLUDE "audio/music/buenaspassword.asm"
+INCLUDE "audio/music/lookmysticalman.asm"
+INCLUDE "audio/music/crystalopening.asm"
+INCLUDE "audio/music/battletowertheme.asm"
+INCLUDE "audio/music/suicunebattle.asm"
+INCLUDE "audio/music/battletowerlobby.asm"
+INCLUDE "audio/music/mobilecenter.asm"
+INCLUDE "audio/music/clair.asm"
+INCLUDE "audio/music/mobileadapter.asm"
+INCLUDE "audio/music/lookpokemaniac.asm" ; moved from Songs 1 (space)
+
+
 SECTION "Extra Songs 1", ROMX
 
 INCLUDE "audio/music/credits.asm"
@@ -139,6 +153,11 @@ INCLUDE "audio/music/postcredits.asm"
 SECTION "Sound Effects", ROMX
 
 INCLUDE "audio/sfx.asm"
+
+
+SECTION "Crystal Sound Effects", ROMX
+
+INCLUDE "audio/sfx_crystal.asm"
 
 
 SECTION "Cries", ROMX

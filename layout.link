@@ -166,7 +166,6 @@ ROMX $3f
 ROMX $40
 	"Standard Scripts"
 ROMX $41
-	"Phone Scripts"
 ROMX $42
 	"Map Scripts 1"
 ROMX $43
@@ -218,19 +217,12 @@ ROMX $5a
 ROMX $5b
 	"Map Scripts 25"
 ROMX $5c
-	"Map Scripts 26"
 ROMX $5d
-	"Map Scripts 27"
 ROMX $5e
-	"Map Scripts 28"
 ROMX $5f
-	"Map Scripts 29"
 ROMX $60
-	"Map Scripts 30"
 ROMX $61
-	"Map Scripts 31"
 ROMX $62
-	"Map Scripts 32"
 ROMX $64
 	"Text 1"
 ROMX $65

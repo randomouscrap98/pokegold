@@ -91,7 +91,7 @@ MartCianwood:
 	db -1 ; end
 
 MartGoldenrod2F1:
-	db 7 ; # items
+	db 13 ; # items
 	db POTION
 	db SUPER_POTION
 	db ANTIDOTE
@@ -99,6 +99,12 @@ MartGoldenrod2F1:
 	db AWAKENING
 	db BURN_HEAL
 	db ICE_HEAL
+	db MOON_STONE ; Perfect Crystal
+	db SUN_STONE ; Perfect Crystal
+	db WATER_STONE ; Perfect Crystal
+	db FIRE_STONE ; Perfect Crystal
+	db LEAF_STONE ; Perfect Crystal
+	db THUNDERSTONE ; Perfect Crystal
 	db -1 ; end
 
 MartGoldenrod2F2:
@@ -288,7 +294,7 @@ MartVermilion:
 	db -1 ; end
 
 MartCeladon2F1:
-	db 7 ; # items
+	db 11 ; # items
 	db POTION
 	db SUPER_POTION
 	db HYPER_POTION
@@ -296,6 +302,10 @@ MartCeladon2F1:
 	db REVIVE
 	db SUPER_REPEL
 	db MAX_REPEL
+	db ELIXER ; Perfect Crystal
+	db MAX_ELIXER ; Perfect Crystal
+	db ETHER ; Perfect Crystal
+	db MAX_ETHER ; Perfect Crystal
 	db -1 ; end
 
 MartCeladon2F2:
@@ -313,19 +323,29 @@ MartCeladon2F2:
 	db -1 ; end
 
 MartCeladon3F:
-	db 5 ; # items
+	db 6 ; # items
 	db TM_HIDDEN_POWER
 	db TM_SUNNY_DAY
 	db TM_PROTECT
 	db TM_RAIN_DANCE
 	db TM_SANDSTORM
+	db TM_PSYCH_UP ; Perfect Crystal
 	db -1 ; end
 
 MartCeladon4F:
-	db 3 ; # items
+	db 12 ; # items
 	db POKE_DOLL
 	db LOVELY_MAIL
 	db SURF_MAIL
+	db LIGHT_BALL ; Perfect Crystal
+	db GOLD_LEAF ; Perfect Crystal
+	db POLKADOT_BOW ; Perfect Crystal
+	db TWISTEDSPOON ; Perfect Crystal
+	db BRICK_PIECE ; Perfect Crystal
+	db SILVER_LEAF ; Perfect Crystal
+	db LUCKY_PUNCH ; Perfect Crystal
+	db LEFTOVERS ; Perfect Crystal
+	db BRIGHTPOWDER ; Perfect Crystal
 	db -1 ; end
 
 MartCeladon5F1:

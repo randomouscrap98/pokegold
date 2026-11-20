@@ -167,10 +167,13 @@ TrainerFisherRalph1:
 	trainer FISHER, RALPH1, EVENT_BEAT_FISHER_RALPH, FisherRalph1SeenText, FisherRalph1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_FISHER_RALPH
 	endifjustbattled
 	opentext
-	checkevent EVENT_RALPH_READY_FOR_REMATCH
+	checkflag ENGINE_RALPH_READY_FOR_REMATCH
 	iftrue .Rematch
+	checkflag ENGINE_QWILFISH_SWARM
+	iftrue .Swarm
 	checkcellnum PHONE_FISHER_RALPH
 	iftrue .NumberAccepted
 	checkevent EVENT_RALPH_ASKED_FOR_PHONE_NUMBER
@@ -194,28 +197,67 @@ TrainerFisherRalph1:
 .Rematch:
 	scall .RematchStd
 	winlosstext FisherRalph1BeatenText, 0
+	readmem wRalphFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight3
+.Fight2:
 	checkflag ENGINE_FLYPOINT_LAKE_OF_RAGE
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_ECRUTEAK
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer FISHER, RALPH1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_RALPH_READY_FOR_REMATCH
+	loadmem wRalphFightCount, 1
+	clearflag ENGINE_RALPH_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer FISHER, RALPH2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_RALPH_READY_FOR_REMATCH
+	loadmem wRalphFightCount, 2
+	clearflag ENGINE_RALPH_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer FISHER, RALPH3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_RALPH_READY_FOR_REMATCH
+	loadmem wRalphFightCount, 3
+	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	end
+
+.LoadFight3:
+	loadtrainer FISHER, RALPH4
+	startbattle
+	reloadmapafterbattle
+	loadmem wRalphFightCount, 4
+	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer FISHER, RALPH5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_RALPH_READY_FOR_REMATCH
+	end
+
+.Swarm:
+	writetext FisherRalphSwarmText
+	waitbutton
+	closetext
 	end
 
 .AskNumber1:
@@ -261,9 +303,10 @@ TrainerPicnickerLiz1:
 	trainer PICNICKER, LIZ1, EVENT_BEAT_PICNICKER_LIZ, PicnickerLiz1SeenText, PicnickerLiz1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_PICNICKER_LIZ
 	endifjustbattled
 	opentext
-	checkevent EVENT_LIZ_READY_FOR_REMATCH
+	checkflag ENGINE_LIZ_READY_FOR_REMATCH
 	iftrue .Rematch
 	checkcellnum PHONE_PICNICKER_LIZ
 	iftrue .NumberAccepted
@@ -288,28 +331,61 @@ TrainerPicnickerLiz1:
 .Rematch:
 	scall .RematchStd
 	winlosstext PicnickerLiz1BeatenText, 0
+	readmem wLizFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_CLEARED_RADIO_TOWER
+	iftrue .LoadFight3
+.Fight2:
 	checkevent EVENT_CLEARED_ROCKET_HIDEOUT
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_ECRUTEAK
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer PICNICKER, LIZ1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_LIZ_READY_FOR_REMATCH
+	loadmem wLizFightCount, 1
+	clearflag ENGINE_LIZ_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer PICNICKER, LIZ2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_LIZ_READY_FOR_REMATCH
+	loadmem wLizFightCount, 2
+	clearflag ENGINE_LIZ_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer PICNICKER, LIZ3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_LIZ_READY_FOR_REMATCH
+	loadmem wLizFightCount, 3
+	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	end
+
+.LoadFight3:
+	loadtrainer PICNICKER, LIZ4
+	startbattle
+	reloadmapafterbattle
+	loadmem wLizFightCount, 4
+	clearflag ENGINE_LIZ_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer PICNICKER, LIZ5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_LIZ_READY_FOR_REMATCH
 	end
 
 .AskNumber1:
@@ -412,8 +488,8 @@ FriedaScript:
 Route32GreatBall:
 	itemball GREAT_BALL
 
-Route32Potion:
-	itemball POTION
+Route32Repel:
+	itemball REPEL
 
 Route32Sign:
 	jumptext Route32SignText
@@ -570,9 +646,12 @@ FisherJustinAfterText:
 	done
 
 FisherRalph1SeenText:
-	text "I'm a good angler,"
-	line "but an even better"
-	cont "trainer!"
+	text "I'm really good at"
+	line "both fishing and"
+	cont "#MON."
+
+	para "I'm not about to"
+	line "lose to any kid!"
 	done
 
 FisherRalph1BeatenText:
@@ -586,6 +665,17 @@ FisherRalphAfterText:
 
 	para "#MON are life-"
 	line "long friends!"
+	done
+
+FisherRalphSwarmText:
+	text "One, two, three…"
+	line "Muahahaha, what a"
+
+	para "great haul!"
+	line "I'm done! Go ahead"
+
+	para "and catch as many"
+	line "as you can, kid!"
 	done
 
 Route32UnusedFisher1SeenText: ; unreferenced
@@ -713,8 +803,8 @@ PicnickerLiz1SeenText:
 	done
 
 PicnickerLiz1BeatenText:
-	text "Take it easy!"
-	line "That's mean!"
+	text "Oh! I've got to"
+	line "relieve my anger!"
 	done
 
 PicnickerLiz1AfterText:
@@ -827,7 +917,7 @@ Route32RuinsSignText:
 
 Route32UnionCaveSignText:
 	text "UNION CAVE"
-	line "Ahead"
+	line "AHEAD"
 	done
 
 Route32_MapEvents:
@@ -855,9 +945,9 @@ Route32_MapEvents:
 	object_event  8, 49, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerFisherJustin, -1
 	object_event 12, 56, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerFisherRalph1, -1
 	object_event  6, 48, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerFisherHenry, -1
-	object_event 13, 23, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerYoungsterAlbert, -1
-	object_event  4, 65, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerYoungsterGordon, -1
-	object_event  1, 56, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 4, TrainerCamperRoland, -1
+	object_event 12, 22, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerYoungsterAlbert, -1
+	object_event  4, 63, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerYoungsterGordon, -1
+	object_event  3, 45, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerCamperRoland, -1
 	object_event 10, 30, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerPicnickerLiz1, -1
 	object_event 19,  8, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route32CooltrainerMScript, -1
 	object_event 11, 82, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperPeter, -1
@@ -865,4 +955,4 @@ Route32_MapEvents:
 	object_event  6, 53, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route32GreatBall, EVENT_ROUTE_32_GREAT_BALL
 	object_event 15, 13, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route32RoarTMGuyScript, -1
 	object_event 12, 67, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, FriedaScript, EVENT_ROUTE_32_FRIEDA_OF_FRIDAY
-	object_event  3, 30, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route32Potion, EVENT_ROUTE_32_POTION
+	object_event  3, 30, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route32Repel, EVENT_ROUTE_32_REPEL

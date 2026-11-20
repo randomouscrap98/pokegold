@@ -44,10 +44,19 @@ RefreshSprites::
 	ret
 
 GetPlayerSprite:
-; Get Chris's sprite.
+; Get Chris or Kris's sprite.
+	ld hl, ChrisStateSprites
+	ld a, [wPlayerSpriteSetupFlags]
+	bit PLAYERSPRITESETUP_FEMALE_TO_MALE_F, a
+	jr nz, .go
+	ld a, [wPlayerGender]
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .go
+	ld hl, KrisStateSprites
+
+.go
 	ld a, [wPlayerState]
 	ld c, a
-	ld hl, ChrisStateSprites
 .loop
 	ld a, [hli]
 	cp c

@@ -3,6 +3,7 @@
 	const RADIOTOWER5F_ROCKET
 	const RADIOTOWER5F_ROCKET_GIRL
 	const RADIOTOWER5F_ROCKER
+	const RADIOTOWER5F_POKE_BALL
 
 RadioTower5F_MapScripts:
 	def_scene_scripts
@@ -119,25 +120,17 @@ RadioTower5FRocketBossScript:
 	opentext
 	writetext RadioTower5FDirectorThankYouText
 	promptbutton
-	checkver
-	iftrue .SilverWing
-	verbosegiveitem RAINBOW_WING
-	writetext RadioTower5FDirectorDescribeRainbowWingText
+	verbosegiveitem CLEAR_BELL
+	writetext RadioTower5FDirectorDescribeClearBellText
 	waitbutton
 	closetext
 	setscene SCENE_RADIOTOWER5F_NOOP
-	setevent EVENT_GOT_RAINBOW_WING
+	setmapscene ECRUTEAK_TIN_TOWER_ENTRANCE, SCENE_ECRUTEAKTINTOWERENTRANCE_SAGE_BLOCKS
+	setevent EVENT_GOT_CLEAR_BELL
 	setevent EVENT_TEAM_ROCKET_DISBANDED
-	sjump .GotWing
+	sjump .UselessJump
 
-.SilverWing:
-	verbosegiveitem SILVER_WING
-	writetext RadioTower5FDirectorDescribeSilverWingText
-	waitbutton
-	closetext
-	setscene SCENE_RADIOTOWER5F_NOOP
-	setevent EVENT_GOT_SILVER_WING
-.GotWing:
+.UselessJump:
 	applymovement RADIOTOWER5F_DIRECTOR, RadioTower5FDirectorWalksOut
 	playsound SFX_EXIT_BUILDING
 	disappear RADIOTOWER5F_DIRECTOR
@@ -145,6 +138,9 @@ RadioTower5FRocketBossScript:
 
 Ben:
 	jumptextfaceplayer BenText
+
+RadioTower5FUltraBall:
+	itemball ULTRA_BALL
 
 RadioTower5FDirectorsOfficeSign:
 	jumptext RadioTower5FDirectorsOfficeSignText
@@ -242,11 +238,9 @@ FakeDirectorTextAfter:
 	done
 
 Executivef1SeenText:
-	text "Hi, little boy."
-	line "Remember me from"
-
-	para "the HIDEOUT in"
-	line "MAHOGANY TOWN?"
+	text "Remember me from"
+	line "the HIDEOUT in"
+	cont "MAHOGANY TOWN?"
 
 	para "I lost then, but I"
 	line "won't this time."
@@ -327,7 +321,7 @@ RadioTower5FRocketBossAfterText:
 	done
 
 RadioTower5FDirectorThankYouText:
-	text "DIRECTOR: <PLAYER>,"
+	text "DIRECTOR: <PLAY_G>,"
 	line "thank you!"
 
 	para "Your courageous"
@@ -341,7 +335,7 @@ RadioTower5FDirectorThankYouText:
 	cont "take this."
 	done
 
-RadioTower5FDirectorDescribeRainbowWingText:
+RadioTower5FDirectorDescribeClearBellText:
 	text "There used to be a"
 	line "tower right here"
 	cont "in GOLDENROD CITY."
@@ -353,59 +347,40 @@ RadioTower5FDirectorDescribeRainbowWingText:
 	line "with our RADIO"
 	cont "TOWER."
 
-	para "During the tear-"
-	line "down, we found"
-	cont "that at the top."
+	para "We dug up that"
+	line "bell during"
+	cont "construction."
 
-	para "I heard that giant"
-	line "#MON used to"
+	para "I heard that all"
+	line "sorts of #MON"
 
-	para "fly over GOLDENROD"
+	para "lived in GOLDENROD"
 	line "in the past."
 
-	para "Maybe that fell"
-	line "off a #MON."
+	para "Perhaps…"
 
-	para "Maybe like the one"
-	line "that appears at"
+	para "That bell has some"
+	line "connection to the"
 
 	para "TIN TOWER in"
-	line "ECRUTEAK CITY."
+	line "ECRUTEAK CITY…"
 
-	para "OK, I better go to"
-	line "my OFFICE."
-	done
+	para "Ah!"
 
-RadioTower5FDirectorDescribeSilverWingText:
-	text "There used to be a"
-	line "tower right here"
-	cont "in GOLDENROD CITY."
+	para "That reminds me…"
 
-	para "But it was old and"
-	line "creaky."
+	para "I overheard TEAM"
+	line "ROCKET whispering."
 
-	para "So we replaced it"
-	line "with our RADIO"
-	cont "TOWER."
+	para "Apparently, some-"
+	line "thing is going on"
+	cont "at the TIN TOWER."
 
-	para "During the tear-"
-	line "down, we found"
-	cont "that at the top."
+	para "I have no idea"
+	line "what is happening,"
 
-	para "I heard that giant"
-	line "#MON used to"
-
-	para "fly over GOLDENROD"
-	line "in the past."
-
-	para "Maybe that fell"
-	line "off a #MON."
-
-	para "Maybe like the one"
-	line "that appears at"
-
-	para "WHIRL ISLANDS near"
-	line "CIANWOOD."
+	para "but you might look"
+	line "into it."
 
 	para "OK, I better go to"
 	line "my OFFICE."
@@ -413,7 +388,7 @@ RadioTower5FDirectorDescribeSilverWingText:
 
 RadioTower5FDirectorText:
 	text "DIRECTOR: Hello,"
-	line "<PLAYER>!"
+	line "<PLAY_G>!"
 
 	para "You know, I love"
 	line "#MON."
@@ -466,3 +441,4 @@ RadioTower5F_MapEvents:
 	object_event 13,  5, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
 	object_event 17,  2, SPRITE_ROCKET_GIRL, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerExecutivef1, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
 	object_event 13,  5, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Ben, EVENT_RADIO_TOWER_CIVILIANS_AFTER
+	object_event  8,  5, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, RadioTower5FUltraBall, EVENT_RADIO_TOWER_5F_ULTRA_BALL

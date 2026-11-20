@@ -3,8 +3,12 @@ NewGame:
 	ld [wDebugFlags], a
 	call ResetWRAM
 	call ClearTilemapEtc
+	farcall InitGender ; Crystal
 	call OakSpeech
 	call InitializeWorld
+
+	ld a, LANDMARK_NEW_BARK_TOWN ; Crystal: no map name sign on the first map
+	ld [wPrevLandmark], a
 
 	ld a, SPAWN_HOME
 	ld [wDefaultSpawnpoint], a
@@ -557,9 +561,7 @@ OakSpeech:
 
 	xor a
 	ld [wCurPartySpecies], a
-	ld a, CAL
-	ld [wTrainerClass], a
-	call Intro_PrepTrainerPic
+	call Intro_PrepPlayerPic
 
 	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
 	call GetSGBLayout
@@ -608,6 +610,11 @@ OakText7:
 NamePlayer:
 	call MovePlayerPicRight
 	ld hl, NameMenuHeader
+	ld a, [wPlayerGender]
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .got_header
+	ld hl, KrisNameMenuHeader
+.got_header
 	call ShowPlayerNamingChoices
 	ld a, [wMenuCursorY]
 	dec a
@@ -631,9 +638,7 @@ NamePlayer:
 
 	xor a
 	ld [wCurPartySpecies], a
-	ld a, CAL
-	ld [wTrainerClass], a
-	call Intro_PrepTrainerPic
+	call Intro_PrepPlayerPic
 
 	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
 	call GetSGBLayout
@@ -641,6 +646,11 @@ NamePlayer:
 
 	ld hl, wPlayerName
 	ld de, PlayerNameArray
+	ld a, [wPlayerGender]
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .got_default
+	ld de, FemalePlayerNameArray
+.got_default
 	call InitName
 	ret
 
@@ -779,9 +789,15 @@ Intro_WipeInFrontpic:
 	ldh [hWX], a
 	jr .loop
 
+Intro_PrepPlayerPic:
+	ld de, vTiles2
+	farcall GetPlayerFrontpic
+	jr Intro_PlaceTrainerPic
+
 Intro_PrepTrainerPic:
 	ld de, vTiles2
 	farcall GetTrainerPic
+Intro_PlaceTrainerPic:
 	xor a
 	ldh [hGraphicStartTile], a
 	hlcoord 6, 4
@@ -801,8 +817,8 @@ ShrinkFrame:
 	ret
 
 Intro_PlaceChrisSprite:
-	ld de, ChrisSpriteGFX
-	lb bc, BANK(ChrisSpriteGFX), 12
+	farcall GetPlayerSpriteGFX
+	ld c, 12
 	ld hl, vTiles0
 	call Request2bpp
 

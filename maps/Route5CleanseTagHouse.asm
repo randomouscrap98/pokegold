@@ -48,7 +48,7 @@ Route5CleanseTagHouseGrannyText2:
 	done
 
 Route5CleanseTagHouseTeacherText:
-	text "My Grandma is into"
+	text "My grandma is into"
 	line "warding off what"
 
 	para "she believes to be"

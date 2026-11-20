@@ -6,24 +6,6 @@
 	const MARTTEXT_HERE_YOU_GO
 	const MARTTEXT_SOLD_OUT
 
-GetMart:
-	ld a, e
-	cp NUM_MARTS
-	jr c, .IsAMart
-	ld b, BANK(DefaultMart)
-	ld de, DefaultMart
-	ret
-
-.IsAMart:
-	ld hl, Marts
-	add hl, de
-	add hl, de
-	ld e, [hl]
-	inc hl
-	ld d, [hl]
-	ld b, BANK(Marts)
-	ret
-
 OpenMartDialog::
 	call GetMart
 	ld a, c
@@ -41,6 +23,7 @@ MartTypeDialogs:
 	dw HerbShop
 	dw BargainShop
 	dw Pharmacist
+	dw RooftopSale
 	assert_table_length NUM_MART_TYPES
 
 MartDialog:
@@ -92,6 +75,28 @@ Pharmacist:
 	call MartTextbox
 	ret
 
+RooftopSale:
+	ld b, BANK(RooftopSaleMart1)
+	ld de, RooftopSaleMart1
+	ld hl, wStatusFlags
+	bit STATUSFLAGS_HALL_OF_FAME_F, [hl]
+	jr z, .ok
+	ld b, BANK(RooftopSaleMart2)
+	ld de, RooftopSaleMart2
+
+.ok
+	call LoadMartPointer
+	call ReadMart
+	call LoadStandardMenuHeader
+	ld hl, MartWelcomeText
+	call MartTextbox
+	call BuyMenu
+	ld hl, MartComeAgainText
+	call MartTextbox
+	ret
+
+INCLUDE "data/items/rooftop_sale.asm"
+
 LoadMartPointer:
 	ld a, b
 	ld [wMartPointerBank], a
@@ -108,6 +113,24 @@ LoadMartPointer:
 	ld [wMartJumptableIndex], a
 	ld [wBargainShopFlags], a
 	ld [wBargainShopFlags + 1], a
+	ret
+
+GetMart:
+	ld a, e
+	cp NUM_MARTS
+	jr c, .IsAMart
+	ld b, BANK(DefaultMart)
+	ld de, DefaultMart
+	ret
+
+.IsAMart:
+	ld hl, Marts
+	add hl, de
+	add hl, de
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld b, BANK(Marts)
 	ret
 
 ; StandardMart.MartFunctions indexes
@@ -354,7 +377,9 @@ MartAskPurchaseQuantity:
 	ld a, [hl]
 	and a
 	jp z, StandardMartAskPurchaseQuantity
-	jp BargainShopAskPurchaseQuantity
+	cp 1
+	jp z, BargainShopAskPurchaseQuantity
+	jp RooftopSaleAskPurchaseQuantity
 
 GetMartDialogGroup:
 	ld a, [wMartType]
@@ -371,6 +396,7 @@ GetMartDialogGroup:
 	dwb .HerbShopPointers, 0
 	dwb .BargainShopPointers, 1
 	dwb .PharmacyPointers, 0
+	dwb .StandardMartPointers, 2
 
 .StandardMartPointers:
 	dw MartHowManyText
@@ -529,6 +555,34 @@ BargainShopAskPurchaseQuantity:
 	call LoadBuyMenuText
 	call JoyWaitAorB
 	scf
+	ret
+
+RooftopSaleAskPurchaseQuantity:
+	ld a, MARTTEXT_HOW_MANY
+	call LoadBuyMenuText
+	call .GetSalePrice
+	ld a, MAX_ITEM_STACK
+	ld [wItemQuantity], a
+	farcall RooftopSale_SelectQuantityToBuy
+	call ExitMenu
+	ret
+
+.GetSalePrice:
+	ld a, [wMartItemID]
+	ld e, a
+	ld d, 0
+	ld hl, wMartPointer
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	inc hl
+	add hl, de
+	add hl, de
+	add hl, de
+	inc hl
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
 	ret
 
 MartHowManyText:

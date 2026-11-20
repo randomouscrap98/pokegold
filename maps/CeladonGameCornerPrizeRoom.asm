@@ -1,9 +1,9 @@
-DEF CELADONGAMECORNERPRIZEROOM_TM32_COINS    EQU 1500
-DEF CELADONGAMECORNERPRIZEROOM_TM29_COINS    EQU 3500
-DEF CELADONGAMECORNERPRIZEROOM_TM15_COINS    EQU 7500
-DEF CELADONGAMECORNERPRIZEROOM_MR_MIME_COINS EQU 3333
-DEF CELADONGAMECORNERPRIZEROOM_EEVEE_COINS   EQU 6666
-DEF CELADONGAMECORNERPRIZEROOM_PORYGON_COINS EQU 9999
+DEF CELADONGAMECORNERPRIZEROOM_TM32_COINS     EQU 1500
+DEF CELADONGAMECORNERPRIZEROOM_TM29_COINS     EQU 3500
+DEF CELADONGAMECORNERPRIZEROOM_TM15_COINS     EQU 7500
+DEF CELADONGAMECORNERPRIZEROOM_PIKACHU_COINS  EQU 2222
+DEF CELADONGAMECORNERPRIZEROOM_PORYGON_COINS  EQU 5555
+DEF CELADONGAMECORNERPRIZEROOM_LARVITAR_COINS EQU 8888
 
 	object_const_def
 	const CELADONGAMECORNERPRIZEROOM_GENTLEMAN
@@ -134,45 +134,27 @@ CeladonGameCornerPrizeRoomPokemonVendor:
 	loadmenu .MenuHeader
 	verticalmenu
 	closewindow
-	ifequal 1, .MrMime
-	ifequal 2, .Eevee
-	ifequal 3, .Porygon
+	ifequal 1, .Pikachu
+	ifequal 2, .Porygon
+	ifequal 3, .Larvitar
 	sjump CeladonPrizeRoom_CancelPurchaseScript
 
-.MrMime:
-	checkcoins CELADONGAMECORNERPRIZEROOM_MR_MIME_COINS
+.Pikachu:
+	checkcoins CELADONGAMECORNERPRIZEROOM_PIKACHU_COINS
 	ifequal HAVE_LESS, CeladonPrizeRoom_notenoughcoins
 	readvar VAR_PARTYCOUNT
 	ifequal PARTY_LENGTH, CeladonPrizeRoom_notenoughroom
-	getmonname STRING_BUFFER_3, MR__MIME
+	getmonname STRING_BUFFER_3, PIKACHU
 	scall CeladonPrizeRoom_askbuy
 	iffalse CeladonPrizeRoom_CancelPurchaseScript
 	waitsfx
 	playsound SFX_TRANSACTION
 	writetext CeladonPrizeRoom_HereYouGoText
 	waitbutton
-	setval MR__MIME
+	setval PIKACHU
 	special GameCornerPrizeMonCheckDex
-	givepoke MR__MIME, 15
-	takecoins CELADONGAMECORNERPRIZEROOM_MR_MIME_COINS
-	sjump .loop
-
-.Eevee:
-	checkcoins CELADONGAMECORNERPRIZEROOM_EEVEE_COINS
-	ifequal HAVE_LESS, CeladonPrizeRoom_notenoughcoins
-	readvar VAR_PARTYCOUNT
-	ifequal PARTY_LENGTH, CeladonPrizeRoom_notenoughroom
-	getmonname STRING_BUFFER_3, EEVEE
-	scall CeladonPrizeRoom_askbuy
-	iffalse CeladonPrizeRoom_CancelPurchaseScript
-	waitsfx
-	playsound SFX_TRANSACTION
-	writetext CeladonPrizeRoom_HereYouGoText
-	waitbutton
-	setval EEVEE
-	special GameCornerPrizeMonCheckDex
-	givepoke EEVEE, 15
-	takecoins CELADONGAMECORNERPRIZEROOM_EEVEE_COINS
+	givepoke PIKACHU, 25
+	takecoins CELADONGAMECORNERPRIZEROOM_PIKACHU_COINS
 	sjump .loop
 
 .Porygon:
@@ -189,8 +171,26 @@ CeladonGameCornerPrizeRoomPokemonVendor:
 	waitbutton
 	setval PORYGON
 	special GameCornerPrizeMonCheckDex
-	givepoke PORYGON, 20
+	givepoke PORYGON, 15
 	takecoins CELADONGAMECORNERPRIZEROOM_PORYGON_COINS
+	sjump .loop
+
+.Larvitar:
+	checkcoins CELADONGAMECORNERPRIZEROOM_LARVITAR_COINS
+	ifequal HAVE_LESS, CeladonPrizeRoom_notenoughcoins
+	readvar VAR_PARTYCOUNT
+	ifequal PARTY_LENGTH, CeladonPrizeRoom_notenoughroom
+	getmonname STRING_BUFFER_3, LARVITAR
+	scall CeladonPrizeRoom_askbuy
+	iffalse CeladonPrizeRoom_CancelPurchaseScript
+	waitsfx
+	playsound SFX_TRANSACTION
+	writetext CeladonPrizeRoom_HereYouGoText
+	waitbutton
+	setval LARVITAR
+	special GameCornerPrizeMonCheckDex
+	givepoke LARVITAR, 40
+	takecoins CELADONGAMECORNERPRIZEROOM_LARVITAR_COINS
 	sjump .loop
 
 .MenuHeader:
@@ -202,18 +202,23 @@ CeladonGameCornerPrizeRoomPokemonVendor:
 .MenuData:
 	db STATICMENU_CURSOR ; flags
 	db 4 ; items
-	db "MR.MIME    {d:CELADONGAMECORNERPRIZEROOM_MR_MIME_COINS}@"
-	db "EEVEE      {d:CELADONGAMECORNERPRIZEROOM_EEVEE_COINS}@"
+	db "PIKACHU    {d:CELADONGAMECORNERPRIZEROOM_PIKACHU_COINS}@"
 	db "PORYGON    {d:CELADONGAMECORNERPRIZEROOM_PORYGON_COINS}@"
+	db "LARVITAR   {d:CELADONGAMECORNERPRIZEROOM_LARVITAR_COINS}@"
 	db "CANCEL@"
 
 CeladonGameCornerPrizeRoomGentlemanText:
-	text "I wanted MR.MIME,"
+	text "I wanted PORYGON,"
 	line "but I was short by"
 	cont "100 coins…"
 	done
 
 CeladonGameCornerPrizeRoomPharmacistText:
+if DEF(_CRYSTAL_AU)
+	text "I don't want to"
+	line "lose my coins."
+	done
+else
 	text "Whew…"
 
 	para "I've got to stay"
@@ -223,6 +228,7 @@ CeladonGameCornerPrizeRoomPharmacistText:
 	line "cool, or I'll lose"
 	cont "all my money…"
 	done
+endc
 
 CeladonPrizeRoom_PrizeVendorIntroText:
 	text "Welcome!"

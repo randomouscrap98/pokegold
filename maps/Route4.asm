@@ -52,20 +52,28 @@ Route4HiddenUltraBall:
 	hiddenitem ULTRA_BALL, EVENT_ROUTE_4_HIDDEN_ULTRA_BALL
 
 BirdKeeperHankSeenText:
-	text "There's been news"
-	line "of an incident at"
-	cont "the POWER PLANT."
+	text "I'm raising my"
+	line "#MON. Want to"
+	cont "battle with me?"
 	done
 
 BirdKeeperHankBeatenText:
-	text "I lost? That's"
-	line "news too…"
+	text "Ack! I lost that"
+	line "one…"
 	done
 
 BirdKeeperHankAfterBattleText:
-	text "I might go to the"
-	line "POWER PLANT. Is it"
-	cont "near ROCK TUNNEL?"
+	text "If you have a"
+	line "specific #MON"
+
+	para "that you want to"
+	line "raise, put it out"
+
+	para "first, then switch"
+	line "it right away."
+
+	para "That's how to do"
+	line "it."
 	done
 
 PicnickerHopeSeenText:
@@ -124,6 +132,6 @@ Route4_MapEvents:
 
 	def_object_events
 	object_event 17,  9, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperHank, -1
-	object_event 10,  8, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 5, TrainerPicnickerHope, -1
+	object_event  9,  8, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 4, TrainerPicnickerHope, -1
 	object_event 21,  6, SPRITE_LASS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 4, TrainerPicnickerSharon, -1
 	object_event 26,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route4HPUp, EVENT_ROUTE_4_HP_UP

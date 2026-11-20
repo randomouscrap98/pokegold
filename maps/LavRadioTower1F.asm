@@ -130,7 +130,7 @@ LavRadioTower1FGentlemanText:
 
 LavRadioTower1FGentlemanText_ReturnedMachinePart:
 	text "Ah! So you're the"
-	line "<PLAYER> who solved"
+	line "<PLAY_G> who solved"
 
 	para "the POWER PLANT's"
 	line "problem?"
@@ -156,7 +156,7 @@ LavRadioTower1FGentlemanText_GotExpnCard:
 	done
 
 LavRadioTower1FSuperNerd2Text:
-	text "Hey there, fellow!"
+	text "Hey there!"
 
 	para "I am the super"
 	line "MUSIC DIRECTOR!"
@@ -175,7 +175,7 @@ LavRadioTower1FSuperNerd2Text:
 	done
 
 LavRadioTower1FSuperNerd2Text_GotExpnCard:
-	text "Hey there, fellow!"
+	text "Hey there!"
 
 	para "I am the super"
 	line "MUSIC DIRECTOR!"
@@ -194,10 +194,12 @@ LavRadioTower1FSuperNerd2Text_GotExpnCard:
 LavRadioTower1FDirectoryText:
 	text "1F RECEPTION"
 	line "2F SALES"
-	cont "3F PERSONNEL"
-	cont "4F PRODUCTION"
-	cont "5F DIRECTOR'S"
-	cont "   OFFICE"
+
+	para "3F PERSONNEL"
+	line "4F PRODUCTION"
+
+	para "5F DIRECTOR'S"
+	line "   OFFICE"
 	done
 
 LavRadioTower1FPokeFluteSignText:

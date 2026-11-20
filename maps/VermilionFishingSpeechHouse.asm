@@ -17,24 +17,26 @@ FishingDudesHouseBookshelf: ; unreferenced
 
 FishingDudeText:
 	text "I am the FISHING"
-	line "GURU, the elder of"
+	line "DUDE, the elder of"
 	cont "the FISHING BROS."
 
-	para "Do you happen to"
-	line "know FISHERMAN"
+	para "Have you met the"
+	line "FISHING GURU at"
+	cont "LAKE OF RAGE?"
 
-	para "WILTON? He fishes"
-	line "on ROUTE 44."
+	para "He dreams about"
+	line "seeing the world's"
+	cont "greatest MAGIKARP."
 
-	para "He came through"
-	line "with an amazing"
-	cont "tip on the phone."
+	para "If you don't mind,"
+	line "could you show him"
 
-	para "Thanks to him, I"
-	line "caught a whole lot"
+	para "any MAGIKARP you"
+	line "catch?"
 
-	para "of a rare #MON."
-	line "What a day it was!"
+	para "Who knows, you may"
+	line "catch the MAGIKARP"
+	cont "of his dreams."
 	done
 
 FishingDudesHousePhotoText:

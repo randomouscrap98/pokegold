@@ -34,7 +34,7 @@ MACRO connection
 
 		; Calculate tile offsets for source (current) and target maps
 		DEF _src = 0
-		DEF _tgt = (\4) + 3
+		DEF _tgt = (\4) + MAP_CONNECTION_PADDING_WIDTH
 		if _tgt < 0
 			DEF _src = -_tgt
 			DEF _tgt = 0
@@ -45,12 +45,12 @@ MACRO connection
 				fail "Invalid order for 'connection' (must be north, south, west, east)"
 			endc
 			DEF MAP_CONNECTIONS_{CURRENT_MAP_ID} |= NORTH
-			DEF _blk = \3_WIDTH * (\3_HEIGHT - 3) + _src
+			DEF _blk = \3_WIDTH * (\3_HEIGHT - MAP_CONNECTION_PADDING_WIDTH) + _src
 			DEF _map = _tgt
-			DEF _win = (\3_WIDTH + 6) * \3_HEIGHT + 1
+			DEF _win = (\3_WIDTH + MAP_CONNECTION_PADDING_WIDTH * 2) * \3_HEIGHT + 1
 			DEF _y = \3_HEIGHT * 2 - 1
 			DEF _x = (\4) * -2
-			DEF _len = CURRENT_MAP_WIDTH + 3 - (\4)
+			DEF _len = CURRENT_MAP_WIDTH + MAP_CONNECTION_PADDING_WIDTH - (\4)
 			if _len > \3_WIDTH
 				DEF _len = \3_WIDTH
 			endc
@@ -61,11 +61,11 @@ MACRO connection
 			endc
 			DEF MAP_CONNECTIONS_{CURRENT_MAP_ID} |= SOUTH
 			DEF _blk = _src
-			DEF _map = (CURRENT_MAP_WIDTH + 6) * (CURRENT_MAP_HEIGHT + 3) + _tgt
-			DEF _win = \3_WIDTH + 7
+			DEF _map = (CURRENT_MAP_WIDTH + MAP_CONNECTION_PADDING_WIDTH * 2) * (CURRENT_MAP_HEIGHT + MAP_CONNECTION_PADDING_WIDTH) + _tgt
+			DEF _win = \3_WIDTH + MAP_CONNECTION_PADDING_WIDTH * 2 + 1
 			DEF _y = 0
 			DEF _x = (\4) * -2
-			DEF _len = CURRENT_MAP_WIDTH + 3 - (\4)
+			DEF _len = CURRENT_MAP_WIDTH + MAP_CONNECTION_PADDING_WIDTH - (\4)
 			if _len > \3_WIDTH
 				DEF _len = \3_WIDTH
 			endc
@@ -75,12 +75,12 @@ MACRO connection
 				fail "Invalid order for 'connection' (must be north, south, west, east)"
 			endc
 			DEF MAP_CONNECTIONS_{CURRENT_MAP_ID} |= WEST
-			DEF _blk = (\3_WIDTH * _src) + \3_WIDTH - 3
-			DEF _map = (CURRENT_MAP_WIDTH + 6) * _tgt
-			DEF _win = (\3_WIDTH + 6) * 2 - 6
+			DEF _blk = (\3_WIDTH * _src) + \3_WIDTH - MAP_CONNECTION_PADDING_WIDTH
+			DEF _map = (CURRENT_MAP_WIDTH + MAP_CONNECTION_PADDING_WIDTH * 2) * _tgt
+			DEF _win = (\3_WIDTH + MAP_CONNECTION_PADDING_WIDTH * 2) * 2 - MAP_CONNECTION_PADDING_WIDTH * 2
 			DEF _y = (\4) * -2
 			DEF _x = \3_WIDTH * 2 - 1
-			DEF _len = CURRENT_MAP_HEIGHT + 3 - (\4)
+			DEF _len = CURRENT_MAP_HEIGHT + MAP_CONNECTION_PADDING_WIDTH - (\4)
 			if _len > \3_HEIGHT
 				DEF _len = \3_HEIGHT
 			endc
@@ -91,11 +91,11 @@ MACRO connection
 			endc
 			DEF MAP_CONNECTIONS_{CURRENT_MAP_ID} |= EAST
 			DEF _blk = (\3_WIDTH * _src)
-			DEF _map = (CURRENT_MAP_WIDTH + 6) * _tgt + CURRENT_MAP_WIDTH + 3
-			DEF _win = \3_WIDTH + 7
+			DEF _map = (CURRENT_MAP_WIDTH + MAP_CONNECTION_PADDING_WIDTH * 2) * _tgt + CURRENT_MAP_WIDTH + MAP_CONNECTION_PADDING_WIDTH
+			DEF _win = \3_WIDTH + MAP_CONNECTION_PADDING_WIDTH * 2 + 1
 			DEF _y = (\4) * -2
 			DEF _x = 0
-			DEF _len = CURRENT_MAP_HEIGHT + 3 - (\4)
+			DEF _len = CURRENT_MAP_HEIGHT + MAP_CONNECTION_PADDING_WIDTH - (\4)
 			if _len > \3_HEIGHT
 				DEF _len = \3_HEIGHT
 			endc
@@ -104,13 +104,13 @@ MACRO connection
 			fail "Invalid direction for 'connection'."
 		endc
 
-		map_id \3
-		dw \2_Blocks + _blk
-		dw wOverworldMapBlocks + _map
-		db _len - _src
-		db \3_WIDTH
-		db _y, _x
-		dw wOverworldMapBlocks + _win
+	map_id \3
+	dw \2_Blocks + _blk
+	dw wOverworldMapBlocks + _map
+	db _len - _src
+	db \3_WIDTH
+	db _y, _x
+	dw wOverworldMapBlocks + _win
 
 	endc
 ENDM
@@ -423,6 +423,14 @@ ENDM
 	map_attributes RuinsOfAlphAerodactylChamber, RUINS_OF_ALPH_AERODACTYL_CHAMBER, $00
 	map_attributes RuinsOfAlphInnerChamber, RUINS_OF_ALPH_INNER_CHAMBER, $00
 	map_attributes RuinsOfAlphResearchCenter, RUINS_OF_ALPH_RESEARCH_CENTER, $00
+	map_attributes RuinsOfAlphHoOhItemRoom, RUINS_OF_ALPH_HO_OH_ITEM_ROOM, $00
+	map_attributes RuinsOfAlphKabutoItemRoom, RUINS_OF_ALPH_KABUTO_ITEM_ROOM, $00
+	map_attributes RuinsOfAlphOmanyteItemRoom, RUINS_OF_ALPH_OMANYTE_ITEM_ROOM, $00
+	map_attributes RuinsOfAlphAerodactylItemRoom, RUINS_OF_ALPH_AERODACTYL_ITEM_ROOM, $00
+	map_attributes RuinsOfAlphHoOhWordRoom, RUINS_OF_ALPH_HO_OH_WORD_ROOM, $00
+	map_attributes RuinsOfAlphKabutoWordRoom, RUINS_OF_ALPH_KABUTO_WORD_ROOM, $00
+	map_attributes RuinsOfAlphOmanyteWordRoom, RUINS_OF_ALPH_OMANYTE_WORD_ROOM, $00
+	map_attributes RuinsOfAlphAerodactylWordRoom, RUINS_OF_ALPH_AERODACTYL_WORD_ROOM, $00
 	map_attributes UnionCave1F, UNION_CAVE_1F, $09
 	map_attributes UnionCaveB1F, UNION_CAVE_B1F, $09
 	map_attributes UnionCaveB2F, UNION_CAVE_B2F, $09
@@ -468,6 +476,7 @@ ENDM
 	map_attributes DarkCaveBlackthornEntrance, DARK_CAVE_BLACKTHORN_ENTRANCE, $09
 	map_attributes DragonsDen1F, DRAGONS_DEN_1F, $09
 	map_attributes DragonsDenB1F, DRAGONS_DEN_B1F, $71
+	map_attributes DragonShrine, DRAGON_SHRINE, $00
 	map_attributes TohjoFalls, TOHJO_FALLS, $09
 	map_attributes OlivinePokecenter1F, OLIVINE_POKECENTER_1F, $00
 	map_attributes OlivineGym, OLIVINE_GYM, $00
@@ -493,7 +502,7 @@ ENDM
 	map_attributes SafariZoneBeta, SAFARI_ZONE_BETA, $13
 	map_attributes VictoryRoad, VICTORY_ROAD, $1d
 	map_attributes EcruteakTinTowerEntrance, ECRUTEAK_TIN_TOWER_ENTRANCE, $00
-	map_attributes EcruteakTinTowerBackEntrance, ECRUTEAK_TIN_TOWER_BACK_ENTRANCE, $00
+	map_attributes WiseTriosRoom, WISE_TRIOS_ROOM, $00
 	map_attributes EcruteakPokecenter1F, ECRUTEAK_POKECENTER_1F, $00
 	map_attributes EcruteakLugiaSpeechHouse, ECRUTEAK_LUGIA_SPEECH_HOUSE, $00
 	map_attributes DanceTheater, DANCE_THEATER, $00
@@ -549,7 +558,6 @@ ENDM
 	map_attributes BillsFamilysHouse, BILLS_FAMILYS_HOUSE, $00
 	map_attributes GoldenrodMagnetTrainStation, GOLDENROD_MAGNET_TRAIN_STATION, $00
 	map_attributes GoldenrodFlowerShop, GOLDENROD_FLOWER_SHOP, $00
-	map_attributes GoldenrodPokecenter1F, GOLDENROD_POKECENTER_1F, $00
 	map_attributes GoldenrodPPSpeechHouse, GOLDENROD_PP_SPEECH_HOUSE, $00
 	map_attributes GoldenrodNameRater, GOLDENROD_NAME_RATER, $00
 	map_attributes GoldenrodDeptStore1F, GOLDENROD_DEPT_STORE_1F, $00
@@ -559,7 +567,9 @@ ENDM
 	map_attributes GoldenrodDeptStore5F, GOLDENROD_DEPT_STORE_5F, $00
 	map_attributes GoldenrodDeptStore6F, GOLDENROD_DEPT_STORE_6F, $00
 	map_attributes GoldenrodDeptStoreElevator, GOLDENROD_DEPT_STORE_ELEVATOR, $00
+	map_attributes GoldenrodDeptStoreRoof, GOLDENROD_DEPT_STORE_ROOF, $24
 	map_attributes GoldenrodGameCorner, GOLDENROD_GAME_CORNER, $00
+	map_attributes GoldenrodPokecenter1F, GOLDENROD_POKECENTER_1F, $00
 	map_attributes IlexForestAzaleaGate, ILEX_FOREST_AZALEA_GATE, $00
 	map_attributes Route34IlexForestGate, ROUTE_34_ILEX_FOREST_GATE, $00
 	map_attributes DayCare, DAY_CARE, $00
@@ -654,6 +664,8 @@ ENDM
 	map_attributes CianwoodPharmacy, CIANWOOD_PHARMACY, $00
 	map_attributes CianwoodPhotoStudio, CIANWOOD_PHOTO_STUDIO, $00
 	map_attributes CianwoodLugiaSpeechHouse, CIANWOOD_LUGIA_SPEECH_HOUSE, $00
+	map_attributes PokeSeersHouse, POKE_SEERS_HOUSE, $00
+	map_attributes Route40BattleTowerGate, ROUTE_40_BATTLE_TOWER_GATE, $00
 	map_attributes ViridianGym, VIRIDIAN_GYM, $00
 	map_attributes ViridianNicknameSpeechHouse, VIRIDIAN_NICKNAME_SPEECH_HOUSE, $00
 	map_attributes TrainerHouse1F, TRAINER_HOUSE_1F, $00
@@ -694,3 +706,10 @@ ENDM
 	map_attributes Route30BerryHouse, ROUTE_30_BERRY_HOUSE, $00
 	map_attributes MrPokemonsHouse, MR_POKEMONS_HOUSE, $00
 	map_attributes Route31VioletGate, ROUTE_31_VIOLET_GATE, $00
+
+; Perfect Crystal
+	map_attributes CeruleanCave1F, CERULEAN_CAVE_1F, $09
+
+	map_attributes CeruleanCave2F, CERULEAN_CAVE_2F, $09
+
+	map_attributes CeruleanCaveB1, CERULEAN_CAVE_B1, $09

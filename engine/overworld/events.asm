@@ -207,6 +207,7 @@ HandleMapObjects:
 HandleMapBackground:
 	farcall _UpdateSprites
 	farcall ScrollScreen
+	farcall PlaceMapNameSign ; Crystal
 	ret
 
 CheckPlayerState:
@@ -272,6 +273,19 @@ PlayerEvents:
 
 	ld [wScriptRunning], a
 	call DoPlayerEvent
+	ld a, [wScriptRunning] ; Crystal: hide the map name sign for real events
+	cp PLAYEREVENT_CONNECTION
+	jr z, .ok2
+	cp PLAYEREVENT_JOYCHANGEFACING
+	jr z, .ok2
+	xor a
+	ld [wLandmarkSignTimer], a
+	ldh a, [hWY]
+	cp $70
+	jr nz, .ok2
+	ld a, $90
+	ldh [hWY], a
+.ok2
 	scf
 	ret
 
@@ -449,7 +463,6 @@ CheckTimeEvents:
 
 .do_daily
 	farcall CheckDailyResetTimer
-	farcall CheckSwarmFlag
 	farcall CheckPokerusTick
 	farcall CheckPhoneCall
 	ret c

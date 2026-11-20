@@ -125,7 +125,7 @@ TeacherHillaryAfterBattleText:
 
 SchoolboyKippSeenText:
 	text "Hang on. I have to"
-	line "phone my Mom."
+	line "phone my mom."
 	done
 
 SchoolboyKippBeatenText:
@@ -134,7 +134,7 @@ SchoolboyKippBeatenText:
 	done
 
 SchoolboyKippAfterBattleText:
-	text "My Mom worries so"
+	text "My mom worries so"
 	line "much about me, I"
 
 	para "have to phone her"
@@ -193,8 +193,7 @@ SchoolboyBillyAfterBattleText:
 	done
 
 Route15SignText:
-; BUG: "Route 15" is not capitalized in a signpost (see docs/bugs_and_glitches.md)
-	text "Route 15"
+	text "ROUTE 15"
 
 	para "FUCHSIA CITY -"
 	line "LAVENDER TOWN"
@@ -213,10 +212,10 @@ Route15_MapEvents:
 	bg_event 19,  9, BGEVENT_READ, Route15Sign
 
 	def_object_events
-	object_event 11, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerSchoolboyKipp, -1
-	object_event 11, 11, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 4, TrainerSchoolboyTommy, -1
+	object_event 10, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 4, TrainerSchoolboyKipp, -1
+	object_event 15, 13, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerSchoolboyTommy, -1
 	object_event 33, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerSchoolboyJohnny, -1
 	object_event 27, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerSchoolboyBilly, -1
 	object_event 30, 12, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerTeacherColette, -1
-	object_event 16, 10, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerTeacherHillary, -1
+	object_event 20, 10, SPRITE_TEACHER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerTeacherHillary, -1
 	object_event 12,  5, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route15PPUp, EVENT_ROUTE_15_PP_UP

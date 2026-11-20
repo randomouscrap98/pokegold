@@ -94,11 +94,22 @@
 	const MUSIC_LAKE_OF_RAGE_ROCKET_RADIO    ; 5a
 	const MUSIC_PRINTER                      ; 5b
 	const MUSIC_POST_CREDITS                 ; 5c
+; new to Crystal
+	const MUSIC_CLAIR                        ; 5d
+	const MUSIC_MOBILE_ADAPTER_MENU          ; 5e
+	const MUSIC_MOBILE_ADAPTER               ; 5f
+	const MUSIC_BUENAS_PASSWORD              ; 60
+	const MUSIC_MYSTICALMAN_ENCOUNTER        ; 61
+	const MUSIC_CRYSTAL_OPENING              ; 62
+	const MUSIC_BATTLE_TOWER_THEME           ; 63
+	const MUSIC_SUICUNE_BATTLE               ; 64
+	const MUSIC_BATTLE_TOWER_LOBBY           ; 65
+	const MUSIC_MOBILE_CENTER                ; 66
 DEF NUM_MUSIC_SONGS EQU const_value
 
 ; GetMapMusic picks music for this value (see home/map.asm)
-DEF MUSIC_MAHOGANY_MART EQU 100
-assert NUM_MUSIC_SONGS <= MUSIC_MAHOGANY_MART, "song IDs overlap MUSIC_MAHOGANY_MART"
+; this overlaps with a Crystal song ID, but not one that is used for map music
+DEF MUSIC_MAHOGANY_MART EQU MUSIC_SUICUNE_BATTLE
 
 ; ExitPokegearRadio_HandleMusic uses these values
 DEF RESTART_MAP_MUSIC EQU $fe

@@ -112,14 +112,20 @@ MagnetTrain_LoadGFX_PlayMusic:
 	ldh [hSCX], a
 	ldh [hSCY], a
 
-	ld de, ChrisSpriteGFX
+	farcall GetPlayerSpriteGFX
+	push de
+	push bc
 	ld hl, vTiles0
-	lb bc, BANK(ChrisSpriteGFX), 4
+	ld c, 4
 	call Request2bpp
-
-	ld de, ChrisSpriteGFX + 12 tiles
+	pop bc
+	pop de
+	ld hl, 12 tiles
+	add hl, de
+	ld d, h
+	ld e, l
 	ld hl, vTiles0 tile $04
-	lb bc, BANK(ChrisSpriteGFX), 4
+	ld c, 4
 	call Request2bpp
 
 	call MagnetTrain_InitLYOverrides

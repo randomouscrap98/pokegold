@@ -18,6 +18,37 @@ NurseNiteText:
 	line "#MON CENTER."
 	done
 
+PokeComNurseMornText:
+	text "Good morning!"
+
+	para "This is the #-"
+	line "MON COMMUNICATION"
+
+	para "CENTER--or the"
+	line "#COM CENTER."
+	done
+
+PokeComNurseDayText:
+	text "Hello!"
+
+	para "This is the #-"
+	line "MON COMMUNICATION"
+
+	para "CENTER--or the"
+	line "#COM CENTER."
+	done
+
+PokeComNurseNiteText:
+	text "Good to see you"
+	line "working so late."
+
+	para "This is the #-"
+	line "MON COMMUNICATION"
+
+	para "CENTER--or the"
+	line "#COM CENTER."
+	done
+
 NurseAskHealText:
 	text "We can heal your"
 	line "#MON to perfect"
@@ -51,11 +82,11 @@ NurseGoodbyeText:
 	done
 
 NursePokerusText:
-	text "Your #MON ap-"
-	line "pear to have tiny"
+	text "Your #MON"
+	line "appear to be"
 
-	para "life forms stuck"
-	line "to them."
+	para "infected by tiny"
+	line "life forms."
 
 	para "Your #MON are"
 	line "healthy and seem"
@@ -66,6 +97,21 @@ NursePokerusText:
 
 	para "at a #MON"
 	line "CENTER."
+	done
+
+PokeComNursePokerusText:
+	text "Your #MON"
+	line "appear to be"
+
+	para "infected by tiny"
+	line "life forms."
+
+	para "Your #MON are"
+	line "healthy and seem"
+	cont "to be fine."
+
+	para "But we can't tell"
+	line "you anything more."
 	done
 
 DifficultBookshelfText:
@@ -183,106 +229,12 @@ ContestResults_ReadyToJudgeText:
 	line "this?"
 	done
 
-AskNumber1MText:
-	text "Wow! You're pretty"
-	line "tough."
-
-	para "Could I get your"
-	line "phone number?"
-
-	para "I'll call you for"
-	line "a rematch."
-	done
-
-AskNumber2MText:
-	text "Register the phone"
-	line "number?"
-	done
-
-RegisteredNumberMText:
-	text "<PLAYER> registered"
-	line "@"
-	text_ram wStringBuffer3
-	text "'s number."
-	done
-
-NumberAcceptedMText:
-	text "I'll call you if"
-	line "anything comes up."
-	done
-
-NumberDeclinedMText:
-	text "Oh, OK…"
-	line "Just talk to me if"
-
-	para "you want to get my"
-	line "phone number."
-	done
-
-PhoneFullMText:
-	text "Your phone doesn't"
-	line "have enough memory"
-	cont "for more numbers."
-	done
-
-RematchMText:
-	text "I was waiting for"
-	line "you. Let's battle!"
-	done
-
-AskNumber1FText:
-	text "Wow, you're good"
-	line "at battling."
-
-	para "Want to give me"
-	line "your phone number?"
-
-	para "I'll phone you for"
-	line "another battle."
-	done
-
-AskNumber2FText:
-	text "Register the phone"
-	line "number?"
-	done
-
-RegisteredNumberFText:
-	text "<PLAYER> registered"
-	line "@"
-	text_ram wStringBuffer3
-	text "'s number."
-	done
-
-NumberAcceptedFText:
-	text "I'll call you if"
-	line "something's up."
-	done
-
-NumberDeclinedFText:
-	text "Oh, fine then…"
-	line "If you want to get"
-
-	para "my phone number,"
-	line "just tell me."
-	done
-
-PhoneFullFText:
-	text "Your phone doesn't"
-	line "have enough memory"
-	cont "for more numbers."
-	done
-
-RematchFText:
-	text "I waited for you."
-	line "Let's battle!"
-	done
-
 ContestResults_PlayerWonAPrizeText:
-	text "<PLAYER> wins the"
-	line "No. @"
+	text "<PLAYER>, the No.@"
 	text_ram wStringBuffer3
-	text " prize,"
-	cont "a @"
+	text_start
+	line "finisher, wins"
+	cont "@"
 	text_ram wStringBuffer4
 	text "!"
 	done
@@ -419,4 +371,18 @@ HappinessText1:
 
 	para "If you aren't"
 	line "nice, it'll pout."
+	done
+
+RegisteredNumber1Text:
+	text "<PLAYER> registered"
+	line "@"
+	text_ram wStringBuffer3
+	text "'s number."
+	done
+
+RegisteredNumber2Text:
+	text "<PLAYER> registered"
+	line "@"
+	text_ram wStringBuffer3
+	text "'s number."
 	done

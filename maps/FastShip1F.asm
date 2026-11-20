@@ -258,9 +258,7 @@ FastShip1FSailor3Text:
 	done
 
 FastShip1FGrandpaText:
-	text "Whoa!"
-
-	para "Excuse me, son."
+	text "Whoa! Excuse me."
 	line "I was in a hurry!"
 
 	para "My granddaughter"

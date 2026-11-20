@@ -90,21 +90,27 @@ BirdKeeperRoyAfterBattleText:
 	done
 
 PokefanmTrevorSeenText:
-	text "Did you battle all"
-	line "the GYM trainers?"
+	text "Hi. Did you know…?"
+
+	para "#MON get more"
+	line "friendly if you"
+
+	para "train them in a"
+	line "place that they"
+	cont "remember."
 	done
 
 PokefanmTrevorBeatenText:
-	text "Oh, wow! Too"
-	line "strong for me!"
+	text "Where did I meet"
+	line "this PSYDUCK?"
 	done
 
 PokefanmTrevorAfterBattleText:
-	text "If you have KANTO"
-	line "BADGES, they'll"
+	text "If only there were"
+	line "an easy way to"
 
-	para "help you in linked"
-	line "battles."
+	para "identify where I"
+	line "got my #MON…"
 	done
 
 Route14_MapEvents:
@@ -117,7 +123,7 @@ Route14_MapEvents:
 	def_bg_events
 
 	def_object_events
-	object_event 12, 14, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerPokefanmCarter, -1
+	object_event 11, 15, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerPokefanmCarter, -1
 	object_event 11, 27, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperRoy, -1
-	object_event  5,  9, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerPokefanmTrevor, -1
+	object_event  6, 11, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerPokefanmTrevor, -1
 	object_event  7,  5, SPRITE_TEACHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 4, Kim, -1

@@ -57,7 +57,7 @@ TrainerGruntM1:
 	variablesprite SPRITE_AZALEA_ROCKET, SPRITE_RIVAL
 	setmapscene AZALEA_TOWN, SCENE_AZALEATOWN_RIVAL_BATTLE
 	clearevent EVENT_ILEX_FOREST_APPRENTICE
-	clearevent EVENT_ILEX_FOREST_FARFETCHD_1
+	clearevent EVENT_ILEX_FOREST_FARFETCHD
 	setevent EVENT_CHARCOAL_KILN_FARFETCH_D
 	setevent EVENT_CHARCOAL_KILN_APPRENTICE
 	setevent EVENT_SLOWPOKE_WELL_SLOWPOKES
@@ -146,9 +146,9 @@ SlowpokeWellB1FKurtText:
 	text "KURT: Hey there,"
 	line "<PLAYER>!"
 
-	para "The guards up top"
+	para "The guard up top"
 	line "took off when I"
-	cont "shouted at them."
+	cont "shouted at him."
 
 	para "But then I took a"
 	line "tumble down the"
@@ -232,8 +232,8 @@ GruntM1SeenText:
 
 GruntM1BeatenText:
 	text "You did OK today,"
-	line "brat, but wait"
-	cont "'til next time!"
+	line "but wait till next"
+	cont "time!"
 	done
 
 TrainerGruntM1WhenTalkText:
@@ -330,10 +330,10 @@ SlowpokeWellB1F_MapEvents:
 	def_bg_events
 
 	def_object_events
-	object_event 14,  8, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 1, TrainerGruntM29, EVENT_SLOWPOKE_WELL_ROCKETS
+	object_event 15,  7, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerGruntM29, EVENT_SLOWPOKE_WELL_ROCKETS
 	object_event  5,  2, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 1, TrainerGruntM1, EVENT_SLOWPOKE_WELL_ROCKETS
 	object_event  5,  6, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 2, TrainerGruntM2, EVENT_SLOWPOKE_WELL_ROCKETS
-	object_event 13,  2, SPRITE_ROCKET_GIRL, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 2, TrainerGruntF1, EVENT_SLOWPOKE_WELL_ROCKETS
+	object_event 10,  4, SPRITE_ROCKET_GIRL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerGruntF1, EVENT_SLOWPOKE_WELL_ROCKETS
 	object_event  7,  4, SPRITE_SLOWPOKE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, SlowpokeWellB1FSlowpokeWithMailScript, EVENT_SLOWPOKE_WELL_SLOWPOKES
 	object_event  6,  2, SPRITE_SLOWPOKE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, SlowpokeWellB1FTaillessSlowpokeScript, EVENT_SLOWPOKE_WELL_SLOWPOKES
 	object_event 16, 14, SPRITE_KURT, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SlowpokeWellB1FKurtScript, EVENT_SLOWPOKE_WELL_KURT

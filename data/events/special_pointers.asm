@@ -128,3 +128,23 @@ SpecialsPointers::
 	add_special InitialClearDSTFlag
 	add_special MrChrono
 	add_special UnusedDummySpecial ; unused
+
+; Crystal additions
+	add_special MoveTutor
+	add_special GiveOddEgg
+	add_special OmanyteChamber
+	add_special DisplayUnownWords
+	add_special HoOhChamber
+	add_special CelebiShrineEvent
+	add_special CheckCaughtCelebi
+	add_special PokeSeer
+	add_special BuenasPassword
+	add_special BuenaPrize
+	add_special GiveDratini
+	add_special SampleKenjiBreakCountdown
+	add_special BeastsCheck
+	add_special MonCheck
+	add_special StubbedTrainerRankings_Healings
+	add_special RefreshSprites
+	add_special CheckMobileAdapterStatusSpecial
+	add_special AskRememberPassword

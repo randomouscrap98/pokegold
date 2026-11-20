@@ -1256,12 +1256,6 @@ BattleCommand_Stab:
 	pop de
 	pop hl
 
-	push de
-	push bc
-	farcall DoBadgeTypeBoosts
-	pop bc
-	pop de
-
 	ld a, [wCurType]
 	cp b
 	jr z, .stab
@@ -2517,20 +2511,25 @@ DittoMetalPowder:
 	pop bc
 	ret nz
 
-	ld a, c
-	srl a
-	add c
-	ld c, a
+; Perfect Crystal: boost by 50% without overflow, capped at 999
+	ld h, b
+	ld l, c
+	srl b
+	rr c
+	add hl, bc
+	ld b, h
+	ld c, l
+
+	ld a, HIGH(MAX_STAT_VALUE)
+	cp b
+	jr c, .cap
+	ret nz
+	ld a, LOW(MAX_STAT_VALUE)
+	cp c
 	ret nc
 
-	srl b
-	ld a, b
-	and a
-	jr nz, .done
-	inc b
-.done
-	scf
-	rr c
+.cap
+	ld bc, MAX_STAT_VALUE
 	ret
 
 BattleCommand_DamageStats:
@@ -2612,11 +2611,13 @@ PlayerAttackDamage:
 	call ThickClubBoost
 
 .done
+	push hl
+	call DittoMetalPowder ; Perfect Crystal: boost before truncating
+	pop hl
 	call TruncateHL_BC
 
 	ld a, [wBattleMonLevel]
 	ld e, a
-	call DittoMetalPowder
 
 	ld a, 1
 	and a
@@ -2769,6 +2770,18 @@ SpeciesItemBoost:
 ; Double the stat
 	sla l
 	rl h
+
+; Perfect Crystal: cap the boosted stat at 999
+	ld a, HIGH(MAX_STAT_VALUE)
+	cp h
+	jr c, .cap
+	ret nz
+	ld a, LOW(MAX_STAT_VALUE)
+	cp l
+	ret nc
+
+.cap
+	ld hl, MAX_STAT_VALUE
 	ret
 
 EnemyAttackDamage:
@@ -2839,11 +2852,13 @@ EnemyAttackDamage:
 	call ThickClubBoost
 
 .done
+	push hl
+	call DittoMetalPowder ; Perfect Crystal: boost before truncating
+	pop hl
 	call TruncateHL_BC
 
 	ld a, [wEnemyMonLevel]
 	ld e, a
-	call DittoMetalPowder
 
 	ld a, 1
 	and a
@@ -3628,9 +3643,7 @@ BattleCommand_SleepTarget:
 	bit SUBSTATUS_LOCK_ON, a
 	jr nz, .dont_fail
 
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	ret c
+	; Perfect Crystal: no 25% AI failure chance
 
 .dont_fail
 	xor a
@@ -3714,9 +3727,7 @@ BattleCommand_Poison:
 	bit SUBSTATUS_LOCK_ON, a
 	jr nz, .dont_sample_failure
 
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	jr c, .failed
+	; Perfect Crystal: no 25% AI failure chance
 
 .dont_sample_failure
 	call CheckSubstituteOpp
@@ -4336,9 +4347,7 @@ BattleCommand_StatDown:
 	cp EFFECT_ACCURACY_DOWN_HIT
 	jr z, .DidntMiss
 
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	jr c, .Failed
+	; Perfect Crystal: no 25% AI failure chance
 
 .DidntMiss:
 	call CheckSubstituteOpp
@@ -4746,9 +4755,6 @@ CalcPlayerStats:
 	ld a, NUM_BATTLE_STATS
 	call CalcBattleStats
 
-	ld hl, BadgeStatBoosts
-	call CallBattleCore
-
 	call BattleCommand_SwitchTurn
 
 	ld hl, ApplyPrzEffectOnSpeed
@@ -4915,6 +4921,10 @@ BattleCommand_ForceSwitch:
 	cp BATTLETYPE_FORCESHINY
 	jp z, .fail
 	cp BATTLETYPE_TRAP
+	jp z, .fail
+	cp BATTLETYPE_CELEBI
+	jp z, .fail
+	cp BATTLETYPE_SUICUNE
 	jp z, .fail
 	ldh a, [hBattleTurn]
 	and a
@@ -5817,9 +5827,7 @@ BattleCommand_Paralyze:
 	bit SUBSTATUS_LOCK_ON, a
 	jr nz, .dont_sample_failure
 
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	jr c, .failed
+	; Perfect Crystal: no 25% AI failure chance
 
 .dont_sample_failure
 	ld a, BATTLE_VARS_STATUS_OPP

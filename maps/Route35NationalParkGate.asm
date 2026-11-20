@@ -74,7 +74,7 @@ Route35NationalParkGateLeavingContestEarlyScript:
 	playsound SFX_ENTER_DOOR
 	special FadeOutToWhite
 	waitsfx
-	warp NATIONAL_PARK_BUG_CONTEST, 10, 47
+	warpfacing UP, NATIONAL_PARK_BUG_CONTEST, 10, 47
 	end
 
 Route35OfficerScriptContest:
@@ -112,7 +112,7 @@ Route35NationalParkGate_OkayToProceed:
 	special FadeOutToWhite
 	waitsfx
 	special SelectRandomBugContestContestants
-	warp NATIONAL_PARK_BUG_CONTEST, 10, 47
+	warpfacing UP, NATIONAL_PARK_BUG_CONTEST, 10, 47
 	end
 
 Route35NationalParkGate_EnterContest:
@@ -428,8 +428,11 @@ BugCatchingContestExplanationText:
 	para "for participating,"
 	line "you also get to"
 
-	para "keep a bug #MON"
-	line "that you catch."
+	para "keep the bug"
+	line "#MON you may"
+
+	para "have at the end of"
+	line "the contest."
 	done
 
 Route35NationalParkGate_MapEvents:

@@ -47,3 +47,11 @@ DEF ROOF_LENGTH EQU 9
 	const PAL_BG_BROWN  ; 5
 	const PAL_BG_ROOF   ; 6
 	const PAL_BG_TEXT   ; 7
+
+; Crystal's Unown word room tilesets use VRAM bank 1; on DMG they share the
+; Ruins of Alph tileset (their blocks are translated, see ignore/claude/tools/port/blk.py).
+DEF TILESET_BETA_WORD_ROOM       EQU TILESET_RUINS_OF_ALPH
+DEF TILESET_HO_OH_WORD_ROOM      EQU TILESET_RUINS_OF_ALPH
+DEF TILESET_KABUTO_WORD_ROOM     EQU TILESET_RUINS_OF_ALPH
+DEF TILESET_OMANYTE_WORD_ROOM    EQU TILESET_RUINS_OF_ALPH
+DEF TILESET_AERODACTYL_WORD_ROOM EQU TILESET_RUINS_OF_ALPH

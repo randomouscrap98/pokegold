@@ -216,6 +216,7 @@ DEF NUM_SPRITEMOVEFN EQU const_value
 	const STEP_TYPE_16               ; 16
 	const STEP_TYPE_17               ; 17
 	const STEP_TYPE_DELETE           ; 18
+	const STEP_TYPE_SKYFALL_TOP      ; 19
 DEF NUM_STEP_TYPES EQU const_value
 
 ; ObjectActionPairPointers indexes (see engine/overworld/map_object_action.asm)
@@ -236,6 +237,7 @@ DEF NUM_STEP_TYPES EQU const_value
 	const OBJECT_ACTION_BIG_DOLL      ; 0d
 	const OBJECT_ACTION_BOULDER_DUST  ; 0e
 	const OBJECT_ACTION_GRASS_SHAKE   ; 0f
+	const OBJECT_ACTION_SKYFALL       ; 10
 DEF NUM_OBJECT_ACTIONS EQU const_value
 
 ; Facings indexes (see data/sprites/facings.asm)

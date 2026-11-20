@@ -96,7 +96,7 @@ FarmhouseBookshelf:
 FarmerMText_SickCow:
 	text "My MILTANK ain't"
 	line "givin' me milk"
-	cont "nomore."
+	cont "n'more."
 
 	para "This here FARM's"
 	line "got famous milk."
@@ -116,7 +116,7 @@ FarmerMText_BuyMilk:
 	line "MOOMOO MILK?"
 
 	para "It's my pride and"
-	line "joy, son."
+	line "joy, there."
 
 	para "Give it to #MON"
 	line "to restore HP!"
@@ -131,13 +131,13 @@ FarmerMText_GotMilk:
 	done
 
 FarmerMText_NoMoney:
-	text "Sorry, son."
+	text "Sorry, there."
 	line "No cash, no sale!"
 	done
 
 FarmerMText_NoRoom:
 	text "I reckon yer"
-	line "PACK's full, son."
+	line "PACK's full."
 	done
 
 FarmerMText_NoSale:

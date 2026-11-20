@@ -2,9 +2,10 @@
 	const ROUTE38_STANDING_YOUNGSTER1
 	const ROUTE38_LASS
 	const ROUTE38_STANDING_YOUNGSTER2
-	const ROUTE38_BEAUTY
+	const ROUTE38_BEAUTY1
 	const ROUTE38_SAILOR
 	const ROUTE38_FRUIT_TREE
+	const ROUTE38_BEAUTY2
 
 Route38_MapScripts:
 	def_scene_scripts
@@ -37,10 +38,13 @@ TrainerLassDana1:
 	trainer LASS, DANA1, EVENT_BEAT_LASS_DANA, LassDana1SeenText, LassDana1BeatenText, 0, .Script
 
 .Script
+	loadvar VAR_CALLERID, PHONE_LASS_DANA
 	endifjustbattled
 	opentext
-	checkevent EVENT_DANA_READY_FOR_REMATCH
+	checkflag ENGINE_DANA_READY_FOR_REMATCH
 	iftrue .DanaRematch
+	checkflag ENGINE_DANA_HAS_THUNDERSTONE
+	iftrue .TryGiveThunderstone
 	checkcellnum PHONE_LASS_DANA
 	iftrue .NumberAccepted
 	checkevent EVENT_DANA_ASKED_FOR_PHONE_NUMBER
@@ -64,29 +68,73 @@ TrainerLassDana1:
 .DanaRematch:
 	scall .Rematch
 	winlosstext LassDana1BeatenText, 0
+	readmem wDanaFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight3
+.Fight2:
 	checkevent EVENT_CLEARED_RADIO_TOWER
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_CIANWOOD
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer LASS, DANA1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_DANA_READY_FOR_REMATCH
+	loadmem wDanaFightCount, 1
+	clearflag ENGINE_DANA_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer LASS, DANA2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_DANA_READY_FOR_REMATCH
+	loadmem wDanaFightCount, 2
+	clearflag ENGINE_DANA_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer LASS, DANA3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_DANA_READY_FOR_REMATCH
+	loadmem wDanaFightCount, 3
+	clearflag ENGINE_DANA_READY_FOR_REMATCH
 	end
+
+.LoadFight3:
+	loadtrainer LASS, DANA4
+	startbattle
+	reloadmapafterbattle
+	loadmem wDanaFightCount, 4
+	clearflag ENGINE_DANA_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer LASS, DANA5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_DANA_READY_FOR_REMATCH
+	end
+
+.TryGiveThunderstone:
+	scall .Gift
+	verbosegiveitem THUNDERSTONE
+	iffalse .NoRoomForThunderstone
+	clearflag ENGINE_DANA_HAS_THUNDERSTONE
+	setevent EVENT_DANA_GAVE_THUNDERSTONE
+	sjump .NumberAccepted
+
+.NoRoomForThunderstone:
+	sjump .PackFull
 
 .AskNumber1F:
 	jumpstd AskNumber1FScript
@@ -116,13 +164,22 @@ TrainerLassDana1:
 	jumpstd RematchFScript
 	end
 
+.Gift:
+	jumpstd GiftFScript
+	end
+
+.PackFull:
+	jumpstd PackFullFScript
+	end
+
 TrainerSchoolboyChad1:
 	trainer SCHOOLBOY, CHAD1, EVENT_BEAT_SCHOOLBOY_CHAD, SchoolboyChad1SeenText, SchoolboyChad1BeatenText, 0, .Script
 
 .Script
+	loadvar VAR_CALLERID, PHONE_SCHOOLBOY_CHAD
 	endifjustbattled
 	opentext
-	checkevent EVENT_CHAD_READY_FOR_REMATCH
+	checkflag ENGINE_CHAD_READY_FOR_REMATCH
 	iftrue .ChadRematch
 	checkcellnum PHONE_SCHOOLBOY_CHAD
 	iftrue .HaveChadsNumber
@@ -147,28 +204,61 @@ TrainerSchoolboyChad1:
 .ChadRematch:
 	scall .Rematch
 	winlosstext SchoolboyChad1BeatenText, 0
+	readmem wChadFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight3
+.Fight2:
 	checkevent EVENT_CLEARED_RADIO_TOWER
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_MAHOGANY
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer SCHOOLBOY, CHAD1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_CHAD_READY_FOR_REMATCH
+	loadmem wChadFightCount, 1
+	clearflag ENGINE_CHAD_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer SCHOOLBOY, CHAD2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_CHAD_READY_FOR_REMATCH
+	loadmem wChadFightCount, 2
+	clearflag ENGINE_CHAD_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer SCHOOLBOY, CHAD3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_CHAD_READY_FOR_REMATCH
+	loadmem wChadFightCount, 3
+	clearflag ENGINE_CHAD_READY_FOR_REMATCH
+	end
+
+.LoadFight3:
+	loadtrainer SCHOOLBOY, CHAD4
+	startbattle
+	reloadmapafterbattle
+	loadmem wChadFightCount, 4
+	clearflag ENGINE_CHAD_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer SCHOOLBOY, CHAD5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_CHAD_READY_FOR_REMATCH
 	end
 
 .AskPhoneNumber1:
@@ -210,6 +300,17 @@ TrainerBeautyValerie:
 	closetext
 	end
 
+TrainerBeautyOlivia:
+	trainer BEAUTY, OLIVIA, EVENT_BEAT_BEAUTY_OLIVIA, BeautyOliviaSeenText, BeautyOliviaBeatenText, 0, .Script
+
+.Script
+	endifjustbattled
+	opentext
+	writetext BeautyOliviaAfterBattleText
+	waitbutton
+	closetext
+	end
+
 Route38Sign:
 	jumptext Route38SignText
 
@@ -235,7 +336,7 @@ BirdKeeperTobyAfterBattleText:
 	line "CIANWOOD CITY to"
 
 	para "teach my #MON"
-	line "how to fly."
+	line "how to FLY."
 	done
 
 SchoolboyChad1SeenText:
@@ -262,11 +363,12 @@ SchoolboyChadSoManyTestsText:
 	done
 
 LassDana1SeenText:
-	text "Are you good at"
-	line "training?"
+	text "You seem to be"
+	line "good at #MON."
 
-	para "If you are, could"
-	line "you show me how?"
+	para "If you are, how"
+	line "about giving me"
+	cont "some advice?"
 	done
 
 LassDana1BeatenText:
@@ -323,6 +425,28 @@ SailorHarryAfterBattleText:
 	line "with #MON."
 	done
 
+BeautyOliviaSeenText:
+	text "Don't you think my"
+	line "#MON and I are"
+	cont "beautiful?"
+	done
+
+BeautyOliviaBeatenText:
+	text "We drink MOOMOO"
+	line "MILK every day."
+	done
+
+BeautyOliviaAfterBattleText:
+	text "MOOMOO MILK is"
+	line "good for beauty"
+
+	para "and health, but"
+	line "inconveniently,"
+
+	para "they only sell a"
+	line "bottle at a time."
+	done
+
 Route38SignText:
 	text "ROUTE 38"
 
@@ -360,9 +484,10 @@ Route38_MapEvents:
 	bg_event  5, 13, BGEVENT_READ, Route38TrainerTips
 
 	def_object_events
-	object_event  4,  1, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerSchoolboyChad1, -1
+	object_event  4,  1, SPRITE_STANDING_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerSchoolboyChad1, -1
 	object_event 15,  3, SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerLassDana1, -1
-	object_event 15, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerBirdKeeperToby, -1
-	object_event  9,  6, SPRITE_BEAUTY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerBeautyValerie, -1
-	object_event 25,  5, SPRITE_SAILOR, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerSailorHarry, -1
+	object_event 12, 15, SPRITE_STANDING_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBirdKeeperToby, -1
+	object_event 19,  9, SPRITE_BEAUTY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBeautyValerie, -1
+	object_event 24,  5, SPRITE_SAILOR, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerSailorHarry, -1
 	object_event 12, 10, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route38FruitTree, -1
+	object_event  5,  8, SPRITE_BEAUTY, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBeautyOlivia, -1

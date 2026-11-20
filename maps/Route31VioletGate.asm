@@ -14,7 +14,7 @@ Route31VioletGateCooltrainerFScript:
 	jumptextfaceplayer Route31VioletGateCooltrainerFText
 
 Route31VioletGateOfficerText:
-	text "Hi, guy!"
+	text "Hi there!"
 	line "Did you visit"
 	cont "SPROUT TOWER?"
 	done

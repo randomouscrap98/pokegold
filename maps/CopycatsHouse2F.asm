@@ -1,14 +1,28 @@
 	object_const_def
-	const COPYCATSHOUSE2F_COPYCAT
+	const COPYCATSHOUSE2F_COPYCAT1 ; if player is male
 	const COPYCATSHOUSE2F_DODRIO
 	const COPYCATSHOUSE2F_FAIRYDOLL ; lost item
 	const COPYCATSHOUSE2F_MONSTERDOLL
 	const COPYCATSHOUSE2F_BIRDDOLL
+	const COPYCATSHOUSE2F_COPYCAT2 ; if player is female
 
 CopycatsHouse2F_MapScripts:
 	def_scene_scripts
 
 	def_callbacks
+	callback MAPCALLBACK_OBJECTS, CopycatsHouse2FWhichGenderCallback
+
+CopycatsHouse2FWhichGenderCallback:
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .Female
+	disappear COPYCATSHOUSE2F_COPYCAT2
+	appear COPYCATSHOUSE2F_COPYCAT1
+	sjump .Done
+.Female:
+	disappear COPYCATSHOUSE2F_COPYCAT1
+	appear COPYCATSHOUSE2F_COPYCAT2
+.Done:
+	endcallback
 
 Copycat:
 	faceplayer
@@ -18,17 +32,40 @@ Copycat:
 	iftrue .TryGivePassAgain
 	checkitem LOST_ITEM
 	iftrue .ReturnLostItem
-	applymovement COPYCATSHOUSE2F_COPYCAT, CopycatSpinAroundMovementData
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .Default_Female_1
+	applymovement COPYCATSHOUSE2F_COPYCAT1, CopycatSpinAroundMovementData
 	faceplayer
 	variablesprite SPRITE_COPYCAT, SPRITE_CHRIS
+	sjump .Default_Merge_1
+
+.Default_Female_1:
+	applymovement COPYCATSHOUSE2F_COPYCAT2, CopycatSpinAroundMovementData
+	faceplayer
+	variablesprite SPRITE_COPYCAT, SPRITE_KRIS
+.Default_Merge_1:
 	special LoadUsedSpritesGFX
 	checkevent EVENT_RETURNED_MACHINE_PART
 	iftrue .TalkAboutLostItem
 	opentext
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .Default_Female_2a
 	writetext CopycatText_Male_1
+	sjump .Default_Merge_2a
+
+.Default_Female_2a:
+	writetext CopycatText_Female_1
+.Default_Merge_2a:
 	waitbutton
 	closetext
-	applymovement COPYCATSHOUSE2F_COPYCAT, CopycatSpinAroundMovementData
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .Default_Female_3a
+	applymovement COPYCATSHOUSE2F_COPYCAT1, CopycatSpinAroundMovementData
+	sjump .Default_Merge_3a
+
+.Default_Female_3a:
+	applymovement COPYCATSHOUSE2F_COPYCAT2, CopycatSpinAroundMovementData
+.Default_Merge_3a:
 	faceplayer
 	variablesprite SPRITE_COPYCAT, SPRITE_LASS
 	special LoadUsedSpritesGFX
@@ -40,10 +77,24 @@ Copycat:
 
 .TalkAboutLostItem:
 	opentext
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .Default_Female_2b
 	writetext CopycatText_Male_2
+	sjump .Default_Merge_2b
+
+.Default_Female_2b:
+	writetext CopycatText_Female_2
+.Default_Merge_2b:
 	waitbutton
 	closetext
-	applymovement COPYCATSHOUSE2F_COPYCAT, CopycatSpinAroundMovementData
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .Default_Female_3b
+	applymovement COPYCATSHOUSE2F_COPYCAT1, CopycatSpinAroundMovementData
+	sjump .Default_Merge_3b
+
+.Default_Female_3b:
+	applymovement COPYCATSHOUSE2F_COPYCAT2, CopycatSpinAroundMovementData
+.Default_Merge_3b:
 	faceplayer
 	variablesprite SPRITE_COPYCAT, SPRITE_LASS
 	special LoadUsedSpritesGFX
@@ -77,15 +128,38 @@ Copycat:
 	end
 
 .GotPass:
-	applymovement COPYCATSHOUSE2F_COPYCAT, CopycatSpinAroundMovementData
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .GotPass_Female_1
+	applymovement COPYCATSHOUSE2F_COPYCAT1, CopycatSpinAroundMovementData
 	faceplayer
 	variablesprite SPRITE_COPYCAT, SPRITE_CHRIS
+	sjump .GotPass_Merge_1
+
+.GotPass_Female_1:
+	applymovement COPYCATSHOUSE2F_COPYCAT2, CopycatSpinAroundMovementData
+	faceplayer
+	variablesprite SPRITE_COPYCAT, SPRITE_KRIS
+.GotPass_Merge_1:
 	special LoadUsedSpritesGFX
 	opentext
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .GotPass_Female_2
 	writetext CopycatText_Male_3
+	sjump .GotPass_Merge_2
+
+.GotPass_Female_2:
+	writetext CopycatText_Female_3
+.GotPass_Merge_2:
 	waitbutton
 	closetext
-	applymovement COPYCATSHOUSE2F_COPYCAT, CopycatSpinAroundMovementData
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .GotPass_Female_3
+	applymovement COPYCATSHOUSE2F_COPYCAT1, CopycatSpinAroundMovementData
+	sjump .GotPass_Merge_3
+
+.GotPass_Female_3:
+	applymovement COPYCATSHOUSE2F_COPYCAT2, CopycatSpinAroundMovementData
+.GotPass_Merge_3:
 	faceplayer
 	variablesprite SPRITE_COPYCAT, SPRITE_LASS
 	special LoadUsedSpritesGFX
@@ -222,6 +296,49 @@ CopycatText_ItsAScream:
 	line "It's a scream!"
 	done
 
+CopycatText_Female_1:
+	text "<PLAYER>: Hi. You"
+	line "must like #MON."
+
+	para "<PLAYER>: No, not"
+	line "me. I asked you."
+
+	para "<PLAYER>: Pardon?"
+	line "You're weird!"
+	done
+
+CopycatText_Female_2:
+	text "<PLAYER>: Hi. Did"
+	line "you really lose"
+	cont "your # DOLL?"
+
+	para "<PLAYER>: You'll"
+	line "really give me a"
+
+	para "rail PASS if I"
+	line "find it for you?"
+
+	para "<PLAYER>: Sure,"
+	line "I'll look for it!"
+
+	para "You think you lost"
+	line "it when you were"
+	cont "in VERMILION?"
+	done
+
+CopycatText_Female_3:
+	text "<PLAYER>: Thank you"
+	line "for the rail PASS!"
+
+	para "<PLAYER>: …Pardon?"
+
+	para "<PLAYER>: Is it"
+	line "really that fun to"
+
+	para "copy what I say"
+	line "and do?"
+	done
+
 CopycatsDodrioText1:
 	text "DODRIO: Gii giii!"
 	done
@@ -254,8 +371,9 @@ CopycatsHouse2F_MapEvents:
 	bg_event  1,  1, BGEVENT_READ, CopycatsHouse2FBookshelf
 
 	def_object_events
-	object_event  4,  3, SPRITE_COPYCAT, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Copycat, -1
+	object_event  4,  3, SPRITE_COPYCAT, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Copycat, EVENT_COPYCAT_1
 	object_event  6,  4, SPRITE_MOLTRES, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, CopycatsDodrio, -1
 	object_event  6,  1, SPRITE_FAIRY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CopycatsHouse2FDoll, EVENT_COPYCATS_HOUSE_2F_DOLL
 	object_event  2,  1, SPRITE_MONSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CopycatsHouse2FDoll, -1
 	object_event  7,  1, SPRITE_BIRD, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CopycatsHouse2FDoll, -1
+	object_event  4,  3, SPRITE_COPYCAT, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Copycat, EVENT_COPYCAT_2

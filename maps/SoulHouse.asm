@@ -57,7 +57,7 @@ SoulHouseTeacherText:
 	done
 
 SoulHouseLassText:
-	text "I came with my Mom"
+	text "I came with my mom"
 	line "to visit #MON"
 	cont "graves…"
 	done

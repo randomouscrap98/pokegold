@@ -1215,6 +1215,16 @@ DrawPackGFX:
 	maskbits NUM_POCKETS
 	ld e, a
 	ld d, 0
+	ld a, [wPlayerGender] ; Crystal: Kris's pack
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .male_dude
+	ld a, [wBattleType]
+	cp BATTLETYPE_TUTORIAL
+	jr z, .male_dude
+	farcall DrawKrisPackGFX
+	ret
+
+.male_dude
 	ld hl, PackGFXPointers
 	add hl, de
 	add hl, de

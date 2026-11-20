@@ -83,7 +83,7 @@ ItemEffects:
 	dw NoEffect            ; SECRETPOTION
 	dw NoEffect            ; S_S_TICKET
 	dw NoEffect            ; MYSTERY_EGG
-	dw NoEffect            ; ITEM_46
+	dw NoEffect            ; CLEAR_BELL
 	dw NoEffect            ; SILVER_WING
 	dw RestoreHPEffect     ; MOOMOO_MILK
 	dw NoEffect            ; QUICK_CLAW
@@ -128,8 +128,8 @@ ItemEffects:
 	dw NoEffect            ; EVERSTONE
 	dw NoEffect            ; SPELL_TAG
 	dw RestoreHPEffect     ; RAGECANDYBAR
-	dw NoEffect            ; ITEM_73
-	dw NoEffect            ; ITEM_74
+	dw NoEffect            ; GS_BALL
+	dw NoEffect            ; BLUE_CARD
 	dw NoEffect            ; MIRACLE_SEED
 	dw NoEffect            ; THICK_CLUB
 	dw NoEffect            ; FOCUS_BAND
@@ -142,7 +142,7 @@ ItemEffects:
 	dw NoEffect            ; LUCKY_EGG
 	dw CardKeyEffect       ; CARD_KEY
 	dw NoEffect            ; MACHINE_PART
-	dw NoEffect            ; ITEM_81
+	dw NoEffect            ; EGG_TICKET
 	dw NoEffect            ; LOST_ITEM
 	dw NoEffect            ; STARDUST
 	dw NoEffect            ; STAR_PIECE
@@ -345,7 +345,7 @@ PokeBallEffect:
 	and 1 << FRZ | SLP_MASK
 	ld c, 10
 	jr nz, .addstatus
-	; ld a, [wEnemyMonStatus]
+	ld a, [wEnemyMonStatus] ; Perfect Crystal fix: BRN/PSN/PAR now help
 	and a
 	ld c, 5
 	jr nz, .addstatus
@@ -363,7 +363,7 @@ PokeBallEffect:
 	ld d, a
 	push de
 	ld a, [wBattleMonItem]
-	; ld b, a
+	ld b, a ; Perfect Crystal fix: HELD_CATCH_CHANCE works
 	farcall GetItemHeldEffect
 	ld a, b
 	cp HELD_CATCH_CHANCE
@@ -447,20 +447,10 @@ PokeBallEffect:
 	push af
 	set SUBSTATUS_TRANSFORMED, [hl]
 
-; This code is buggy. Any wild Pokémon that has Transformed will be
-; caught as a Ditto, even if it was something else like Mew.
-; To fix, do not set [wTempEnemyMonSpecies] to DITTO.
+; Perfect Crystal fix: a Transformed Pokémon is no longer caught as a Ditto
 	bit SUBSTATUS_TRANSFORMED, a
-	jr nz, .ditto
-	jr .not_ditto
+	jr nz, .load_data
 
-.ditto
-	ld a, DITTO
-	ld [wTempEnemyMonSpecies], a
-	jr .load_data
-
-.not_ditto
-	set SUBSTATUS_TRANSFORMED, [hl]
 	ld hl, wEnemyBackupDVs
 	ld a, [wEnemyMonDVs]
 	ld [hli], a
@@ -545,6 +535,11 @@ PokeBallEffect:
 	ld a, [wBattleType]
 	cp BATTLETYPE_CONTEST
 	jp z, .catch_bug_contest_mon
+	cp BATTLETYPE_CELEBI
+	jr nz, .not_celebi
+	ld hl, wBattleResult
+	set BATTLERESULT_CAUGHT_CELEBI, [hl]
+.not_celebi
 	ld a, [wPartyCount]
 	cp PARTY_LENGTH
 	jr z, .SendToPC
@@ -554,6 +549,8 @@ PokeBallEffect:
 	call ClearSprites
 
 	predef TryAddMonToParty
+
+	farcall SetCaughtData ; Crystal
 
 	ld a, [wCurItem]
 	cp FRIEND_BALL
@@ -608,6 +605,8 @@ PokeBallEffect:
 	call ClearSprites
 
 	predef SendMonIntoBox
+
+	farcall SetBoxMonCaughtData ; Crystal
 
 	ld a, BANK(sBoxCount)
 	call OpenSRAM
@@ -896,16 +895,12 @@ MoonBallMultiplier:
 	ret nz
 
 	inc hl
-	inc hl
-	inc hl
 
-; Moon Stone's constant from Pokémon Red is used.
-; No Pokémon evolve with Burn Heal,
-; so Moon Balls always have a catch rate of 1×.
+; Perfect Crystal fix: check the evolution item for MOON_STONE
 	push bc
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte
-	cp MOON_STONE_RED ; BURN_HEAL
+	cp MOON_STONE
 	pop bc
 	ret nz
 
@@ -964,7 +959,7 @@ LoveBallMultiplier:
 	pop de
 	cp d
 	pop bc
-	ret nz ; for the intended effect, this should be "ret z"
+	ret z ; Perfect Crystal fix: boost for the opposite gender ; for the intended effect, this should be "ret z"
 
 	sla b
 	jr c, .max
@@ -1002,7 +997,7 @@ FastBallMultiplier:
 	cp -1
 	jr z, .next
 	cp c
-	jr nz, .next ; for the intended effect, this should be "jr nz, .loop"
+	jr nz, .loop ; Perfect Crystal fix (was "jr nz, .next")
 	sla b
 	jr c, .max
 

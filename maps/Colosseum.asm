@@ -6,15 +6,20 @@ Colosseum_MapScripts:
 	def_scene_scripts
 	scene_script ColosseumInitializeScene, SCENE_COLOSSEUM_INITIALIZE
 	scene_script ColosseumNoop1Scene,      SCENE_COLOSSEUM_NOOP
+	scene_script ColosseumNoop2Scene ; unused
 
 	def_callbacks
 	callback MAPCALLBACK_OBJECTS, ColosseumSetWhichChrisCallback
+	callback MAPCALLBACK_NEWMAP, ColosseumPreparePokecenter2FCallback
 
 ColosseumInitializeScene:
 	sdefer ColosseumInitializeAndPreparePokecenter2FScript
 	end
 
 ColosseumNoop1Scene:
+	end
+
+ColosseumNoop2Scene:
 	end
 
 ColosseumSetWhichChrisCallback:
@@ -27,6 +32,10 @@ ColosseumSetWhichChrisCallback:
 .Chris2:
 	disappear COLOSSEUM_CHRIS1
 	appear COLOSSEUM_CHRIS2
+	endcallback
+
+ColosseumPreparePokecenter2FCallback:
+	setmapscene POKECENTER_2F, SCENE_POKECENTER2F_LEAVE_COLOSSEUM
 	endcallback
 
 ColosseumInitializeAndPreparePokecenter2FScript:

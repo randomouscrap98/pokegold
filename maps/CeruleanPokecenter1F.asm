@@ -12,17 +12,38 @@ CeruleanPokecenter1FNurseScript:
 	jumpstd PokecenterNurseScript
 
 CeruleanPokecenter1FSuperNerdScript:
+	special CheckMobileAdapterStatusSpecial
+	iftrue .mobile
 	jumptextfaceplayer CeruleanPokecenter1FSuperNerdText
+
+.mobile
+	jumptextfaceplayer CeruleanPokecenter1FSuperNerdText_Mobile
 
 CeruleanPokecenter1FGymGuideScript:
 	jumptextfaceplayer CeruleanPokecenter1FGymGuideText
 
 CeruleanPokecenter1FSuperNerdText:
-	text "ROUTE 9 stretches"
-	line "to the east. The"
+	text "For battles, I'd"
+	line "much rather use"
 
-	para "POWER PLANT is at"
-	line "the end."
+	para "#MON I've been"
+	line "raising, even if"
+
+	para "they're weaker"
+	line "than some newly"
+	cont "caught #MON."
+	done
+
+CeruleanPokecenter1FSuperNerdText_Mobile:
+	text "Do you battle by"
+	line "mobile phone?"
+
+	para "If time runs out"
+	line "during a battle,"
+
+	para "waiting to see who"
+	line "won is really"
+	cont "nerve wracking."
 	done
 
 CeruleanPokecenter1FGymGuideText:

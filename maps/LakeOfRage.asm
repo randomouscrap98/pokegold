@@ -223,8 +223,8 @@ WesleyNotWednesdayScript:
 	closetext
 	end
 
-LakeOfRageMaxEther:
-	itemball MAX_ETHER
+LakeOfRageElixer:
+	itemball ELIXER
 
 LakeOfRageTMDetect:
 	itemball TM_DETECT
@@ -267,7 +267,7 @@ LakeOfRageLanceIntroText:
 
 	para "I saw the way you"
 	line "battled earlier,"
-	cont "<PLAYER>."
+	cont "<PLAY_G>."
 
 	para "I can tell that"
 	line "you're a trainer"
@@ -296,7 +296,7 @@ LakeOfRageLanceRadioSignalText:
 	line "the cause."
 
 	para "I'll be waiting"
-	line "for you, <PLAYER>."
+	line "for you, <PLAY_G>."
 	done
 
 LakeOfRageLanceRefusedText:
@@ -518,5 +518,5 @@ LakeOfRage_MapEvents:
 	object_event 36,  7, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 0, TrainerCooltrainerfLois, EVENT_LAKE_OF_RAGE_CIVILIANS
 	object_event 18, 22, SPRITE_GYARADOS, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, RedGyarados, EVENT_LAKE_OF_RAGE_RED_GYARADOS
 	object_event  4,  4, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, WesleyScript, EVENT_LAKE_OF_RAGE_WESLEY_OF_WEDNESDAY
-	object_event  7, 10, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, LakeOfRageMaxEther, EVENT_LAKE_OF_RAGE_MAX_ETHER
+	object_event  7, 10, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, LakeOfRageElixer, EVENT_LAKE_OF_RAGE_ELIXER
 	object_event 35,  2, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, LakeOfRageTMDetect, EVENT_LAKE_OF_RAGE_TM_DETECT

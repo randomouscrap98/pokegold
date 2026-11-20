@@ -32,8 +32,16 @@ ViridianGymBlueScript:
 
 .FightDone:
 	writetext LeaderBlueEpilogueText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue .BlueRematch
 	closetext
+	end
+
+.BlueRematch:
+	winlosstext Blue_RematchDefeat, 0
+	loadtrainer BLUE, BLUE1
+	startbattle
+	reloadmapafterbattle
 	end
 
 ViridianGymGuideScript:
@@ -90,7 +98,8 @@ LeaderBlueBeforeText:
 	para "battling you right"
 	line "now."
 
-	para "Ready, JOHTO boy?"
+	para "Ready, JOHTO"
+	line "CHAMP?"
 	done
 
 LeaderBlueWinText:
@@ -133,6 +142,10 @@ LeaderBlueEpilogueText:
 	para "You'd better not"
 	line "lose until I beat"
 	cont "you. Got it?"
+
+	para "In fact, lets have"
+	line "a rematch right"
+	cont "now!"
 	done
 
 ViridianGymGuideText:
@@ -182,3 +195,10 @@ ViridianGym_MapEvents:
 	def_object_events
 	object_event  5,  3, SPRITE_BLUE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianGymBlueScript, EVENT_VIRIDIAN_GYM_BLUE
 	object_event  7, 13, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ViridianGymGuideScript, EVENT_VIRIDIAN_GYM_BLUE
+
+Blue_RematchDefeat:
+	text "BLUE: Ugh!"
+	line "I lost again?!"
+	para "I cant keep losing"
+	line "to you!"
+	done

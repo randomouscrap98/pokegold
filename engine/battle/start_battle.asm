@@ -10,6 +10,13 @@ PlayBattleMusic:
 	call DelayFrame
 	call MaxVolume
 
+	ld a, [wBattleType] ; Crystal: Suicune and the roaming beasts
+	cp BATTLETYPE_SUICUNE
+	ld de, MUSIC_SUICUNE_BATTLE
+	jp z, .done
+	cp BATTLETYPE_ROAMING
+	jp z, .done
+
 	; Are we fighting a trainer?
 	ld a, [wOtherTrainerClass]
 	and a
@@ -38,11 +45,16 @@ PlayBattleMusic:
 	cp RED
 	jr z, .done
 
-; BUG: Team Rocket battle music is not used for Executives or Scientists (see docs/bugs_and_glitches.md)
 	ld de, MUSIC_ROCKET_BATTLE
 	cp GRUNTM
 	jr z, .done
 	cp GRUNTF
+	jr z, .done
+	cp EXECUTIVEM ; Perfect Crystal: Rocket music for Executives and Scientists
+	jr z, .done
+	cp EXECUTIVEF
+	jr z, .done
+	cp SCIENTIST
 	jr z, .done
 
 	ld de, MUSIC_KANTO_GYM_LEADER_BATTLE

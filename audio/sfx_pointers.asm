@@ -189,4 +189,24 @@ SFX:
 	dba Sfx_TrainArrived
 	dba Sfx_StopSlot
 	dba Sfx_2Boops
+; new to Crystal
+	dba Sfx_GlassTing
+	dba Sfx_GlassTing2
+	dba Sfx_IntroUnown1
+	dba Sfx_IntroUnown2
+	dba Sfx_IntroUnown3
+	dba Sfx_DittoPopUp
+	dba Sfx_DittoTransform
+	dba Sfx_IntroSuicune1
+	dba Sfx_IntroPichu
+	dba Sfx_IntroSuicune2
+	dba Sfx_IntroSuicune3
+	dba Sfx_DittoBounce
+	dba Sfx_IntroSuicune4
+	dba Sfx_GameFreakPresents
+	dba Sfx_Tingle
+	dba Sfx_IntroWhoosh
+	dba Sfx_TwoPcBeeps
+	dba Sfx_4NoteDitty
+	dba Sfx_Twinkle
 	assert_table_length NUM_SFX

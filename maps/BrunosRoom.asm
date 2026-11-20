@@ -29,7 +29,7 @@ BrunosRoomDoorsCallback:
 
 BrunosRoomDoorLocksBehindYouScript:
 	applymovement PLAYER, BrunosRoom_EnterMovement
-	reanchormap $85
+	reanchormap $86
 	playsound SFX_STRENGTH
 	earthquake 80
 	changeblock 4, 14, $2a ; wall

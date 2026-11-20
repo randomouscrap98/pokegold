@@ -89,8 +89,8 @@ Route24RocketAfterBattleText:
 	para "in water center of"
 	line "GYM at."
 
-	para "Boy, but you"
-	line "forget me not!"
+	para "But you forget me"
+	line "not!"
 
 	para "Beat you for sure"
 	line "will TEAM ROCKET."

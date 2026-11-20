@@ -69,8 +69,15 @@ SunnyScript:
 	promptbutton
 	setevent EVENT_MET_SUNNY_OF_SUNDAY
 .MetSunny:
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iftrue .Kris
 	writetext SunnyGivesGiftText1
 	promptbutton
+	sjump .next
+.Kris:
+	writetext SunnyGivesGiftText2
+	promptbutton
+.next
 	verbosegiveitem MAGNET
 	iffalse SunnyDoneScript
 	setevent EVENT_GOT_MAGNET_FROM_SUNNY
@@ -114,8 +121,8 @@ TwinsAnnandanne1SeenText:
 	done
 
 TwinsAnnandanne1BeatenText:
-	text "ANN & ANNE: You're"
-	line "mean!"
+	text "ANN & ANNE: Nnn… A"
+	line "little too strong."
 	done
 
 TwinsAnnandanne1AfterBattleText:
@@ -133,8 +140,8 @@ TwinsAnnandanne2SeenText:
 	done
 
 TwinsAnnandanne2BeatenText:
-	text "ANN & ANNE: You're"
-	line "mean!"
+	text "ANN & ANNE: Nnn… A"
+	line "little too strong."
 	done
 
 TwinsAnnandanne2AfterBattleText:
@@ -173,6 +180,12 @@ MeetSunnyText:
 	done
 
 SunnyGivesGiftText1:
+	text "I was told to give"
+	line "you this if I saw"
+	cont "you!"
+	done
+
+SunnyGivesGiftText2:
 	text "I was told to give"
 	line "you this if I saw"
 	cont "you!"
@@ -236,7 +249,7 @@ Route37_MapEvents:
 	def_object_events
 	object_event  6, 12, SPRITE_WEIRD_TREE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAnnandanne1, -1
 	object_event  7, 12, SPRITE_WEIRD_TREE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAnnandanne2, -1
-	object_event  9,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPsychicGreg, -1
+	object_event  6,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerPsychicGreg, -1
 	object_event 13,  5, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route37FruitTree1, -1
 	object_event 16,  8, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SunnyScript, EVENT_ROUTE_37_SUNNY_OF_SUNDAY
 	object_event 16,  5, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route37FruitTree2, -1

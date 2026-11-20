@@ -9,7 +9,7 @@ LakeOfRageMagikarpHouse_MapScripts:
 MagikarpLengthRaterScript:
 	faceplayer
 	opentext
-	checkevent EVENT_LAKE_OF_RAGE_ETHER_ON_STANDBY
+	checkevent EVENT_LAKE_OF_RAGE_ELIXIR_ON_STANDBY
 	iftrue .GetReward
 	checkevent EVENT_LAKE_OF_RAGE_ASKED_FOR_MAGIKARP
 	iftrue .AskedForMagikarp
@@ -52,17 +52,17 @@ MagikarpLengthRaterScript:
 .GetReward:
 	writetext MagikarpLengthRaterText_Memento
 	promptbutton
-	verbosegiveitem ETHER
+	verbosegiveitem ELIXER
 	iffalse .NoRoom
 	writetext MagikarpLengthRaterText_Bonus
 	waitbutton
 	closetext
-	clearevent EVENT_LAKE_OF_RAGE_ETHER_ON_STANDBY
+	clearevent EVENT_LAKE_OF_RAGE_ELIXIR_ON_STANDBY
 	end
 
 .NoRoom:
 	closetext
-	setevent EVENT_LAKE_OF_RAGE_ETHER_ON_STANDBY
+	setevent EVENT_LAKE_OF_RAGE_ELIXIR_ON_STANDBY
 	end
 
 .TooShort:

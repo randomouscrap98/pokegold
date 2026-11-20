@@ -51,9 +51,17 @@ AzaleaGymBugsyScript:
 
 .GotFuryCutter:
 	writetext BugsyText_BugMonsAreDeep
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue .BugsyRematch
 .NoRoomForFuryCutter:
 	closetext
+	end
+
+.BugsyRematch:
+	winlosstext BugsyText_RematchDefeat, 0
+	loadtrainer BUGSY, BUGSY1
+	startbattle
+	reloadmapafterbattle
 	end
 
 AzaleaGymActivateRockets:
@@ -90,7 +98,7 @@ TrainerTwinsAmyandmay2:
 	end
 
 TrainerBugCatcherBenny:
-	trainer BUG_CATCHER, BENNY, EVENT_BEAT_BUG_CATCHER_BENNY, BugCatcherBennySeenText, BugCatcherBennyBeatenText, 0, .AfterScript
+	trainer BUG_CATCHER, BUG_CATCHER_BENNY, EVENT_BEAT_BUG_CATCHER_BENNY, BugCatcherBennySeenText, BugCatcherBennyBeatenText, 0, .AfterScript
 
 .AfterScript:
 	endifjustbattled
@@ -189,7 +197,9 @@ BugsyText_HiveBadgeSpeech:
 
 	para "If you have it,"
 	line "#MON up to L30"
-	cont "will obey you."
+
+	para "will obey you,"
+	line "even traded ones."
 
 	para "#MON that know"
 	line "CUT will be able"
@@ -226,6 +236,13 @@ BugsyText_BugMonsAreDeep:
 
 	para "Study your favor-"
 	line "ites thoroughly."
+
+	para "Or we can have"
+	line "a rematch to"
+
+	para "extend my"
+	line "research."
+	cont "How about that?"
 	done
 
 BugCatcherBennySeenText:
@@ -378,3 +395,11 @@ AzaleaGym_MapEvents:
 	object_event  4, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAmyandmay1, -1
 	object_event  5, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAmyandmay2, -1
 	object_event  7, 13, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, AzaleaGymGuideScript, -1
+
+BugsyText_RematchDefeat:
+	text "Whoa, amazing!"
+	line "You're an expert"
+	cont "on #MON!"
+	para "My research isn't"
+	line "complete yet."
+	done

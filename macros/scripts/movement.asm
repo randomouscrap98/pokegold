@@ -214,4 +214,9 @@ MACRO return_dig
 	db \1 ; length
 ENDM
 
+	const movement_skyfall_top ; $59
+MACRO skyfall_top
+	db movement_skyfall_top
+ENDM
+
 DEF NUM_MOVEMENT_CMDS EQU const_value

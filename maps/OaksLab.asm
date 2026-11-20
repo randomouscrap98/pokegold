@@ -78,7 +78,7 @@ OaksLabPC:
 	jumptext OaksLabPCText
 
 OakWelcomeKantoText:
-	text "OAK: Ah, <PLAYER>!"
+	text "OAK: Ah, <PLAY_G>!"
 	line "It's good of you"
 
 	para "to come all this"
@@ -116,7 +116,7 @@ OakOpenMtSilverText:
 	line "assessment of you."
 
 	para "Tell you what,"
-	line "<PLAYER>. I'll make"
+	line "<PLAY_G>. I'll make"
 
 	para "arrangements so"
 	line "that you can go to"
@@ -136,7 +136,7 @@ OakOpenMtSilverText:
 
 	para "we can make an"
 	line "exception in your"
-	cont "case, <PLAYER>."
+	cont "case, <PLAY_G>."
 
 	para "Go up to INDIGO"
 	line "PLATEAU. You can"
@@ -179,7 +179,7 @@ OakYesKantoBadgesText:
 	line "for you."
 
 	para "Keep trying hard,"
-	line "<PLAYER>!"
+	line "<PLAY_G>!"
 	done
 
 OaksAssistant1Text:
@@ -242,10 +242,10 @@ OaksLabPCText:
 	line "away."
 
 	para "I heard rumors"
-	line "that <PLAYER> is"
+	line "that <PLAY_G> is"
 
-	para "making quite a"
-	line "name for himself."
+	para "getting quite a"
+	line "reputation."
 
 	para "I'm delighted to"
 	line "hear that."

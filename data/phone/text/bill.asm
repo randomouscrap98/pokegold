@@ -31,7 +31,7 @@ BillPhoneNiteGreetingText:
 BillPhoneGenericText:
 	text "Who's calling?"
 
-	para "<PLAYER>, is it?"
+	para "<PLAY_G>, is it?"
 	line "Hang on a sec…"
 
 	para "<……>"
@@ -42,7 +42,7 @@ BillPhoneNotFullText:
 	text "Thanks for"
 	line "waiting!"
 
-	para "<PLAYER>, your BOX"
+	para "<PLAY_G>, your BOX"
 	line "has room for @"
 	text_ram wStringBuffer3
 	text_start
@@ -56,7 +56,7 @@ BillPhoneNearlyFullText:
 	text "Thanks for"
 	line "waiting!"
 
-	para "<PLAYER>, your BOX"
+	para "<PLAY_G>, your BOX"
 	line "has room for only"
 	cont "@"
 	text_ram wStringBuffer3
@@ -70,7 +70,7 @@ BillPhoneFullText:
 	text "Thanks for"
 	line "waiting!"
 
-	para "<PLAYER>, your BOX"
+	para "<PLAY_G>, your BOX"
 	line "is full!"
 
 	para "You'll have to"
@@ -81,7 +81,7 @@ BillPhoneFullText:
 	done
 
 BillPhoneNewlyFullText:
-	text "Hi, <PLAYER>?"
+	text "Hi, <PLAY_G>?"
 	line "It's me, BILL!"
 
 	para "Thanks for using"

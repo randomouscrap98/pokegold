@@ -39,8 +39,16 @@ SeafoamGymBlaineScript:
 
 .FightDone:
 	writetext BlaineFightDoneText
-	waitbutton
+	yesorno ; Perfect Crystal: rematch
+	iftrue .BlaineRematch
 	closetext
+	end
+
+.BlaineRematch:
+	winlosstext Blaine_RematchDefeat, 0
+	loadtrainer BLAINE, BLAINE1
+	startbattle
+	reloadmapafterbattle
 	end
 
 SeafoamGymGuideScript:
@@ -121,6 +129,12 @@ BlaineFightDoneText:
 
 	para "even stronger."
 	line "Just you watch!"
+
+	para "I can show you"
+	line "my red-hot"
+	cont "fighting spirit"
+
+	para "right now!"
 	done
 
 SeafoamGymGuideWinText:
@@ -129,7 +143,7 @@ SeafoamGymGuideWinText:
 	para "… Huh? It's over"
 	line "already?"
 
-	para "Sorry, dude!"
+	para "Sorry, sorry!"
 
 	para "CINNABAR GYM was"
 	line "gone, so I didn't"
@@ -168,3 +182,8 @@ SeafoamGym_MapEvents:
 	def_object_events
 	object_event  5,  2, SPRITE_BLAINE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, SeafoamGymBlaineScript, -1
 	object_event  6,  5, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, SeafoamGymGuideScript, EVENT_SEAFOAM_GYM_GYM_GUIDE
+
+Blaine_RematchDefeat:
+	text "BLAINE: My fire"
+	line "died out."
+	done

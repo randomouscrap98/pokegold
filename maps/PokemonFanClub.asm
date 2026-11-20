@@ -180,7 +180,7 @@ PokemonFanClubChairmanItsARareCandyText:
 	done
 
 PokemonFanClubChairmanMoreTalesToTellText:
-	text "Hello, <PLAYER>!"
+	text "Hello, <PLAY_G>!"
 
 	para "Did you come see"
 	line "me about my #-"

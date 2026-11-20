@@ -56,15 +56,7 @@ BlackthornGymClairScript:
 	end
 
 .FightDone:
-	checkitem DRAGON_FANG
-	iftrue .HasDragonFang
-	writetext ClairText_WhatsTheMatter
-	waitbutton
-	closetext
-	end
-
-.HasDragonFang:
-	writetext BlackthornGymClairText_Cheat
+	writetext ClairText_TooMuchToExpect
 	waitbutton
 	closetext
 	end
@@ -74,20 +66,36 @@ BlackthornGymClairScript:
 	iftrue .GotTM24
 	writetext BlackthornGymClairText_YouKeptMeWaiting
 	promptbutton
-	verbosegiveitem TM_DRAGONBREATH
+	giveitem TM_DRAGONBREATH
 	iffalse .BagFull
+	getitemname STRING_BUFFER_3, TM_DRAGONBREATH
+	writetext BlackthornGymText_ReceivedTM24
+	playsound SFX_ITEM
+	waitsfx
+	itemnotify
 	setevent EVENT_GOT_TM24_DRAGONBREATH
 	writetext BlackthornGymClairText_DescribeTM24
+	promptbutton
+	sjump .GotTM24
+
+.BagFull:
+	writetext BlackthornGymClairText_BagFull
 	waitbutton
 	closetext
 	end
 
 .GotTM24:
 	writetext BlackthornGymClairText_League
-	waitbutton
-
-.BagFull:
+	yesorno ; Perfect Crystal: rematch
+	iftrue .ClairRematch
 	closetext
+	end
+
+.ClairRematch:
+	winlosstext Clair_RematchDefeat, 0
+	loadtrainer CLAIR, CLAIR1
+	startbattle
+	reloadmapafterbattle
 	end
 
 TrainerCooltrainermPaul:
@@ -148,9 +156,10 @@ BlackthornGymStatue:
 	jumpstd GymStatue2Script
 
 ClairIntroText:
-	text "I am CLAIR. I'm"
-	line "the world's best"
-	cont "dragon master."
+	text "I am CLAIR."
+
+	para "The world's best"
+	line "dragon master."
 
 	para "I can hold my own"
 	line "against even the"
@@ -164,8 +173,8 @@ ClairIntroText:
 	para "…Fine."
 	line "Let's do it!"
 
-	para "As a trainer, I"
-	line "will use my full"
+	para "As a GYM LEADER,"
+	line "I will use my full"
 
 	para "power against any"
 	line "opponent!"
@@ -197,61 +206,38 @@ ClairText_GoToDragonsDen:
 	line "a place called"
 	cont "DRAGON'S DEN."
 
-	para "Go and bring me"
-	line "the DRAGON FANG"
+	para "There is a small"
+	line "shrine at its"
 
-	para "from deep inside"
-	line "the DEN."
+	para "center."
+	line "Go there."
 
-	para "That is the test"
-	line "to be accepted as"
+	para "If you can prove"
+	line "that you've lost"
 
-	para "a true dragon"
-	line "user."
+	para "your lazy ideals,"
+	line "I will recognize"
 
-	para "If you can do"
-	line "that, I will ac-"
-	cont "cept you as a"
-	cont "worthy trainer."
-
-	para "Until then, I"
-	line "won't give you a"
-	cont "BADGE."
+	para "you as a trainer"
+	line "worthy of a GYM"
+	cont "BADGE!"
 	done
 
-ClairText_WhatsTheMatter:
-	text "CLAIR: What's"
-	line "the matter?"
+ClairText_TooMuchToExpect:
+	text "What's the matter?"
 
-	para "This errand won't"
-	line "be hard for you,"
-
-	para "unless your vic-"
-	line "tory was a fluke."
-	done
-
-BlackthornGymClairText_Cheat:
-	text "CLAIR: You did"
-	line "not get that at"
-	cont "DRAGON'S DEN."
-
-	para "Trying to cheat"
-	line "like that…"
-
-	para "I'm disappointed"
-	line "in you."
+	para "Is it too much to"
+	line "expect of you?"
 	done
 
 BlackthornGymClairText_YouKeptMeWaiting:
-	text "CLAIR: You have"
-	line "proven yourself to"
-	cont "me."
+	text "You've kept me"
+	line "waiting!"
 
-	para "I want you to have"
-	line "this TM."
+	para "Here! Take this!"
 	done
 
-BlackthornGymText_ReceivedTM24: ; unreferenced
+BlackthornGymText_ReceivedTM24:
 	text "<PLAYER> received"
 	line "TM24."
 	done
@@ -269,19 +255,20 @@ BlackthornGymClairText_DescribeTM24:
 	cont "to take it."
 	done
 
+BlackthornGymClairText_BagFull:
+	text "What is this? You"
+	line "don't have room?"
+	done
+
 BlackthornGymClairText_League:
-	text "So you've col-"
-	line "lected all the"
-	cont "BADGES."
+	text "What's the matter?"
 
-	para "Your destination"
-	line "is the #MON"
+	para "Aren't you headed"
+	line "to the #MON"
+	cont "LEAGUE?"
 
-	para "LEAGUE in INDIGO"
-	line "PLATEAU."
-
-	para "Do you know how to"
-	line "get there?"
+	para "Don't you know"
+	line "where it is?"
 
 	para "From here, go to"
 	line "NEW BARK TOWN."
@@ -299,6 +286,14 @@ BlackthornGymClairText_League:
 
 	para "about having lost"
 	line "to you!"
+
+	para "Give it every-"
+	line "thing you've got."
+
+	para "Or you can prove"
+	line "your worth to me"
+
+	para "once again."
 	done
 
 CooltrainermPaulSeenText:
@@ -310,15 +305,16 @@ CooltrainermPaulSeenText:
 	done
 
 CooltrainermPaulBeatenText:
-	text "I'm disappointed."
+	text "My dragon #MON"
+	line "lost?"
 	done
 
 CooltrainermPaulAfterBattleText:
-	text "You've met LANCE,"
-	line "the dragon master?"
+	text "LANCE told you"
+	line "that he'd like to"
 
-	para "That just can't be"
-	line "true."
+	para "see you again?"
+	line "Not a chance!"
 	done
 
 CooltrainermMikeSeenText:
@@ -425,3 +421,8 @@ BlackthornGym1F_MapEvents:
 	object_event  1, 14, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerCooltrainermPaul, -1
 	object_event  9,  2, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerCooltrainerfLola, -1
 	object_event  7, 15, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BlackthornGymGuideScript, -1
+
+Clair_RematchDefeat:
+	text "I lost again?!"
+	line "This can't be!"
+	done

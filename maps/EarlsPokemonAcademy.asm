@@ -205,7 +205,7 @@ AcademyEarlTeachHowToRaiseWellText:
 	line "out in battle even"
 
 	para "briefly, some EXP."
-	line "points it gets."
+	line "Points it gets."
 
 	para "At top of list put"
 	line "weak #MON."

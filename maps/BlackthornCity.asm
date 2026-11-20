@@ -145,9 +145,11 @@ BlackthornCityMartSign:
 Text_ClairIsOut:
 	text "I am sorry."
 
-	para "Our GYM LEADER is"
-	line "training in the"
-	cont "cave behind here."
+	para "CLAIR, our GYM"
+	line "LEADER, entered"
+
+	para "the DRAGON'S DEN"
+	line "behind the GYM."
 
 	para "I have no idea"
 	line "when our LEADER"
@@ -155,8 +157,9 @@ Text_ClairIsOut:
 	done
 
 Text_ClairIsIn:
-	text "Our GYM LEADER is"
-	line "waiting for you."
+	text "CLAIR, our GYM"
+	line "LEADER, is waiting"
+	cont "for you."
 
 	para "However, it would"
 	line "be impossible for"
@@ -166,31 +169,33 @@ Text_ClairIsIn:
 	done
 
 Text_ClairIsBeaten:
-	text "You defeated our"
-	line "GYM LEADER?"
-	cont "That's amazing!"
+	text "You defeated"
+	line "CLAIR?"
 
-	para "With your power,"
-	line "you should succeed"
+	para "That's amazing!"
 
-	para "in the #MON"
-	line "LEAGUE."
+	para "I've never heard"
+	line "of her losing to"
+
+	para "anyone other than"
+	line "LANCE."
 	done
 
 BlackthornGrampsRefusesEntryText:
-	text "Only dragon users"
-	line "are permitted to"
+	text "No. Only chosen"
+	line "trainers may train"
 
-	para "train here."
+	para "here."
 	line "Please leave."
 	done
 
 BlackthornGrampsGrantsEntryText:
-	text "Since CLAIR, the"
-	line "dragon master, has"
+	text "If CLAIR allows"
+	line "it, her grand-"
+	cont "father--our MASTER"
+	cont "--will also."
 
-	para "allowed it, you"
-	line "may enter."
+	para "You may enter."
 	done
 
 BlackBeltText_WeirdRadio:
@@ -214,9 +219,9 @@ BlackthornCooltrainerF1Text:
 	done
 
 BlackthornYoungsterText:
-	text "I'm going to be a"
-	line "dragon user like"
-	cont "CLAIR."
+	text "Dragon masters all"
+	line "come from the city"
+	cont "of BLACKTHORN."
 	done
 
 MeetSantosText:

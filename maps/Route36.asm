@@ -6,12 +6,22 @@
 	const ROUTE36_FISHER
 	const ROUTE36_FRUIT_TREE
 	const ROUTE36_ARTHUR
+	const ROUTE36_FLORIA
+	const ROUTE36_SUICUNE
 
 Route36_MapScripts:
 	def_scene_scripts
+	scene_script Route36Noop1Scene, SCENE_ROUTE36_NOOP
+	scene_script Route36Noop2Scene, SCENE_ROUTE36_SUICUNE
 
 	def_callbacks
 	callback MAPCALLBACK_OBJECTS, Route36ArthurCallback
+
+Route36Noop1Scene:
+	end
+
+Route36Noop2Scene:
+	end
 
 Route36ArthurCallback:
 	readvar VAR_WEEKDAY
@@ -22,6 +32,20 @@ Route36ArthurCallback:
 .ArthurAppears:
 	appear ROUTE36_ARTHUR
 	endcallback
+
+Route36SuicuneScript:
+	showemote EMOTE_SHOCK, PLAYER, 15
+	pause 15
+	playsound SFX_WARP_FROM
+	turnobject PLAYER, UP
+	applymovement ROUTE36_SUICUNE, Route36SuicuneMovement
+	disappear ROUTE36_SUICUNE
+	turnobject PLAYER, DOWN
+	pause 10
+	setscene SCENE_ROUTE36_NOOP
+	clearevent EVENT_SAW_SUICUNE_AT_CIANWOOD_CITY
+	setmapscene CIANWOOD_CITY, SCENE_CIANWOODCITY_SUICUNE_AND_EUSINE
+	end
 
 SudowoodoScript:
 	checkitem SQUIRTBOTTLE
@@ -69,6 +93,34 @@ DidntCatchSudowoodo:
 	disappear ROUTE36_WEIRD_TREE
 	variablesprite SPRITE_WEIRD_TREE, SPRITE_TWIN
 	special LoadUsedSpritesGFX
+	special RefreshSprites
+	end
+
+Route36FloriaScript:
+	faceplayer
+	opentext
+	checkevent EVENT_TALKED_TO_FLORIA_AT_FLOWER_SHOP
+	iftrue .SecondTimeTalking
+	setevent EVENT_MET_FLORIA
+	writetext FloriaText1
+	waitbutton
+	closetext
+	clearevent EVENT_FLORIA_AT_FLOWER_SHOP
+	readvar VAR_FACING
+	ifequal UP, .Up
+	applymovement ROUTE36_FLORIA, FloriaMovement1
+	disappear ROUTE36_FLORIA
+	end
+
+.Up:
+	applymovement ROUTE36_FLORIA, FloriaMovement2
+	disappear ROUTE36_FLORIA
+	end
+
+.SecondTimeTalking:
+	writetext FloriaText2
+	waitbutton
+	closetext
 	end
 
 Route36RockSmashGuyScript:
@@ -116,10 +168,13 @@ TrainerSchoolboyAlan1:
 	trainer SCHOOLBOY, ALAN1, EVENT_BEAT_SCHOOLBOY_ALAN, SchoolboyAlan1SeenText, SchoolboyAlan1BeatenText, 0, .Script
 
 .Script:
+	loadvar VAR_CALLERID, PHONE_SCHOOLBOY_ALAN
 	endifjustbattled
 	opentext
-	checkevent EVENT_ALAN_READY_FOR_REMATCH
+	checkflag ENGINE_ALAN_READY_FOR_REMATCH
 	iftrue .ChooseRematch
+	checkflag ENGINE_ALAN_HAS_FIRE_STONE
+	iftrue .GiveFireStone
 	checkcellnum PHONE_SCHOOLBOY_ALAN
 	iftrue .NumberAccepted
 	checkevent EVENT_ALAN_ASKED_FOR_PHONE_NUMBER
@@ -143,29 +198,73 @@ TrainerSchoolboyAlan1:
 .ChooseRematch:
 	scall .Rematch
 	winlosstext SchoolboyAlan1BeatenText, 0
+	readmem wAlanFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
+.Fight4:
+	checkevent EVENT_RESTORED_POWER_TO_KANTO
+	iftrue .LoadFight4
+.Fight3:
+	checkevent EVENT_BEAT_ELITE_FOUR
+	iftrue .LoadFight3
+.Fight2:
 	checkflag ENGINE_FLYPOINT_BLACKTHORN
 	iftrue .LoadFight2
+.Fight1:
 	checkflag ENGINE_FLYPOINT_OLIVINE
 	iftrue .LoadFight1
+.LoadFight0:
 	loadtrainer SCHOOLBOY, ALAN1
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_ALAN_READY_FOR_REMATCH
+	loadmem wAlanFightCount, 1
+	clearflag ENGINE_ALAN_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer SCHOOLBOY, ALAN2
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_ALAN_READY_FOR_REMATCH
+	loadmem wAlanFightCount, 2
+	clearflag ENGINE_ALAN_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer SCHOOLBOY, ALAN3
 	startbattle
 	reloadmapafterbattle
-	clearevent EVENT_ALAN_READY_FOR_REMATCH
+	loadmem wAlanFightCount, 3
+	clearflag ENGINE_ALAN_READY_FOR_REMATCH
 	end
+
+.LoadFight3:
+	loadtrainer SCHOOLBOY, ALAN4
+	startbattle
+	reloadmapafterbattle
+	loadmem wAlanFightCount, 4
+	clearflag ENGINE_ALAN_READY_FOR_REMATCH
+	end
+
+.LoadFight4:
+	loadtrainer SCHOOLBOY, ALAN5
+	startbattle
+	reloadmapafterbattle
+	clearflag ENGINE_ALAN_READY_FOR_REMATCH
+	end
+
+.GiveFireStone:
+	scall .Gift
+	verbosegiveitem FIRE_STONE
+	iffalse .BagFull
+	clearflag ENGINE_ALAN_HAS_FIRE_STONE
+	setevent EVENT_ALAN_GAVE_FIRE_STONE
+	sjump .NumberAccepted
+
+.BagFull:
+	sjump .PackFull
 
 .AskNumber1:
 	jumpstd AskNumber1MScript
@@ -193,6 +292,14 @@ TrainerSchoolboyAlan1:
 
 .Rematch:
 	jumpstd RematchMScript
+	end
+
+.Gift:
+	jumpstd GiftMScript
+	end
+
+.PackFull:
+	jumpstd PackFullMScript
 	end
 
 TrainerPsychicMark:
@@ -266,6 +373,41 @@ WeirdTreeMovement_Flee:
 	fast_jump_step UP
 	step_end
 
+FloriaMovement1:
+	step DOWN
+	step DOWN
+	step DOWN
+	step LEFT
+	step LEFT
+	step LEFT
+	step LEFT
+	step LEFT
+	step LEFT
+	step_end
+
+FloriaMovement2:
+	step LEFT
+	step DOWN
+	step DOWN
+	step DOWN
+	step LEFT
+	step LEFT
+	step LEFT
+	step LEFT
+	step LEFT
+	step_end
+
+Route36SuicuneMovement:
+	set_sliding
+	fast_jump_step DOWN
+	fast_jump_step DOWN
+	fast_jump_step DOWN
+	fast_jump_step RIGHT
+	fast_jump_step RIGHT
+	fast_jump_step RIGHT
+	remove_sliding
+	step_end
+
 UseSquirtbottleText:
 	text "It's a weird tree."
 	line "Use SQUIRTBOTTLE?"
@@ -283,6 +425,46 @@ SudowoodoAttackedText:
 
 	para "The weird tree"
 	line "attacked!"
+	done
+
+FloriaText1:
+	text "I'm the FLOWER"
+	line "SHOP's FLORIA!"
+
+	para "Listen, listen!"
+
+	para "When I sprinkled"
+	line "water on that"
+
+	para "wiggly tree, it"
+	line "jumped right up!"
+
+	para "It just has to be"
+	line "a #MON."
+
+	para "I bet it would be"
+	line "shocked out of its"
+
+	para "disguise if you"
+	line "soaked it!"
+
+	para "I know! I'll tell"
+	line "my sis and borrow"
+	cont "her water bottle!"
+	done
+
+FloriaText2:
+	text "When I told my sis"
+	line "about the jiggly"
+
+	para "tree, she said"
+	line "it's dangerous."
+
+	para "If I beat WHITNEY,"
+	line "I wonder if she'll"
+
+	para "lend me her water"
+	line "bottle…"
 	done
 
 RockSmashGuyText1:
@@ -325,6 +507,18 @@ RockSmashGuyText3:
 	para "If any rocks are"
 	line "in your way, just"
 	cont "smash 'em up!"
+	done
+
+UnusedOddTreeText: ; unreferenced
+	text "An odd tree is"
+	line "blocking the way"
+	cont "to GOLDENROD CITY."
+
+	para "I wanted to go see"
+	line "the huge #MON"
+
+	para "CENTER they just"
+	line "opened…"
 	done
 
 Route36LassText:
@@ -380,9 +574,9 @@ SchoolboyAlanBooksText:
 	text "Darn. I study five"
 	line "hours a day too."
 
-	para "There's a lot you"
-	line "can't learn just"
-	cont "by reading books."
+	para "There's more to"
+	line "learning than just"
+	cont "reading books."
 	done
 
 MeetArthurText:
@@ -473,6 +667,8 @@ Route36_MapEvents:
 	warp_event 48, 13, ROUTE_36_RUINS_OF_ALPH_GATE, 2
 
 	def_coord_events
+	coord_event 20,  7, SCENE_ROUTE36_SUICUNE, Route36SuicuneScript
+	coord_event 22,  7, SCENE_ROUTE36_SUICUNE, Route36SuicuneScript
 
 	def_bg_events
 	bg_event 29,  1, BGEVENT_READ, Route36TrainerTips2
@@ -481,10 +677,12 @@ Route36_MapEvents:
 	bg_event 21,  7, BGEVENT_READ, Route36TrainerTips1
 
 	def_object_events
-	object_event 20, 12, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerPsychicMark, -1
+	object_event 20, 13, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPsychicMark, -1
 	object_event 31, 14, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 5, TrainerSchoolboyAlan1, -1
 	object_event 35,  9, SPRITE_WEIRD_TREE, SPRITEMOVEDATA_SUDOWOODO, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SudowoodoScript, EVENT_ROUTE_36_SUDOWOODO
 	object_event 51,  8, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route36LassScript, -1
 	object_event 44,  9, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route36RockSmashGuyScript, -1
 	object_event 21,  4, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route36FruitTree, -1
 	object_event 46,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ArthurScript, EVENT_ROUTE_36_ARTHUR_OF_THURSDAY
+	object_event 33, 12, SPRITE_LASS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route36FloriaScript, EVENT_FLORIA_AT_SUDOWOODO
+	object_event 21,  6, SPRITE_SUICUNE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_SAW_SUICUNE_ON_ROUTE_36
