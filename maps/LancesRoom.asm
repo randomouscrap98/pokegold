@@ -138,12 +138,14 @@ LancesRoom_EnterMovement:
 MovementData_ApproachLanceFromLeft:
 	step UP
 	step UP
+	step UP
 	turn_head RIGHT
 	step_end
 
 MovementData_ApproachLanceFromRight:
 	step UP
 	step LEFT
+	step UP
 	step UP
 	turn_head RIGHT
 	step_end
@@ -152,10 +154,12 @@ LancesRoomMovementData_MaryRushesIn:
 	big_step UP
 	big_step UP
 	big_step UP
+	big_step UP
 	turn_head DOWN
 	step_end
 
 LancesRoomMovementData_OakWalksIn:
+	step UP
 	step UP
 	step UP
 	step_end
@@ -341,8 +345,8 @@ LancesRoom_MapEvents:
 	def_warp_events
 	warp_event  4, 23, KARENS_ROOM, 3
 	warp_event  5, 23, KARENS_ROOM, 4
-	warp_event  4,  1, HALL_OF_FAME, 1
-	warp_event  5,  1, HALL_OF_FAME, 2
+	warp_event  4,  0, HALL_OF_FAME, 1
+	warp_event  5,  0, HALL_OF_FAME, 2
 
 	def_coord_events
 	coord_event  4,  5, SCENE_LANCESROOM_APPROACH_LANCE, Script_ApproachLanceFromLeft
@@ -351,6 +355,6 @@ LancesRoom_MapEvents:
 	def_bg_events
 
 	def_object_events
-	object_event  5,  3, SPRITE_LANCE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LancesRoomLanceScript, -1
+	object_event  5,  2, SPRITE_LANCE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LancesRoomLanceScript, -1
 	object_event  4,  7, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_LANCES_ROOM_OAK_AND_MARY
 	object_event  4,  7, SPRITE_OAK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_LANCES_ROOM_OAK_AND_MARY

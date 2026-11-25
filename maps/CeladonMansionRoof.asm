@@ -45,4 +45,4 @@ CeladonMansionRoof_MapEvents:
 	bg_event  6,  1, BGEVENT_LEFT, CeladonMansionRoofGraffiti
 
 	def_object_events
-	object_event  7,  5, SPRITE_FISHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeladonMansionRoofFisherScript, -1
+	object_event  6,  5, SPRITE_FISHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeladonMansionRoofFisherScript, -1

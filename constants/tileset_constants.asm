@@ -28,6 +28,17 @@
 	const TILESET_ICE_PATH             ; 1a
 	const TILESET_DARK_CAVE            ; 1b
 	const TILESET_FOREST               ; 1c
+; Crystal-only maps: tilesets extracted from Crystal (DMG has no VRAM bank 1),
+; see ignore/claude/tools/port/crystal_ts.py
+	const TILESET_DRAGON_SHRINE              ; 1d
+	const TILESET_GOLDENROD_DEPT_STORE_ROOF  ; 1e
+	const TILESET_WISE_TRIOS_ROOM            ; 1f
+	const TILESET_RADIO_TOWER_2F             ; 20
+	const TILESET_HO_OH_WORD_ROOM            ; 21
+	const TILESET_KABUTO_WORD_ROOM           ; 22
+	const TILESET_OMANYTE_WORD_ROOM          ; 23
+	const TILESET_AERODACTYL_WORD_ROOM       ; 24
+	const TILESET_ELMS_LAB                   ; 25
 DEF NUM_TILESETS EQU const_value - 1
 
 ; wTileset struct size
@@ -48,10 +59,4 @@ DEF ROOF_LENGTH EQU 9
 	const PAL_BG_ROOF   ; 6
 	const PAL_BG_TEXT   ; 7
 
-; Crystal's Unown word room tilesets use VRAM bank 1; on DMG they share the
-; Ruins of Alph tileset (their blocks are translated, see ignore/claude/tools/port/blk.py).
-DEF TILESET_BETA_WORD_ROOM       EQU TILESET_RUINS_OF_ALPH
-DEF TILESET_HO_OH_WORD_ROOM      EQU TILESET_RUINS_OF_ALPH
-DEF TILESET_KABUTO_WORD_ROOM     EQU TILESET_RUINS_OF_ALPH
-DEF TILESET_OMANYTE_WORD_ROOM    EQU TILESET_RUINS_OF_ALPH
-DEF TILESET_AERODACTYL_WORD_ROOM EQU TILESET_RUINS_OF_ALPH
+DEF TILESET_BETA_WORD_ROOM EQU TILESET_RUINS_OF_ALPH ; unused

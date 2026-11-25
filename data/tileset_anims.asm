@@ -203,6 +203,15 @@ UnusedTilesetRocketHouseAnim: ; unreferenced
 	tileframe DoneTileAnimation
 
 TilesetHouseAnim:
+TilesetDragonShrineAnim:
+TilesetGoldenrodDeptStoreRoofAnim:
+TilesetWiseTriosRoomAnim:
+TilesetRadioTower2FAnim:
+TilesetHoOhWordRoomAnim:
+TilesetKabutoWordRoomAnim:
+TilesetOmanyteWordRoomAnim:
+TilesetAerodactylWordRoomAnim:
+TilesetElmsLabAnim:
 TilesetPlayersHouseAnim:
 TilesetPokecenterAnim:
 TilesetGateAnim:

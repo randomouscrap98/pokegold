@@ -21,7 +21,7 @@ RuinsOfAlphAerodactylChamberNoopScene:
 RuinsOfAlphAerodactylChamberHiddenDoorsCallback:
 	checkevent EVENT_WALL_OPENED_IN_AERODACTYL_CHAMBER
 	iftrue .WallOpen
-	changeblock 4, 0, $2e ; closed wall
+	changeblock 4, 0, $40 ; closed wall (Crystal $2e)
 .WallOpen:
 	checkevent EVENT_SOLVED_AERODACTYL_PUZZLE
 	iffalse .FloorClosed
@@ -38,7 +38,7 @@ RuinsOfAlphAerodactylChamberWallOpenScript:
 	showemote EMOTE_SHOCK, PLAYER, 20
 	pause 30
 	playsound SFX_STRENGTH
-	changeblock 4, 0, $30 ; open wall
+	changeblock 4, 0, $41 ; open wall (Crystal $30)
 	refreshmap
 	earthquake 50
 	setscene SCENE_RUINSOFALPHAERODACTYLCHAMBER_NOOP

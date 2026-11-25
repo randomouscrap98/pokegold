@@ -62,3 +62,10 @@
 	tilecoll 65, FLOOR, WATERFALL, FLOOR ; 3d
 	tilecoll WATERFALL_UP, FLOOR, WARP_CARPET_DOWN, FLOOR ; 3e
 	tilecoll WATERFALL, FLOOR, DOOR, FLOOR ; 3f
+	tilecoll WALL, WALL, FLOOR, FLOOR ; 40 (Crystal $2e)
+	tilecoll CAVE, WALL, FLOOR, FLOOR ; 41 (Crystal $30)
+	tilecoll WALL, WALL, FLOOR, WALL ; 42 (Crystal $08)
+	tilecoll WALL, FLOOR, FLOOR, FLOOR ; 43 (Crystal $31)
+	tilecoll FLOOR, WALL, FLOOR, FLOOR ; 44 (Crystal $32)
+	tilecoll WALL, WALL, WALL, PIT ; 45 (Crystal $34)
+	tilecoll WALL, WALL, PIT, WALL ; 46 (Crystal $35)

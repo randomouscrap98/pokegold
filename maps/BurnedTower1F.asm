@@ -104,7 +104,7 @@ BurnedTowerRivalBattleScript:
 	showemote EMOTE_SHOCK, PLAYER, 15
 	playsound SFX_ENTER_DOOR
 	waitsfx
-	changeblock 10, 8, $25 ; hole
+	changeblock 10, 8, $40 ; hole (Crystal $25)
 	refreshmap
 	pause 15
 	applymovement PLAYER, BurnedTower1FMovement_PlayerStartsToFall

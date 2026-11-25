@@ -838,7 +838,13 @@ Intro_PlaceChrisSprite:
 	ld a, [de]
 	inc de
 	ld [hli], a ; tile id
-	xor a ; PAL_OW_RED
+	ld b, PAL_OW_RED
+	ld a, [wPlayerGender]
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .male
+	ld b, PAL_OW_BLUE
+.male
+	ld a, b
 	ld [hli], a ; attributes
 	dec c
 	jr nz, .loop

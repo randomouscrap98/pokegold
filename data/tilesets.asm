@@ -42,4 +42,13 @@ Tilesets::
 	tileset TilesetIcePath
 	tileset TilesetDarkCave
 	tileset TilesetForest
+	tileset TilesetDragonShrine
+	tileset TilesetGoldenrodDeptStoreRoof
+	tileset TilesetWiseTriosRoom
+	tileset TilesetRadioTower2F
+	tileset TilesetHoOhWordRoom
+	tileset TilesetKabutoWordRoom
+	tileset TilesetOmanyteWordRoom
+	tileset TilesetAerodactylWordRoom
+	tileset TilesetElmsLab
 	assert_table_length NUM_TILESETS + 1

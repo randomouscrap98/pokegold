@@ -25,6 +25,21 @@ SpawnPlayer:
 	call CopyPlayerObjectTemplate
 	ld b, PLAYER
 	call PlayerSpawn_ConvertCoords
+	; Crystal: Kris uses the blue palette
+	ld a, PLAYER_OBJECT
+	call GetMapObject
+	ld hl, MAPOBJECT_PALETTE
+	add hl, bc
+	ln e, PAL_NPC_RED, OBJECTTYPE_SCRIPT
+	ld a, [wPlayerSpriteSetupFlags]
+	bit PLAYERSPRITESETUP_FEMALE_TO_MALE_F, a
+	jr nz, .ok
+	ld a, [wPlayerGender]
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .ok
+	ln e, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT
+.ok
+	ld [hl], e
 	ld a, PLAYER_OBJECT
 	ldh [hObjectStructIndex], a
 	ld de, wObjectStructs

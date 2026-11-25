@@ -25,7 +25,7 @@ RuinsOfAlphKabutoChamberNoopScene:
 RuinsOfAlphKabutoChamberHiddenDoorsCallback:
 	checkevent EVENT_WALL_OPENED_IN_KABUTO_CHAMBER
 	iftrue .WallOpen
-	changeblock 4, 0, $2e ; closed wall
+	changeblock 4, 0, $40 ; closed wall (Crystal $2e)
 .WallOpen:
 	checkevent EVENT_SOLVED_KABUTO_PUZZLE
 	iffalse .FloorClosed
@@ -42,7 +42,7 @@ RuinsOfAlphKabutoChamberWallOpenScript:
 	showemote EMOTE_SHOCK, PLAYER, 20
 	pause 30
 	playsound SFX_STRENGTH
-	changeblock 4, 0, $30 ; open wall
+	changeblock 4, 0, $41 ; open wall (Crystal $30)
 	refreshmap
 	earthquake 50
 	setscene SCENE_RUINSOFALPHKABUTOCHAMBER_NOOP

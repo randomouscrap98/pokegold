@@ -94,6 +94,33 @@ INCLUDE "gfx/tilesets/ice_path_palette_map.asm"
 TilesetForestPalMap:
 INCLUDE "gfx/tilesets/forest_palette_map.asm"
 
+TilesetDragonShrinePalMap:
+INCLUDE "gfx/tilesets/dragon_shrine_palette_map.asm"
+
+TilesetGoldenrodDeptStoreRoofPalMap:
+INCLUDE "gfx/tilesets/goldenrod_dept_store_roof_palette_map.asm"
+
+TilesetWiseTriosRoomPalMap:
+INCLUDE "gfx/tilesets/wise_trios_room_palette_map.asm"
+
+TilesetRadioTower2FPalMap:
+INCLUDE "gfx/tilesets/radio_tower_2f_palette_map.asm"
+
+TilesetHoOhWordRoomPalMap:
+INCLUDE "gfx/tilesets/ho_oh_word_room_palette_map.asm"
+
+TilesetKabutoWordRoomPalMap:
+INCLUDE "gfx/tilesets/kabuto_word_room_palette_map.asm"
+
+TilesetOmanyteWordRoomPalMap:
+INCLUDE "gfx/tilesets/omanyte_word_room_palette_map.asm"
+
+TilesetAerodactylWordRoomPalMap:
+INCLUDE "gfx/tilesets/aerodactyl_word_room_palette_map.asm"
+
+TilesetElmsLabPalMap:
+INCLUDE "gfx/tilesets/elms_lab_palette_map.asm"
+
 MapGroupPalettes:
 ; entries correspond to MAPGROUP_* constants
 rept NUM_MAP_GROUPS

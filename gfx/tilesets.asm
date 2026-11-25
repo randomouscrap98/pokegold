@@ -277,3 +277,87 @@ SECTION "Tileset Data 6", ROMX
 
 TilesetKantoGFX::
 INCBIN "gfx/tilesets/kanto.2bpp.lz"
+
+
+SECTION "Tileset Data 7", ROMX
+
+TilesetDragonShrineGFX::
+INCBIN "gfx/tilesets/dragon_shrine.2bpp.lz"
+
+TilesetDragonShrineMeta::
+INCBIN "data/tilesets/dragon_shrine_metatiles.bin"
+
+TilesetDragonShrineColl::
+INCLUDE "data/tilesets/dragon_shrine_collision.asm"
+
+TilesetGoldenrodDeptStoreRoofGFX::
+INCBIN "gfx/tilesets/goldenrod_dept_store_roof.2bpp.lz"
+
+TilesetGoldenrodDeptStoreRoofMeta::
+INCBIN "data/tilesets/goldenrod_dept_store_roof_metatiles.bin"
+
+TilesetGoldenrodDeptStoreRoofColl::
+INCLUDE "data/tilesets/goldenrod_dept_store_roof_collision.asm"
+
+TilesetWiseTriosRoomGFX::
+INCBIN "gfx/tilesets/wise_trios_room.2bpp.lz"
+
+TilesetWiseTriosRoomMeta::
+INCBIN "data/tilesets/wise_trios_room_metatiles.bin"
+
+TilesetWiseTriosRoomColl::
+INCLUDE "data/tilesets/wise_trios_room_collision.asm"
+
+TilesetRadioTower2FGFX::
+INCBIN "gfx/tilesets/radio_tower_2f.2bpp.lz"
+
+TilesetRadioTower2FMeta::
+INCBIN "data/tilesets/radio_tower_2f_metatiles.bin"
+
+TilesetRadioTower2FColl::
+INCLUDE "data/tilesets/radio_tower_2f_collision.asm"
+
+TilesetHoOhWordRoomGFX::
+INCBIN "gfx/tilesets/ho_oh_word_room.2bpp.lz"
+
+TilesetHoOhWordRoomMeta::
+INCBIN "data/tilesets/ho_oh_word_room_metatiles.bin"
+
+TilesetHoOhWordRoomColl::
+INCLUDE "data/tilesets/ho_oh_word_room_collision.asm"
+
+TilesetKabutoWordRoomGFX::
+INCBIN "gfx/tilesets/kabuto_word_room.2bpp.lz"
+
+TilesetKabutoWordRoomMeta::
+INCBIN "data/tilesets/kabuto_word_room_metatiles.bin"
+
+TilesetKabutoWordRoomColl::
+INCLUDE "data/tilesets/kabuto_word_room_collision.asm"
+
+TilesetOmanyteWordRoomGFX::
+INCBIN "gfx/tilesets/omanyte_word_room.2bpp.lz"
+
+TilesetOmanyteWordRoomMeta::
+INCBIN "data/tilesets/omanyte_word_room_metatiles.bin"
+
+TilesetOmanyteWordRoomColl::
+INCLUDE "data/tilesets/omanyte_word_room_collision.asm"
+
+TilesetAerodactylWordRoomGFX::
+INCBIN "gfx/tilesets/aerodactyl_word_room.2bpp.lz"
+
+TilesetAerodactylWordRoomMeta::
+INCBIN "data/tilesets/aerodactyl_word_room_metatiles.bin"
+
+TilesetAerodactylWordRoomColl::
+INCLUDE "data/tilesets/aerodactyl_word_room_collision.asm"
+
+TilesetElmsLabGFX::
+INCBIN "gfx/tilesets/elms_lab.2bpp.lz"
+
+TilesetElmsLabMeta::
+INCBIN "data/tilesets/elms_lab_metatiles.bin"
+
+TilesetElmsLabColl::
+INCLUDE "data/tilesets/elms_lab_collision.asm"
